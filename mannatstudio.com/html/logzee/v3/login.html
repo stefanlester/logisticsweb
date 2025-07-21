@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Portal - Login | CreatorX Logistics & Security</title>
+    <meta name="description" content="Access your CreatorX customer portal to manage shipments, track packages, and view invoices. Secure login for logistics and security services.">
+    <meta name="keywords" content="creatorx, customer portal, login, shipment management, tracking, logistics, security">
+    <meta name="author" content="CreatorX Logistics & Security">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico">
+
+    <!-- CSS Files -->
+    <link href="assets/css/theme-plugins.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <style>
+        .login-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/images/bg_1.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            margin: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-left {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .login-right {
+            padding: 60px 40px;
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        
+        .form-floating input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            height: 60px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-floating input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .form-floating label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            background: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .social-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .logo-section {
+            margin-bottom: 30px;
+        }
+        
+        .logo-section img {
+            max-width: 150px;
+            height: auto;
+        }
+        
+        .security-badge {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h2 {
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #6c757d;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .login-left {
+                display: none;
+            }
+            
+            .login-right {
+                padding: 40px 20px;
+            }
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e9ecef;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="row g-0 h-100">
+                <!-- Left Panel -->
+                <div class="col-lg-5 login-left">
+                    <div class="logo-section">
+                        <img src="assets/images/however.png" alt="CreatorX Logo" class="img-fluid">
+                    </div>
+                    
+                    <h3 class="mb-4">Welcome to CreatorX Portal</h3>
+                    <p class="mb-4">Access your personalized dashboard to manage all your logistics and security needs</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="icofont-box"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Track Shipments</h6>
+                                <small>Real-time tracking and updates</small>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="icofont-file-document"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Manage Orders</h6>
+                                <small>Create and manage shipping orders</small>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="icofont-chart-bar-graph"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Analytics Dashboard</h6>
+                                <small>View shipping statistics and reports</small>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="icofont-bill"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Billing & Invoices</h6>
+                                <small>Manage payments and invoices</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="security-badge">
+                        <i class="icofont-shield mb-2" style="font-size: 24px;"></i>
+                        <div>
+                            <strong>Bank-Level Security</strong>
+                            <br><small>Your data is protected with 256-bit SSL encryption</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Panel -->
+                <div class="col-lg-7 login-right position-relative">
+                    <div class="loading-overlay" id="loadingOverlay">
+                        <div class="text-center">
+                            <div class="spinner"></div>
+                            <p class="mt-3">Signing you in...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="login-header">
+                        <h2>Sign In to Your Account</h2>
+                        <p>Enter your credentials to access your customer portal</p>
+                    </div>
+                    
+                    <!-- Alert Messages -->
+                    <div id="alertContainer"></div>
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                            <label for="email">Email Address</label>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <label for="password">Password</label>
+                        </div>
+                        
+                        <div class="remember-me">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <label for="rememberMe">Remember me for 30 days</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-login w-100 mb-3">
+                            <i class="icofont-login me-2"></i>Sign In to Portal
+                        </button>
+                        
+                   
+                    </form>
+                    
+                    <!-- Quick Access Buttons -->
+                    <div class="mt-4 pt-4 border-top">
+                        <h6 class="text-muted mb-3">Quick Access</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="track.html" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="icofont-search me-2"></i>Track Package
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="contact-us.html" class="btn btn-outline-secondary w-100 mb-2">
+                                    <i class="icofont-phone me-2"></i>Get Support
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Enter your email address and we'll send you a link to reset your password.</p>
+                    <form id="forgotPasswordForm">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="resetEmail" name="resetEmail" placeholder="name@example.com" required>
+                            <label for="resetEmail">Email Address</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="icofont-email me-2"></i>Send Reset Link
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Create Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Join thousands of customers who trust Logzee for their shipping needs.</p>
+                    <form id="signupForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                                    <label for="firstName">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                                    <label for="lastName">Last Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="signupEmail" name="signupEmail" placeholder="name@example.com" required>
+                            <label for="signupEmail">Email Address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="company" name="company" placeholder="Company Name">
+                            <label for="company">Company Name (Optional)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                            <label for="phone">Phone Number</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="signupPassword" name="signupPassword" placeholder="Password" required>
+                            <label for="signupPassword">Password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                            <label for="confirmPassword">Confirm Password</label>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="icofont-user-alt-4 me-2"></i>Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const alertContainer = document.getElementById('alertContainer');
+            
+            // Show loading
+            loadingOverlay.style.display = 'flex';
+            alertContainer.innerHTML = '';
+            
+            const formData = new FormData(this);
+            const loginData = {
+                email: formData.get('email'),
+                password: formData.get('password'),
+                rememberMe: formData.get('rememberMe') === 'on'
+            };
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Store token
+                    localStorage.setItem('authToken', result.token);
+                    localStorage.setItem('userInfo', JSON.stringify(result.user));
+                    
+                    showAlert('success', 'Login successful! Redirecting to dashboard...', alertContainer);
+                    
+                    // Redirect to dashboard after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                } else {
+                    showAlert('danger', result.message || 'Login failed. Please check your credentials.', alertContainer);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('danger', 'Connection error. Please try again later.', alertContainer);
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        });
+        
+        // Forgot Password Handler
+        document.getElementById('forgotPasswordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const email = formData.get('resetEmail');
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Password reset link has been sent to your email address.');
+                    bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal')).hide();
+                } else {
+                    alert(result.message || 'Failed to send reset link.');
+                }
+            } catch (error) {
+                console.error('Forgot password error:', error);
+                alert('Connection error. Please try again later.');
+            }
+        });
+        
+        // Signup Form Handler
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const password = formData.get('signupPassword');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            
+            const signupData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('signupEmail'),
+                company: formData.get('company'),
+                phone: formData.get('phone'),
+                password: password
+            };
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(signupData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Account created successfully! Please check your email for verification.');
+                    bootstrap.Modal.getInstance(document.getElementById('signupModal')).hide();
+                    document.getElementById('signupForm').reset();
+                } else {
+                    alert(result.message || 'Failed to create account.');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                alert('Connection error. Please try again later.');
+            }
+        });
+        
+        // Social Login Handler
+        function loginWith(provider) {
+            // In a real implementation, this would redirect to OAuth providers
+            alert(`${provider} login will be implemented with OAuth integration.`);
+        }
+        
+        // Utility function to show alerts
+        function showAlert(type, message, container) {
+            const alertHTML = `
+                <div class="alert alert-${type} alert-custom alert-dismissible fade show" role="alert">
+                    <i class="icofont-${type === 'success' ? 'check-circled' : 'warning'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            container.innerHTML = alertHTML;
+        }
+        
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                // Verify token is still valid
+                fetch('http://localhost:3000/api/auth/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('userInfo');
+                    }
+                })
+                .catch(error => {
+                    console.error('Token verification error:', error);
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userInfo');
+                });
+            }
+        });
+        
+        // Demo login credentials info
+        setTimeout(() => {
+            const alertContainer = document.getElementById('alertContainer');
+            showAlert('info', 'Demo: Use email "demo@logzee.com" and password "demo123" to test the system.', alertContainer);
+        }, 1000);
+    </script>
+</body>
+
+</html>
