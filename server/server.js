@@ -6,25 +6,34 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || 'creatorx-super-secret-key-2025';
+const JWT_SECRET = process.env.JWT_SECRET || 'firstfortune-super-secret-key-2025';
+
+// Enhanced CORS configuration for production
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://logzeeserver.onrender.com',  
+    '*'  // Temporarily allow all origins for testing
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static files from the website directory
-app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3')));
 
 // In-memory databases (replace with real database in production)
 const users = [
     {
         id: 1,
-        email: 'demo@creatorx.com',
+        email: 'demo@firstfortunesecurities.com',
         password: '$2a$10$IDUjoGHbIz0yReUtfLUfJuVFw883xU9l0h5u0Df8pzT78/.z0DuKO', // demo123
         firstName: 'Demo',
         lastName: 'User',
-        company: 'CreatorX Logistics',
+        company: 'FirstFortune Securities',
         phone: '+1 (800) 555-DEMO',
         role: 'customer',
         verified: true,
@@ -32,11 +41,11 @@ const users = [
     },
     {
         id: 2,
-        email: 'admin@creatorx.com',
+        email: 'admin@firstfortunesecurities.com',
         password: '$2a$10$D7fne4VLoIPDvfPGhyG2qOLPh29/e9uR4nauGvZof0mITTL7y2ziy', // admin123
         firstName: 'Admin',
         lastName: 'User',
-        company: 'CreatorX Logistics',
+        company: 'FirstFortune Securities',
         phone: '+1 (800) 555-ADMIN',
         role: 'admin',
         verified: true,
@@ -477,21 +486,21 @@ app.get('/api/admin/shipments', authenticateToken, (req, res) => {
     res.json({ success: true, data: shipments });
 });
 
-// Static page routes
-app.get('/track', (req, res) => {
-  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/track.html'));
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/login.html'));
-});
-
-app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/dashboard.html'));
-});
-
+// API-only root route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/index.html'));
+  res.json({
+    message: 'FirstFortune Securities API Server',
+    version: '2.0.0',
+    status: 'operational',
+    endpoints: {
+      health: '/api/health',
+      track: '/api/track/:trackingNumber',
+      auth: '/api/auth/*',
+      user: '/api/user/*',
+      admin: '/api/admin/*'
+    },
+    documentation: 'Contact admin for API documentation'
+  });
 });
 
 // Health check endpoint
@@ -499,7 +508,7 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
         timestamp: new Date().toISOString(),
-        server: 'CreatorX Tracking API',
+        server: 'FirstFortune Securities Tracking API',
         version: '2.0.0',
         features: ['authentication', 'tracking', 'user_management']
     });
@@ -514,24 +523,24 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found'
-  });
+// 404 handler for unmatched routes
+app.use('*', (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'API endpoint not found',
+        availableEndpoints: ['/api/health', '/api/track/:id', '/api/auth/login']
+    });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚚 CreatorX Tracking Server running on port ${PORT}`);
-  console.log(`📍 Website: http://localhost:${PORT}`);
-  console.log(`🔍 Tracking Page: http://localhost:${PORT}/track`);
-  console.log(`🔐 Login Page: http://localhost:${PORT}/login`);
-  console.log(`📡 API Base: http://localhost:${PORT}/api`);
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚚 FirstFortune Securities Tracking Server running on port ${PORT}`);
+  console.log(`� API Base: http://localhost:${PORT}/api`);
+  console.log(`� Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log('');
   console.log('🔑 Demo Accounts:');
-  console.log('  Customer: demo@creatorx.com / demo123');
-  console.log('  Admin: admin@creatorx.com / admin123');
+  console.log('  Customer: demo@firstfortunesecurities.com / demo123');
+  console.log('  Admin: admin@firstfortunesecurities.com / admin123');
   console.log('');
   console.log('📦 Sample tracking numbers:');
   console.log('  - LZ2025001 (In Transit)');

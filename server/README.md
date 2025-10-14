@@ -1,8 +1,8 @@
 
 
-# CreatorX Server
+# FirstFortune Securities Server
 
-Backend server for the CreatorX logistics platform.
+Backend server for the FirstFortune Securities logistics platform.
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) (v14 or higher recommended)

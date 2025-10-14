@@ -10,10 +10,10 @@
     <!-- xxx Favicon xxx -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
-    <title>Dashboard - CreatorX | Logistics & Security Solutions</title>
-    <meta name="author" content="CreatorX">
-    <meta name="description" content="CreatorX customer dashboard - manage your shipments and track packages">
-    <meta name="keywords" content="dashboard, shipments, tracking, logistics, CreatorX">
+    <title>Dashboard - FirstFortune Securities | Professional Logistics Solutions</title>
+    <meta name="author" content="FirstFortune Securities">
+    <meta name="description" content="FirstFortune Securities customer dashboard - manage your shipments and track packages">
+    <meta name="keywords" content="dashboard, shipments, tracking, logistics, FirstFortune Securities">
 
     <!-- Main Style CSSS -->
     <link href="assets/css/theme-plugins.min.css" rel="stylesheet">
@@ -186,7 +186,7 @@
                         </div>
                         <div class="top-text">
                             <small class="txt-black">Email Us</small>
-                            <a href="mailto:info@creatorx.com">info@creatorx.com</a>
+                            <a href="mailto:info@firstfortunesecurities.com">info@firstfortunesecurities.com</a>
                         </div>
                         <div class="top-text">
                             <small class="txt-black">Phone Number</small>
@@ -207,7 +207,7 @@
             <div class="container text-nowrap bdr-nav">
                 <div class="d-flex me-auto">
                     <a class="navbar-brand rounded-bottom light-bg" href="index.html">
-                        <img src="assets/images/however.png" alt="CreatorX Logo">
+                        <img src="assets/images/however.png" alt="FirstFortune Securities Logo">
                     </a>
                 </div>
                 
@@ -221,7 +221,7 @@
 
                 <div class="navbar-collapse offcanvas offcanvas-start offcanvas-collapse" id="navbarCollapse">
                     <div class="offcanvas-header">
-                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="CreatorX Logo"></a>
+                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="FirstFortune Securities Logo"></a>
                         <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="icofont-close-line"></i>
@@ -348,9 +348,9 @@
                 <!-- Column First -->
                 <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
                     <div class="logo-footer">
-                        <img src="assets/images/however.png" alt="CreatorX - Logistics & Security Solutions">
+                        <img src="assets/images/however.png" alt="FirstFortune Securities - Professional Logistics Solutions">
                     </div>
-                    <p>CreatorX is your trusted partner in logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and advanced security systems to keep your business running smoothly.</p>
+                    <p>FirstFortune Securities is your trusted partner for professional logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and reliable systems to keep your business operating efficiently.</p>
 
                     <h3 class="footer-heading">We're Social</h3>
                     <div class="social-icons">
@@ -392,7 +392,7 @@
                             href="#">Faq's</a>
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
-                        © <span id="yearText"></span> CreatorX Logistics & Security. All Rights Reserved
+                        © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
                     </div>
                 </div>
             </div>
@@ -403,6 +403,7 @@
     <!-- JavaScript -->
     <script src="assets/js/jquery-3.5.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/config.js"></script>
     <script src="assets/js/theme-plugins.min.js"></script>
     <script src="assets/js/main.js"></script>
 
@@ -425,7 +426,7 @@
             }
 
             try {
-                const response = await fetch('http://localhost:3000/api/auth/verify', {
+                const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.VERIFY), {
                     headers: {
                         'Authorization': `Bearer ${userToken}`,
                         'Content-Type': 'application/json'
@@ -450,7 +451,7 @@
 
         async function loadUserProfile() {
             try {
-                const response = await fetch('http://localhost:3000/api/user/profile', {
+                const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.PROFILE), {
                     headers: {
                         'Authorization': `Bearer ${userToken}`,
                         'Content-Type': 'application/json'
@@ -471,7 +472,7 @@
 
         async function loadUserShipments() {
             try {
-                const response = await fetch('http://localhost:3000/api/user/shipments', {
+                const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.SHIPMENTS), {
                     headers: {
                         'Authorization': `Bearer ${userToken}`,
                         'Content-Type': 'application/json'
@@ -596,7 +597,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:3000/api/track/${trackingNumber}`);
+                const response = await fetch(getApiUrl(`${API_CONFIG.ENDPOINTS.TRACK}/${trackingNumber}`));
                 const result = await response.json();
 
                 const resultContainer = document.getElementById('trackingResult');

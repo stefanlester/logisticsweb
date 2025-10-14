@@ -1,10 +1,9 @@
 /* ==========================================================================
-Theme Name: Logzee
-Theme URI: http://mannatstudio.com
-Description:  Logzee - A Logistic Cargo HTML Template
-Version: 1.0
-Author: Mannat Studio
-Tags:   business, cargo, chain supply, company, corporate, expedition, freight, logistics, packaging, services, shipping, transport, transportation, trucking, warehousing
+Theme Name: FirstFortune Securities
+Description: Professional Logistics and Security Solutions Template
+Version: 2.0
+Author: FirstFortune Securities
+Tags: business, logistics, security, transport, supply chain, warehousing, professional services
 ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap');
 
@@ -60,15 +59,15 @@ p:last-child {
 :root {
     scroll-behavior: inherit;
     --font-body: "Outfit", sans-serif;
-    --primary-color: #fe8704;
-    --secondary-color: #232135;
+    --primary-color: #d40511;
+    --secondary-color: #1a1a1a;
     --main-dark-color: #666;
-    --bg-light-theme: #fef9f5;
+    --bg-light-theme: #f8f8f8;
     --bg-white: #FFF;
-    --bg-light-gray: #fafafa;
-    --shadow-primary: 0px 6px 10px 0px rgba(254, 135, 4, 0.2);
-    --shadow-secondary: 0px 6px 10px 0px rgba(254, 135, 4, 0.2);
-    --secondary-rgb: 35, 33, 53;
+    --bg-light-gray: #f5f5f5;
+    --shadow-primary: 0px 6px 10px 0px rgba(212, 5, 17, 0.15);
+    --shadow-secondary: 0px 6px 10px 0px rgba(212, 5, 17, 0.15);
+    --secondary-rgb: 26, 26, 26;
 }
 
 /*------------------------------------------*/

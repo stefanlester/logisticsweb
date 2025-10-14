@@ -5,10 +5,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Track your CreatorX shipments in real-time. Enter your tracking number to get detailed delivery information and shipment status updates.">
-    <meta name="keywords" content="creatorx, tracking, shipment, delivery, logistics, security, cargo transport">
-    <meta name="author" content="CreatorX Logistics & Security">
-    <title>Track Your Shipment - CreatorX Logistics & Security</title>
+    <meta name="description" content="Track your FirstFortune Securities shipments in real-time. Enter your tracking number to get detailed delivery information and shipment status updates.">
+    <meta name="keywords" content="firstfortune securities, tracking, shipment, delivery, logistics, security, cargo transport">
+    <meta name="author" content="FirstFortune Securities">
+    <title>Track Your Shipment - FirstFortune Securities</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
@@ -275,7 +275,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-flex topbar-link">
-                            <div class="me-5"><i class="icofont-envelope me-2"></i>info@creatorx.com</div>
+                            <div class="me-5"><i class="icofont-envelope me-2"></i>info@firstfortunesecurities.com</div>
                             <div><i class="icofont-phone me-2"></i>+1 (800) 555-LOGZ</div>
                         </div>
                     </div>
@@ -296,7 +296,7 @@
             <div class="container text-nowrap bdr-nav">
                 <div class="d-flex me-auto">
                     <a class="navbar-brand rounded-bottom light-bg" href="index.html">
-                        <img src="assets/images/however.png" alt="CreatorX Logo">
+                        <img src="assets/images/however.png" alt="FirstFortune Securities Logo">
                     </a>
                 </div>
                 <!-- Toggle Button Start -->
@@ -310,7 +310,7 @@
 
                 <div class="navbar-collapse offcanvas offcanvas-start offcanvas-collapse" id="navbarCollapse">
                     <div class="offcanvas-header">
-                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="CreatorX Logo"></a>
+                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="FirstFortune Securities Logo"></a>
                         <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="icofont-close-line"></i>
@@ -560,7 +560,7 @@
                     <!-- Call to Action -->
                     <div class="text-center mt-5">
                         <h3 class="mb-3">Ready to Experience Smart Tracking?</h3>
-                        <p class="mb-4">Join thousands of customers who trust CreatorX for their shipping needs</p>
+                        <p class="mb-4">Join thousands of customers who trust FirstFortune Securities for their shipping needs</p>
                         <a href="contact-us.html" class="btn btn-primary btn-lg me-3">
                             <i class="icofont-rocket me-2"></i>Get Started
                         </a>
@@ -579,9 +579,9 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
                     <div class="logo-footer">
-                        <img src="assets/images/however.png" alt="CreatorX - Logistics & Security Solutions">
+                        <img src="assets/images/however.png" alt="FirstFortune Securities - Professional Logistics Solutions">
                     </div>
-                    <p>CreatorX is your trusted partner in logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and advanced security systems to keep your business running smoothly.</p>
+                    <p>FirstFortune Securities is your trusted partner for professional logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and reliable systems to keep your business operating efficiently.</p>
 
                     <h3 class="footer-heading">We're Social</h3>
                     <div class="social-icons">
@@ -608,7 +608,7 @@
                     <div class="footer-contact">
                         <p><i class="icofont-location-pin me-2"></i>123 Logistics Ave, New York, NY 10001</p>
                         <p><i class="icofont-phone me-2"></i>+1 (800) 555-LOGZ</p>
-                        <p><i class="icofont-envelope me-2"></i>info@creatorx.com</p>
+                        <p><i class="icofont-envelope me-2"></i>info@firstfortunesecurities.com</p>
                     </div>
                 </div>
             </div>
@@ -621,7 +621,7 @@
                         <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> <a href="#">FAQ's</a>
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
-                        © <span id="yearText"></span> CreatorX Logistics & Security. All Rights Reserved
+                        © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
                     </div>
                 </div>
             </div>
@@ -658,8 +658,8 @@
             showLoading(true);
 
             try {
-                // Use the correct server URL
-                const response = await fetch(`http://localhost:3000/api/track/${trackingNum}`);
+                // Use the API configuration
+                const response = await fetch(getApiUrl(`${API_CONFIG.ENDPOINTS.TRACK}/${trackingNum}`));
                 const result = await response.json();
 
                 showLoading(false);
@@ -793,6 +793,9 @@
     
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- API Configuration -->
+    <script src="assets/js/config.js"></script>
     
     <!-- Additional JS -->
     <script src="assets/js/theme-plugins.min.js"></script>
