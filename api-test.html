@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - FirstFortune Securities</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { background: #d40511; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        input { padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 3px; width: 200px; }
+        #results { background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 5px; min-height: 100px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 FirstFortune Securities API Test</h1>
+    
+    <div class="test-section">
+        <h3>🔗 API Configuration Status</h3>
+        <p>Base URL: <span id="baseUrl">Loading...</span></p>
+        <p>Config Status: <span id="configStatus">Loading...</span></p>
+        <button onclick="testHealthCheck()">Test Health Check</button>
+    </div>
+
+    <div class="test-section">
+        <h3>🔐 Login Test</h3>
+        <div>
+            <input type="email" id="testEmail" placeholder="Email" value="vanessa@firstfortunesecurities.com">
+            <input type="password" id="testPassword" placeholder="Password" value="bumblebee">
+        </div>
+        <button onclick="testLogin()">Test Login</button>
+        <button onclick="testLoginDebug()">Test Login (Debug)</button>
+    </div>
+
+    <div class="test-section">
+        <h3>📦 Tracking Test</h3>
+        <div>
+            <input type="text" id="trackingNumber" placeholder="Tracking Number" value="FF123456789">
+        </div>
+        <button onclick="testTracking()">Test Tracking</button>
+    </div>
+
+    <div class="test-section">
+        <h3>📋 Results</h3>
+        <div id="results">Ready for testing...</div>
+    </div>
+
+    <!-- Load the debug config -->
+    <script src="assets/js/config.js"></script>
+    
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof API_CONFIG !== 'undefined') {
+                document.getElementById('baseUrl').textContent = API_CONFIG.BASE_URL;
+                document.getElementById('configStatus').innerHTML = '<span class="success">✅ Loaded</span>';
+            } else {
+                document.getElementById('baseUrl').textContent = 'Not loaded';
+                document.getElementById('configStatus').innerHTML = '<span class="error">❌ Failed to load</span>';
+            }
+        });
+
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            results.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            results.scrollTop = results.scrollHeight;
+            console.log(message);
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        async function testHealthCheck() {
+            clearResults();
+            log('🧪 Testing API Health Check...');
+            
+            try {
+                const url = API_CONFIG.BASE_URL + '/api/health';
+                log(`🌐 Requesting: ${url}`);
+                
+                const response = await fetch(url);
+                log(`📡 Response Status: ${response.status}`);
+                
+                const result = await response.json();
+                log(`✅ Health Check Result: ${JSON.stringify(result)}`, 'success');
+                
+            } catch (error) {
+                log(`❌ Health Check Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLogin() {
+            clearResults();
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            log('🔐 Testing Login...');
+            log(`📧 Email: ${email}`);
+            
+            try {
+                const url = getApiUrl(API_CONFIG.ENDPOINTS.LOGIN);
+                log(`🌐 Requesting: ${url}`);
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        rememberMe: false
+                    })
+                });
+                
+                log(`📡 Response Status: ${response.status}`);
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    log(`✅ Login Success: ${result.message}`, 'success');
+                    log(`🎫 Token: ${result.token.substring(0, 50)}...`, 'success');
+                } else {
+                    log(`❌ Login Failed: ${result.message}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Login Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLoginDebug() {
+            clearResults();
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            if (typeof debugLogin === 'function') {
+                log('🔍 Using debug login function...');
+                const result = await debugLogin(email, password);
+                log(`🔍 Debug Result: ${JSON.stringify(result)}`);
+            } else {
+                log('❌ Debug login function not available', 'error');
+            }
+        }
+
+        async function testTracking() {
+            clearResults();
+            const trackingNumber = document.getElementById('trackingNumber').value;
+            
+            log('📦 Testing Tracking...');
+            log(`🏷️ Tracking Number: ${trackingNumber}`);
+            
+            try {
+                const url = getApiUrl(`${API_CONFIG.ENDPOINTS.TRACK}/${trackingNumber}`);
+                log(`🌐 Requesting: ${url}`);
+                
+                const response = await fetch(url);
+                log(`📡 Response Status: ${response.status}`);
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    log(`✅ Tracking Success: Found shipment`, 'success');
+                    log(`📋 Status: ${result.data.status}`, 'success');
+                } else {
+                    log(`❌ Tracking Failed: ${result.message}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Tracking Error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

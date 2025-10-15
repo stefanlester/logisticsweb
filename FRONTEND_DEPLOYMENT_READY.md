@@ -75,7 +75,7 @@ const API_CONFIG = {
 #### **Step 2: Test Functionality**
 - ✅ Visit your domain
 - ✅ Test tracking: `FF123456789` or `DEMO123456789`
-- ✅ Test login: `demo@firstfortunesecurities.com / demo123`
+- ✅ Test login: `vanessa@firstfortunesecurities.com / bumblebee`
 - ✅ Check browser console for errors
 
 ### **🌐 Hostinger Domain Setup:**

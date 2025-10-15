@@ -30,10 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 const users = [
     {
         id: 1,
-        email: 'demo@firstfortunesecurities.com',
-        password: '$2a$10$IDUjoGHbIz0yReUtfLUfJuVFw883xU9l0h5u0Df8pzT78/.z0DuKO', // demo123
-        firstName: 'Demo',
-        lastName: 'User',
+        email: 'vanessa@firstfortunesecurities.com',
+        password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
+        firstName: 'Vanessa',
+        lastName: 'Johnson',
         company: 'FirstFortune Securities',
         phone: '+1 (800) 555-DEMO',
         role: 'customer',
@@ -554,7 +554,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📍 API Base: http://localhost:${PORT}/api`);
   console.log(`💡 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔐 Test Accounts:`);
-  console.log(`  Customer: demo@firstfortunesecurities.com / demo123`);
+  console.log(`  Customer: vanessa@firstfortunesecurities.com / bumblebee`);
   console.log(`  Admin: admin@firstfortunesecurities.com / admin123`);
   console.log(`📦 Demo Tracking: FF123456789, FF987654321, DEMO123456789`);
 });
