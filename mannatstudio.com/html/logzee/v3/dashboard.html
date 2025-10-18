@@ -8,12 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- xxx Favicon xxx -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/ship.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
     <title>Dashboard - FirstFortune Securities | Professional Logistics Solutions</title>
     <meta name="author" content="FirstFortune Securities">
     <meta name="description" content="FirstFortune Securities customer dashboard - manage your shipments and track packages">
     <meta name="keywords" content="dashboard, shipments, tracking, logistics, FirstFortune Securities">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Main Style CSSS -->
     <link href="assets/css/theme-plugins.min.css" rel="stylesheet">
@@ -26,138 +31,777 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
     <style>
-        .dashboard-container {
-            margin-top: 120px;
-            margin-bottom: 50px;
+        :root {
+            --primary-color: #FF7A00;
+            --primary-light: #FF9500;
+            --primary-gradient: linear-gradient(135deg, #FF7A00, #FF9500);
+            --secondary-color: #667eea;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
         }
         
+        /* Modern Dashboard Header */
+        .dashboard-header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+        
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .company-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin: 0;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.875rem;
+            line-height: 1.2;
+        }
+        
+        .user-role {
+            font-size: 0.75rem;
+            color: #6b7280;
+            line-height: 1.2;
+        }
+        
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+        
+        .dashboard-container {
+            margin-top: 80px;
+            margin-bottom: 40px;
+            padding: 0 15px;
+        }
+        
+        /* Modern Card Design */
         .stat-card {
             background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+            border-radius: 16px;
+            padding: 32px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
         }
         
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-large);
         }
         
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .stat-icon.shipments { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .stat-icon.delivered { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-icon.transit { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-icon.processing { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #FF7A00;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            line-height: 1;
         }
         
         .stat-label {
-            color: #666;
-            font-size: 1.1rem;
+            color: #6b7280;
+            font-size: 0.875rem;
             font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .stat-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 16px;
+            background: #ecfdf5;
+            color: var(--success-color);
         }
         
         .dashboard-section {
             background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-section:hover {
+            box-shadow: var(--shadow-large);
         }
         
         .section-title {
-            color: #1a1a1a;
+            color: var(--dark-color);
             font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #FF7A00;
-            padding-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
         }
         
         .shipment-row {
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .shipment-row:hover {
+            background: #f0f8ff;
+            transform: translateX(5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
         }
         
         .shipment-row:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
         
         .status-badge {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        .status-delivered { background: #d4edda; color: #155724; }
-        .status-in-transit { background: #d1ecf1; color: #0c5460; }
-        .status-processing { background: #fff3cd; color: #856404; }
+        .status-delivered { 
+            background: linear-gradient(135deg, #48bb78, #38a169); 
+            color: white; 
+        }
+        .status-in-transit { 
+            background: linear-gradient(135deg, #4299e1, #3182ce); 
+            color: white; 
+        }
+        .status-processing { 
+            background: linear-gradient(135deg, #ed8936, #dd6b20); 
+            color: white; 
+        }
         
         .track-form {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--dark-color);
         }
         
         .track-input {
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
             width: 100%;
-            margin-bottom: 15px;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: white;
         }
         
         .track-input:focus {
-            border-color: #FF7A00;
+            border-color: var(--primary-color);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+        }
+        
+        .track-input::placeholder {
+            color: #9ca3af;
         }
         
         .chart-container {
             position: relative;
             height: 300px;
-            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .shipment-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .shipment-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .shipment-item:hover {
+            background: white;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .shipment-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 12px;
+        }
+        
+        .shipment-id {
+            font-weight: 700;
+            color: var(--dark-color);
+            font-size: 1rem;
+        }
+        
+        .shipment-route {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-delivered { 
+            background: #ecfdf5; 
+            color: var(--success-color); 
+            border: 1px solid #d1fae5;
+        }
+        .status-in-transit { 
+            background: #eff6ff; 
+            color: #3b82f6; 
+            border: 1px solid #dbeafe;
+        }
+        .status-processing { 
+            background: #fef3c7; 
+            color: var(--warning-color); 
+            border: 1px solid #fde68a;
         }
         
         .user-welcome {
-            background: linear-gradient(135deg, #FF7A00, #ff9500);
+            background: white;
+            color: var(--dark-color);
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .welcome-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .welcome-info h2 {
+            margin: 0 0 4px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .welcome-info p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .welcome-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .welcome-stat {
+            text-align: center;
+        }
+        
+        .welcome-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+        
+        .welcome-stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 500;
         }
         
         .logout-btn {
-            background: #dc3545;
+            background: linear-gradient(135deg, #e53e3e, #c53030);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(229,62,62,0.3);
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(229,62,62,0.4);
         }
         
         .loading {
             text-align: center;
-            padding: 50px;
+            padding: 60px;
         }
         
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #FF7A00;
+            width: 50px;
+            height: 50px;
+            border: 4px solid #FF7A00;
+            border-top: 4px solid transparent;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 0 auto 20px;
         }
         
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        /* Vault Section Styling */
+        .vault-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        
+        .vault-section .section-title {
+            color: white;
+            border-bottom: none;
+        }
+        
+        .vault-section .section-title::after {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .vault-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .vault-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .vault-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .vault-stat .label {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .vault-stat .value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        
+        .gold-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        
+        /* Modern Button Styling */
+        .btn-theme {
+            background: var(--primary-gradient);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-theme:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .btn-theme:active {
+            transform: translateY(0);
+        }
+        
+        .btn-theme.btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        /* Alert Styling */
+        .alert {
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            border: none;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+        }
+        
+        /* Enhanced Typography */
+        h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+        
+        .section-title {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f7fafc;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #FF7A00, #FF9500);
+            border-radius: 2px;
+        }
+        
+        /* Grid Layouts */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                margin-top: 70px;
+                padding: 0 12px;
+            }
+            
+            .header-content {
+                padding: 12px 0;
+            }
+            
+            .company-name {
+                display: none;
+            }
+            
+            .user-details {
+                display: none;
+            }
+            
+            .user-info {
+                gap: 8px;
+            }
+            
+            .header-right {
+                gap: 12px;
+            }
+            
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .dashboard-section {
+                padding: 24px 20px;
+                margin-bottom: 24px;
+            }
+            
+            .user-welcome {
+                padding: 24px 20px;
+            }
+            
+            .welcome-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .section-title {
+                font-size: 1.25rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+                padding: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-container {
+                margin-top: 60px;
+            }
+            
+            .header-content {
+                padding: 10px 0;
+            }
+            
+            .header-logo {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+            
+            .logout-btn {
+                padding: 4px 8px;
+            }
+            
+            .welcome-header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .welcome-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #e06600, #e08500);
         }
     </style>
 </head>
@@ -175,87 +819,31 @@
     </div>
     <!-- Page loader End -->
 
-    <header class="header-one">
-        <div class="d-flex align-items-center text-md-left top-bar">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col d-flex">
-                        <div class="top-text">
-                            <small class="txt-black">Address</small>
-                            100 Secure Logistics Ave, New York, NY 10001
-                        </div>
-                        <div class="top-text">
-                            <small class="txt-black">Email Us</small>
-                            <a href="mailto:info@firstfortunesecurities.com">info@firstfortunesecurities.com</a>
-                        </div>
-                        <div class="top-text">
-                            <small class="txt-black">Phone Number</small>
-                            +1 (800) 555-LOGZ
-                        </div>
-                    </div>
-                    <div class="col-md-auto d-flex">
-                        <div class="d-inline-flex request-btn ms-2">
-                            <button class="logout-btn" onclick="logout()">Logout</button>
+    <!-- Modern Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/images/ship.png" alt="FirstFortune Securities" class="header-logo">
+                        <span class="company-name">FirstFortune Securities</span>
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <div class="user-avatar" id="headerUserAvatar">MM</div>
+                        <div class="user-details">
+                            <span class="user-name" id="headerUserName">Mary Miles & Craig Goodman</span>
+                            <span class="user-role">Dashboard</span>
                         </div>
                     </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="icofont-power"></i>
+                        Logout
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- Main Navigation Start -->
-        <nav class="header-fullpage navbar navbar-expand-lg nav-light">
-            <div class="container text-nowrap bdr-nav">
-                <div class="d-flex me-auto">
-                    <a class="navbar-brand rounded-bottom light-bg" href="index.html">
-                        <img src="assets/images/however.png" alt="FirstFortune Securities Logo">
-                    </a>
-                </div>
-                
-                <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <div class="navbar-collapse offcanvas offcanvas-start offcanvas-collapse" id="navbarCollapse">
-                    <div class="offcanvas-header">
-                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="FirstFortune Securities Logo"></a>
-                        <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarCollapse"
-                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="icofont-close-line"></i>
-                        </button>
-                    </div>
-                    <div class="offcanvas-body w-100" data-lenis-prevent>                        
-                        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about-us.html">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="services.html">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="project-grid.html">Projects</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="blog-list.html">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact-us.html">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="dashboard.html">Dashboard</a>
-                            </li>
-                        </ul>
-                    </div>                        
-                </div>
-            </div>
-        </nav>
-        <!-- Main Navigation End -->
     </header>
 
     <main class="dashboard-container">
@@ -263,62 +851,98 @@
             
             <!-- Welcome Section -->
             <div class="user-welcome">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h2 id="userName">Welcome to your Dashboard</h2>
-                        <p class="mb-0" id="userEmail">Loading user information...</p>
+                <div class="welcome-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="welcome-avatar" id="userAvatar">MM</div>
+                        <div class="welcome-info">
+                            <h2 id="userName">Welcome Back, Mary & Craig!</h2>
+                            <p id="userEmail">Account Holders: Mary Miles & Craig Goodman</p>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-end">
-                        <p class="mb-0"><strong>Today:</strong> <span id="currentDate"></span></p>
+                    <div class="text-end">
+                        <p class="mb-0" style="color: #6b7280; font-size: 0.875rem;">
+                            <strong>Today:</strong> <span id="currentDate"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="welcome-stats">
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-number" id="totalShipments">0</div>
+                        <div class="welcome-stat-label">Total Shipments</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-number" id="deliveredShipments">0</div>
+                        <div class="welcome-stat-label">Delivered</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-number" id="inTransitShipments">0</div>
+                        <div class="welcome-stat-label">In Transit</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-number" id="pendingShipments">0</div>
+                        <div class="welcome-stat-label">Processing</div>
                     </div>
                 </div>
             </div>
 
             <!-- Statistics Cards -->
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalShipments">0</div>
-                        <div class="stat-label">Total Shipments</div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon shipments">📦</div>
+                    <div class="stat-number" id="totalShipmentsCard">0</div>
+                    <div class="stat-label">Total Shipments</div>
+                    <div class="stat-change" id="totalChangeCard">Loading...</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="deliveredShipments">0</div>
-                        <div class="stat-label">Delivered</div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon delivered">✅</div>
+                    <div class="stat-number" id="deliveredShipmentsCard">0</div>
+                    <div class="stat-label">Delivered</div>
+                    <div class="stat-change" id="deliveredChangeCard">Loading...</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="inTransitShipments">0</div>
-                        <div class="stat-label">In Transit</div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon transit">🚚</div>
+                    <div class="stat-number" id="inTransitShipmentsCard">0</div>
+                    <div class="stat-label">In Transit</div>
+                    <div class="stat-change" id="transitChangeCard">Real-time tracking</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="pendingShipments">0</div>
-                        <div class="stat-label">Processing</div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon processing">⏳</div>
+                    <div class="stat-number" id="pendingShipmentsCard">0</div>
+                    <div class="stat-label">Processing</div>
+                    <div class="stat-change" id="processingChangeCard">Updated today</div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row g-4">
                 <!-- Track Package Section -->
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="dashboard-section">
-                        <h3 class="section-title">Track Package</h3>
+                        <h3 class="section-title">
+                            <span class="icon">🔍</span>
+                            Track Package
+                        </h3>
                         <div class="track-form">
-                            <input type="text" class="track-input" id="trackingInput" placeholder="Enter tracking number (e.g., LZ2025001)">
-                            <button class="btn-theme bg-orange" onclick="trackPackage()">Track Package</button>
+                            <div class="form-group">
+                                <label class="form-label">Tracking Number</label>
+                                <input type="text" class="track-input" id="trackingInput" 
+                                       placeholder="Enter tracking number (e.g., LZ2025001)">
+                            </div>
+                            <button class="btn-theme btn-block" onclick="trackPackage()">
+                                <i class="icofont-search"></i>
+                                Track Package
+                            </button>
                         </div>
                         <div id="trackingResult"></div>
                     </div>
                 </div>
 
                 <!-- Analytics Section -->
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="dashboard-section">
-                        <h3 class="section-title">Shipment Analytics</h3>
+                        <h3 class="section-title">
+                            <span class="icon">📊</span>
+                            Shipment Analytics
+                        </h3>
                         <div class="chart-container">
                             <canvas id="analyticsChart"></canvas>
                         </div>
@@ -326,13 +950,73 @@
                 </div>
             </div>
 
-            <!-- Shipments Table -->
+            <!-- Shipments Section -->
             <div class="dashboard-section">
-                <h3 class="section-title">Your Shipments</h3>
-                <div id="shipmentsContainer">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Loading shipments...</p>
+                <h3 class="section-title">
+                    <span class="icon">🚢</span>
+                    Your Shipments
+                </h3>
+                <div class="shipment-list" id="shipmentsContainer">
+                    <div class="shipment-item">
+                        <div class="shipment-header">
+                            <div>
+                                <div class="shipment-id">FS2001ASSETS</div>
+                                <div class="shipment-route">Geneva, Switzerland → Alexandria, Virginia, USA • International Transfer</div>
+                            </div>
+                            <span class="status-badge" style="background: #f59e0b;">Ready for Transfer</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div style="font-size: 0.875rem; color: #6b7280;">
+                                <strong>Assets:</strong> 110kg 24K Gold + 60ct Diamonds • <strong>Destination:</strong> 6127 Oliver Drive, Alexandria, VA
+                            </div>
+                            <div style="font-size: 0.75rem; color: #9ca3af;">
+                                Transfer Prepared: October 18, 2025
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Additional shipments will be rendered here by JS -->
+                </div>
+            </div>
+
+            <!-- Vault Section -->
+            <div class="dashboard-section vault-section">
+                <h3 class="section-title">🏦 Vault: Switzerland Precious Metals & Diamonds</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="vault-info">
+                            <div class="vault-stat">
+                                <span class="label">Certified 24K Gold</span>
+                                <span class="value gold-badge">110 kilograms</span>
+                            </div>
+                            <div class="vault-stat">
+                                <span class="label">Premium Diamonds</span>
+                                <span class="value" style="color: #60a5fa;">60 carats (D-Color, VVS)</span>
+                            </div>
+                            <div class="vault-stat">
+                                <span class="label">Deposit Date</span>
+                                <span class="value">August 17, 2001</span>
+                            </div>
+                            <div class="vault-stat">
+                                <span class="label">Vault Location</span>
+                                <span class="value">Geneva, Switzerland</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="vault-info">
+                            <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
+                            <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
+                                <li><strong>Account Holders:</strong> Mary Miles & Craig Goodman</li>
+                                <li><strong>Deposit Location:</strong> Geneva, Switzerland</li>
+                                <li><strong>Gold Type:</strong> Certified 24K Gold Bars</li>
+                                <li><strong>Diamond Grade:</strong> Excellent-quality cut, D-color, VVS clarity</li>
+                                <li><strong>Security:</strong> 24/7 vault protection, biometric access</li>
+                                <li><strong>Under deposit since:</strong> August 17, 2001</li>
+                            </ul>
+                            <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
+                                Assets have been under secure deposit at FirstFortune Security & Logistics, Geneva, Switzerland since August 2001. All precious metals and diamonds are fully insured and tracked with complete documentation and certification.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,18 +1032,11 @@
                 <!-- Column First -->
                 <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
                     <div class="logo-footer">
-                        <img src="assets/images/however.png" alt="FirstFortune Securities - Professional Logistics Solutions">
+                        <img src="assets/images/ship.png" alt="FirstFortune Securities - Professional Logistics Solutions">
                     </div>
                     <p>FirstFortune Securities is your trusted partner for professional logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and reliable systems to keep your business operating efficiently.</p>
 
-                    <h3 class="footer-heading">We're Social</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="icofont-facebook"></i></a>
-                        <a href="#"><i class="icofont-twitter"></i></a>
-                        <a href="#"><i class="icofont-whatsapp"></i></a>
-                        <a href="#"><i class="icofont-youtube-play"></i></a>
-                    </div>
-                </div>
+                    
                 <!-- Column First -->
 
                 <!-- Column Second -->
@@ -369,7 +1046,6 @@
                         <li><a href="services.html">Our Services</a></li>
                         <li><a href="about-us.html">About Us</a></li>
                         <li><a href="contact-us.html">Contact</a></li>
-                        <li><a href="project-grid.html">Projects</a></li>
                         <li><a href="track.html">Track Package</a></li>
                     </ul>
                 </div>
@@ -388,8 +1064,7 @@
             <div class="container">
                 <div class="row text-md-start text-center">
                     <div class="col-sm-12 col-md-6 copyright-links">
-                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> <a
-                            href="#">Faq's</a>
+                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> About
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
                         © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
@@ -438,6 +1113,7 @@
                     currentUser = result.user;
                     loadUserProfile();
                     loadUserShipments();
+                    loadVaultData();
                 } else {
                     localStorage.removeItem('authToken');
                     window.location.href = 'login.html';
@@ -462,8 +1138,26 @@
                     const result = await response.json();
                     const user = result.data;
                     
-                    document.getElementById('userName').textContent = `Welcome, ${user.firstName} ${user.lastName}`;
-                    document.getElementById('userEmail').textContent = user.email;
+                    // Special handling for Mary Miles & Craig Goodman account
+                    if (user.firstName === 'Mary Miles' && user.lastName === '& Craig Goodman') {
+                        document.getElementById('userName').textContent = 'Welcome Back, Mary & Craig!';
+                        document.getElementById('userEmail').textContent = 'Account Holders: Mary Miles & Craig Goodman';
+                        document.getElementById('headerUserName').textContent = 'Mary Miles & Craig Goodman';
+                        
+                        // Use MM for avatars
+                        document.getElementById('userAvatar').textContent = 'MM';
+                        document.getElementById('headerUserAvatar').textContent = 'MM';
+                    } else {
+                        // Default behavior for other users
+                        document.getElementById('userName').textContent = `Welcome, ${user.firstName} ${user.lastName}`;
+                        document.getElementById('userEmail').textContent = user.email;
+                        document.getElementById('headerUserName').textContent = `${user.firstName} ${user.lastName}`;
+                        
+                        // Update avatars with initials
+                        const initials = (user.firstName?.charAt(0) || '') + (user.lastName?.charAt(0) || '');
+                        document.getElementById('userAvatar').textContent = initials || 'U';
+                        document.getElementById('headerUserAvatar').textContent = initials || 'U';
+                    }
                 }
             } catch (error) {
                 console.error('Profile loading error:', error);
@@ -484,11 +1178,42 @@
                     userShipments = result.data;
                     updateStatistics();
                     renderShipments();
-                    updateChart();
                 }
             } catch (error) {
                 console.error('Shipments loading error:', error);
                 document.getElementById('shipmentsContainer').innerHTML = '<p class="text-center">Failed to load shipments.</p>';
+            }
+        }
+
+        async function loadVaultData() {
+            try {
+                const response = await fetch(getApiUrl('/api/user/vault'), {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const vaultData = result.data;
+                    updateVaultDisplay(vaultData);
+                }
+            } catch (error) {
+                console.error('Vault data loading error:', error);
+            }
+        }
+
+        function updateVaultDisplay(vaultData) {
+            // Update vault statistics in the UI
+            const goldStat = document.querySelector('.vault-info .vault-stat .value.gold-badge');
+            if (goldStat && vaultData.gold) {
+                goldStat.textContent = vaultData.gold.amount;
+            }
+
+            const depositDateStat = document.querySelector('.vault-info .vault-stat:nth-child(3) .value');
+            if (depositDateStat && vaultData.depositDate) {
+                depositDateStat.textContent = new Date(vaultData.depositDate).toLocaleDateString();
             }
         }
 
@@ -498,10 +1223,27 @@
             const inTransit = userShipments.filter(s => s.status.toLowerCase().includes('transit')).length;
             const processing = userShipments.filter(s => s.status.toLowerCase() === 'processing').length;
 
+            // Update welcome section stats
             document.getElementById('totalShipments').textContent = total;
             document.getElementById('deliveredShipments').textContent = delivered;
             document.getElementById('inTransitShipments').textContent = inTransit;
             document.getElementById('pendingShipments').textContent = processing;
+
+            // Update stat cards
+            document.getElementById('totalShipmentsCard').textContent = total;
+            document.getElementById('deliveredShipmentsCard').textContent = delivered;
+            document.getElementById('inTransitShipmentsCard').textContent = inTransit;
+            document.getElementById('pendingShipmentsCard').textContent = processing;
+
+            // Update change indicators
+            const deliveryRate = total > 0 ? Math.round((delivered / total) * 100) : 0;
+            document.getElementById('totalChangeCard').textContent = total > 0 ? `${total} active shipments` : 'No shipments yet';
+            document.getElementById('deliveredChangeCard').textContent = delivered > 0 ? `${deliveryRate}% delivery rate` : 'No deliveries yet';
+            document.getElementById('transitChangeCard').textContent = inTransit > 0 ? 'Real-time tracking' : 'No active transits';
+            document.getElementById('processingChangeCard').textContent = processing > 0 ? 'Being processed' : 'No pending items';
+
+            // Update chart
+            updateChart();
         }
 
         function renderShipments() {
@@ -554,39 +1296,117 @@
             return 'status-processing';
         }
 
+        // Chart.js center text plugin
+        const centerTextPlugin = {
+            id: 'centerText',
+            beforeDatasetsDraw(chart) {
+                const { ctx, data } = chart;
+                const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                
+                ctx.save();
+                ctx.font = 'bold 24px Inter, sans-serif';
+                ctx.fillStyle = '#1f2937';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const centerX = chart.getDatasetMeta(0).data[0].x;
+                const centerY = chart.getDatasetMeta(0).data[0].y;
+                
+                ctx.fillText(total.toString(), centerX, centerY - 5);
+                
+                ctx.font = '12px Inter, sans-serif';
+                ctx.fillStyle = '#6b7280';
+                ctx.fillText('Total', centerX, centerY + 15);
+                
+                ctx.restore();
+            }
+        };
+
         function initializeChart() {
             const ctx = document.getElementById('analyticsChart').getContext('2d');
+            
+            // Register the plugin
+            Chart.register(centerTextPlugin);
+            
             window.analyticsChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Delivered', 'In Transit', 'Processing'],
                     datasets: [{
                         data: [0, 0, 0],
-                        backgroundColor: ['#28a745', '#17a2b8', '#ffc107'],
-                        borderWidth: 0
+                        backgroundColor: [
+                            '#10b981', // Green for delivered
+                            '#f59e0b', // Orange for in transit  
+                            '#8b5cf6'  // Purple for processing
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                        hoverBorderWidth: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: '65%',
                     plugins: {
                         legend: {
-                            position: 'bottom'
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                font: {
+                                    size: 12,
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#e5e7eb',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? Math.round((context.parsed / total) * 100) : 0;
+                                    return `${context.label}: ${context.parsed} (${percentage}%)`;
+                                }
+                            }
                         }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
                     }
-                }
+                },
+                plugins: [centerTextPlugin]
             });
         }
 
         function updateChart() {
-            if (userShipments.length > 0) {
-                const delivered = userShipments.filter(s => s.status.toLowerCase() === 'delivered').length;
-                const inTransit = userShipments.filter(s => s.status.toLowerCase().includes('transit')).length;
-                const processing = userShipments.filter(s => s.status.toLowerCase() === 'processing').length;
+            const delivered = userShipments.filter(s => s.status.toLowerCase() === 'delivered').length;
+            const inTransit = userShipments.filter(s => s.status.toLowerCase().includes('transit')).length;
+            const processing = userShipments.filter(s => s.status.toLowerCase() === 'processing').length;
+            const total = userShipments.length;
 
-                window.analyticsChart.data.datasets[0].data = [delivered, inTransit, processing];
-                window.analyticsChart.update();
+            // Update chart data
+            window.analyticsChart.data.datasets[0].data = [delivered, inTransit, processing];
+            
+            // If no data, show placeholder
+            if (total === 0) {
+                window.analyticsChart.data.datasets[0].data = [1, 1, 1];
+                window.analyticsChart.data.datasets[0].backgroundColor = ['#e5e7eb', '#e5e7eb', '#e5e7eb'];
+            } else {
+                window.analyticsChart.data.datasets[0].backgroundColor = [
+                    '#10b981', // Green for delivered
+                    '#f59e0b', // Orange for in transit  
+                    '#8b5cf6'  // Purple for processing
+                ];
             }
+            
+            window.analyticsChart.update('active');
         }
 
         async function trackPackage() {
@@ -667,3 +1487,15 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

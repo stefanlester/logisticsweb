@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- xxx Favicon xxx -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/ship.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
     <title>FirstFortune Securities | Professional Logistics Solutions</title>
     <meta name="author" content="FirstFortune Securities">
@@ -18,7 +18,7 @@
     <meta name="keywords" content="FirstFortune Securities, logistics, security, cargo transport, warehousing, supply chain, secure delivery">
 
     <!-- xxx Favicon xxx -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/ship.png">
 
     <!-- Main Style CSSS -->
     <link href="assets/css/theme-plugins.min.css" rel="stylesheet">
@@ -39,6 +39,139 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        /* Homepage Polish Styles */
+        .counter-block {
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .counter-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .counter-icon i {
+            background: linear-gradient(135deg, #FF7A00, #FF9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .trust-stat .h3 {
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .btn-theme {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-theme:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        
+        .bg-gradient-orange {
+            background: linear-gradient(135deg, #FF7A00 0%, #FF9500 100%) !important;
+        }
+        
+        .icon-box-6 {
+            transition: all 0.3s ease;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        
+        .icon-box-6:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .heading-main {
+            margin-bottom: 40px;
+        }
+        
+        .heading-main span {
+            color: #FF7A00;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Enhanced Revolution Slider Styling */
+        .tp-caption.NotGeneric-Title {
+            font-weight: 800 !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3) !important;
+        }
+        
+        .tp-caption.medium_light_white {
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5) !important;
+        }
+        
+        .tp-caption.small_light_white {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4) !important;
+        }
+        
+        /* Improved spacing and typography */
+        .wide-tb-100 {
+            padding: 80px 0;
+        }
+        
+        .callout-style-1 {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout-style-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%);
+            animation: shine 8s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .trust-stat {
+                margin-bottom: 20px;
+            }
+            
+            .btn-theme {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .counter-block {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -61,7 +194,7 @@
                     <div class="col d-flex">
                         <div class="top-text">
                             <small class="txt-black">Address</small>
-                            100 Secure Logistics Ave, New York, NY 10001
+                            102 Secure Logistics Centre, Cape Town, South Africa
                         </div>
                         <div class="top-text">
                             <small class="txt-black">Email Us</small>
@@ -91,7 +224,7 @@
             <div class="container text-nowrap bdr-nav">
                 <div class="d-flex me-auto">
                     <a class="navbar-brand rounded-bottom light-bg" href="index.html">
-                        <img src="assets/images/however.png" alt="FirstFortune Securities Logo">
+                        <img src="assets/images/ship.png" alt="FirstFortune Securities Logo">
                     </a>
                 </div>
                 <!-- Topbar Request Quote Start -->
@@ -112,7 +245,7 @@
 
                 <div class="navbar-collapse offcanvas offcanvas-start offcanvas-collapse" id="navbarCollapse">
                     <div class="offcanvas-header">
-                        <a class="navbar-brand" href="index.html"><img src="assets/images/however.png" alt="FirstFortune Securities Logo"></a>
+                        <a class="navbar-brand" href="index.html"><img src="assets/images/ship.png" alt="FirstFortune Securities Logo"></a>
                         <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="icofont-close-line"></i>
@@ -128,12 +261,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="services.html">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="project-grid.html">Projects</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="blog-list.html">Blog</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contact-us.html">Contact</a>
@@ -384,7 +511,7 @@
                         </h1>
                         <!-- Heading Main -->
 
-                        <p>FirstFortune Securities is a professional provider of logistics and specialized transport services, serving businesses and organizations worldwide. With headquarters in New York and operations across North America, we specialize in reliable, time-sensitive, and secure shipments that require professional handling and dependable service.</p>
+                        <p>FirstFortune Securities is a professional provider of logistics and specialized transport services, serving businesses and organizations worldwide. With headquarters in Cape Town, South Africa, and operations across Dubai UAE, Singapore, the United Kingdom, and Switzerland, we specialize in reliable, time-sensitive, and secure shipments that require professional handling and dependable service.</p>
 
                         <p>Our comprehensive approach combines cutting-edge technology, rigorous security protocols, and industry expertise to deliver unparalleled logistics solutions. From pharmaceutical cold chain management to precious metals transport, we ensure your cargo is protected by armed security professionals, real-time monitoring systems, and insurance coverage up to $50 million per shipment.</p>
 
@@ -578,61 +705,70 @@
 
 
 
-        <!-- Intro Video Start -->
-        <section class="bg-light-theme wide-tb-100 pb-5 why-choose">
-            <div class="container pos-rel">
-                <div class="contact-map-bg">
-                    <img src="assets/images/map-bg.png" alt="">
-                </div>
-                <div class="row piecharts" id="pie-charts">
+        <!-- Key Metrics Start -->
+        <section class="bg-light-theme wide-tb-100">
+            <div class="container">
+                <div class="row">
                     <!-- Heading Main -->
                     <div class="col-sm-12 wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
                         <h1 class="heading-main">
-                            <span>Looking for more?</span>
-                            Watch Our Intro Video
+                            <span>Trusted Performance</span>
+                            Our Key Achievements
                         </h1>
                     </div>
                     <!-- Heading Main -->
-                    <div class="col-lg-6 col-md-10 mx-auto">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6 mb-0">
-                                <span class="chart" data-percent="90">
-                                    <span class="percent"></span>
-                                </span>
-                                <div class="skill-name">Road Transport</div>
+                    <div class="col-lg-12">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                                <div class="counter-block text-center">
+                                    <div class="counter-icon mb-3">
+                                        <i class="icofont-truck-loaded" style="font-size: 3rem; color: #FF7A00;"></i>
+                                    </div>
+                                    <span class="chart" data-percent="98">
+                                        <span class="percent"></span>
+                                    </span>
+                                    <div class="skill-name">On-Time Delivery</div>
+                                </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6 mb-0">
-                                <span class="chart" data-percent="90">
-                                    <span class="percent"></span>
-                                </span>
-                                <div class="skill-name">Logistics</div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                                <div class="counter-block text-center">
+                                    <div class="counter-icon mb-3">
+                                        <i class="icofont-shield" style="font-size: 3rem; color: #FF7A00;"></i>
+                                    </div>
+                                    <span class="chart" data-percent="100">
+                                        <span class="percent"></span>
+                                    </span>
+                                    <div class="skill-name">Security Success</div>
+                                </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mb-0">
-                                <span class="chart" data-percent="95">
-                                    <span class="percent"></span>
-                                </span>
-                                <div class="skill-name">Truck Rental</div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                                <div class="counter-block text-center">
+                                    <div class="counter-icon mb-3">
+                                        <i class="icofont-team" style="font-size: 3rem; color: #FF7A00;"></i>
+                                    </div>
+                                    <span class="chart" data-percent="95">
+                                        <span class="percent"></span>
+                                    </span>
+                                    <div class="skill-name">Client Satisfaction</div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-        </section>
-        <section class="wide-tb-60 p-0 bg-light-theme">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto col-md-10 wow pulse animated" data-wow-duration="0"
-                        data-wow-delay="0.7s">
-                        <div class="bg-fixed pos-rel video-popup">
-                            <div class="bg-overlay black opacity-50"></div>
-                            <div class="zindex-fixed pos-rel">
-                                <a href="#" class="play-video"><i class="icofont-play icofont-4x"></i></a>
+                            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                                <div class="counter-block text-center">
+                                    <div class="counter-icon mb-3">
+                                        <i class="icofont-globe" style="font-size: 3rem; color: #FF7A00;"></i>
+                                    </div>
+                                    <span class="chart" data-percent="92">
+                                        <span class="percent"></span>
+                                    </span>
+                                    <div class="skill-name">Global Coverage</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Intro Video End -->
+        <!-- Key Metrics End -->
 
         <!-- Client Reviews Start -->
         <section class="wide-tb-100 mb-spacer-md">
@@ -677,8 +813,8 @@
                     </div>
                     <div class="col">
                         <div class="center-text">
-                            We don’t just manage suppliers, we micro-manage them. We have a consultative, personalized
-                            approach
+                            We don’t just manage suppliers, we professionally manage them. We have a secure, professional
+                            service with $50M insurance coverage
                         </div>
                     </div>
                     <div class="col-sm-auto">
@@ -689,26 +825,7 @@
             </div>
         </section>
         <!-- Callout End -->
-        <!-- Company News Start -->
-        <section class="wide-tb-100">
-            <div class="container">
-                <div class="row">
-                    <!-- Heading Main -->
-                    <div class="col-sm-12 wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                        <h1 class="heading-main">
-                            <span>News</span>
-                            Recent Posts
-                        </h1>
-                    </div>
-                    <!-- Heading Main -->
 
-                    <!-- Add real blog/news posts here -->
-
-
-                </div>
-            </div>
-        </section>
-        <!-- Company News End -->
 
         <!-- Clients Start -->
         <section class="wide-tb-100 bg-fixed clients-bg pos-rel">
@@ -776,14 +893,14 @@
                 <div class="contact-details-on-map">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Germany</h4>
-                            <p><i class="icofont-phone"></i> +1 (408) 786 - 5117</p>
-                            <div class="text-nowrap"><i class="icofont-email"></i> <a href="#"><span class="__cf_email__" data-cfemail="680f0d1a050906112804070f120d0d460b0705">[email&#160;protected]</span></a></div>
+                            <h4>Dubai, UAE</h4>
+                            <p><i class="icofont-phone"></i> +971 4 555-FORT</p>
+                            <div class="text-nowrap"><i class="icofont-email"></i> <a href="mailto:info@firstfortunesecurities.com">info@firstfortunesecurities.com</a></div>
                         </div>
                         <div class="col-md-6">
-                            <h4>Spain</h4>
-                            <p><i class="icofont-phone"></i> +1 (408) 786 - 5117</p>
-                            <div class="text-nowrap"><i class="icofont-email"></i> <a href="#"><span class="__cf_email__" data-cfemail="7b080b1a12153b17141c011e1e55181416">[email&#160;protected]</span></a></div>
+                            <h4>Singapore</h4>
+                            <p><i class="icofont-phone"></i> +65 6555-SHIP</p>
+                            <div class="text-nowrap"><i class="icofont-email"></i> <a href="mailto:support@firstfortunesecurities.com">support@firstfortunesecurities.com</a></div>
                         </div>
                     </div>
                 </div>
@@ -805,18 +922,11 @@
                 <!-- Column First -->
                 <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
                     <div class="logo-footer">
-                        <img src="assets/images/however.png" alt="FirstFortune Securities - Professional Logistics Solutions">
+                        <img src="assets/images/ship.png" alt="FirstFortune Securities - Professional Logistics Solutions">
                     </div>
                     <p>FirstFortune Securities is your trusted partner for professional logistics and security solutions. We provide comprehensive cargo transport, secure warehousing, and reliable systems to keep your business operating efficiently.</p>
 
-                    <h3 class="footer-heading">We're Social</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="icofont-facebook"></i></a>
-                        <a href="#"><i class="icofont-twitter"></i></a>
-                        <a href="#"><i class="icofont-whatsapp"></i></a>
-                        <a href="#"><i class="icofont-youtube-play"></i></a>
-                    </div>
-                </div>
+                    
                 <!-- Column First -->
 
                 <!-- Column Second -->
@@ -826,8 +936,8 @@
                         <li><a href="services.html">Our Services</a></li>
                         <li><a href="about-us.html">About Us</a></li>
                         <li><a href="contact-us.html">Contact</a></li>
-                        <li><a href="project-grid.html">Projects</a></li>
                         <li><a href="pricing-plan.html">Pricing</a></li>
+                        <li><a href="contact-us.html#geneva">Geneva Vault & Office, Switzerland</a></li>
                     </ul>
                 </div>
                 <!-- Column Second -->
@@ -841,8 +951,7 @@
             <div class="container">
                 <div class="row text-md-start text-center">
                     <div class="col-sm-12 col-md-6 copyright-links">
-                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> <a
-                            href="#">Faq's</a>
+                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> About
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
                         © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
@@ -853,12 +962,7 @@
     </footer>
     <!-- Main Footer End -->
 
-    <div class="video-box">
-        <!-- close-video -->
-        <div class="close-video">
-            <i class="icofont-close-line"></i>
-        </div><!-- /close-video -->
-    </div><!-- /video-box -->
+
 
     <!-- Search Popup Start -->
     <div class="overlay overlay-hugeinc">
@@ -995,7 +1099,7 @@
     <!-- Jquery Library JS -->
     <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/theme-plugins.min.js"></script>
-    <script src="assets/twitter/jquery.tweet.js"></script>
+    
 
 
     <!-- REVOLUTION JS FILES -->
@@ -1014,7 +1118,7 @@
     <script type="text/javascript" src="assets/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
     <script type="text/javascript"
         src="assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-    <script type="text/javascript" src="assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
+
 
     <!-- Theme Custom FIle -->
     <script src="assets/js/site-custom.js"></script>
@@ -1134,3 +1238,15 @@
 
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

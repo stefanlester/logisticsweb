@@ -37,19 +37,36 @@ app.options('*', (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from the website directory (for local development)
+app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3')));
+
 // In-memory databases (replace with real database in production)
 const users = [
     {
         id: 1,
-        email: 'vanessa@firstfortunesecurities.com',
+        email: 'mary.craig@firstfortunesecurities.com',
         password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
-        firstName: 'Vanessa',
-        lastName: 'Johnson',
+        firstName: 'Mary Miles',
+        lastName: '& Craig Goodman',
         company: 'FirstFortune Securities',
-        phone: '+1 (800) 555-0198',
+        phone: '+41 22 918 8400',
         role: 'customer',
         verified: true,
-        createdAt: new Date('2025-01-01')
+        createdAt: new Date('2001-08-17'),
+        vaultAssets: {
+            gold: {
+                amount: '110 kilograms',
+                type: 'Certified 24K Gold',
+                purity: '99.99%'
+            },
+            diamonds: {
+                amount: '60 carats',
+                grade: 'D-Color, VVS',
+                quality: 'Excellent-quality cut'
+            },
+            depositDate: '2001-08-17',
+            location: 'Geneva, Switzerland'
+        }
     },
     {
         id: 2,
@@ -61,77 +78,89 @@ const users = [
         phone: '+1 (800) 555-ADMIN',
         role: 'admin',
         verified: true,
-        createdAt: new Date('2025-01-01')
+  createdAt: new Date('2025-10-16')
     }
 ];
 
 let shipments = [
   {
-    id: "LZ2025001",
-    trackingNumber: "LZ2025001",
-    origin: "New York, NY",
-    destination: "Los Angeles, CA",
-    status: "In Transit",
-    currentLocation: "Chicago, IL",
-    estimatedDelivery: "2025-07-25",
-    weight: "45.2 kg",
-    service: "Express Delivery",
-    userId: 1, // Associated with demo user
+    id: "FS2001ASSETS",
+    trackingNumber: "FS2001ASSETS",
+    origin: "Geneva, Switzerland",
+    destination: "6127 Oliver Drive, Alexandria, Virginia 22315, USA",
+    status: "Secured in Vault - Ready for Transfer",
+    currentLocation: "Geneva Vault Facility",
+    estimatedDelivery: "Pending Transfer Authorization",
+    weight: "110kg Gold + 60ct Diamonds",
+    service: "International Secure Asset Transfer",
+    userId: 1, // Associated with Mary Miles & Craig Goodman
+    assetType: "precious_metals_diamonds",
+    depositDate: "2001-08-17",
+    assets: {
+      gold: "110 kilograms certified 24K",
+      diamonds: "60 carats D-Color VVS"
+    },
     history: [
       {
-        timestamp: "2025-07-18 09:00",
-        location: "New York, NY",
-        status: "Package picked up",
-        description: "Package collected from origin"
+        timestamp: "2001-08-17 10:00",
+        location: "Geneva, Switzerland",
+        status: "Assets deposited",
+        description: "Precious metals and diamonds secured in vault"
       },
       {
-        timestamp: "2025-07-19 14:30",
-        location: "Philadelphia, PA",
-        status: "In transit",
-        description: "Package in transit to sorting facility"
+        timestamp: "2001-08-17 15:30",
+        location: "Geneva Vault Facility",
+        status: "Vault secured",
+        description: "All assets verified and placed in maximum security vault"
       },
       {
-        timestamp: "2025-07-20 08:15",
-        location: "Chicago, IL",
-        status: "At sorting facility",
-        description: "Package arrived at Chicago sorting facility"
+        timestamp: "2025-10-18 09:00",
+        location: "Geneva Vault Facility",
+        status: "Transfer preparation",
+        description: "Assets prepared for international transfer to Alexandria, Virginia"
+      },
+      {
+        timestamp: "2025-10-18 14:30",
+        location: "Geneva Vault Facility",
+        status: "Ready for transfer",
+        description: "All documentation prepared for secure transfer to 6127 Oliver Drive, Alexandria, VA"
       }
     ]
   },
   {
     id: "LZ2025002",
     trackingNumber: "LZ2025002",
-    origin: "Miami, FL",
-    destination: "Seattle, WA",
+    origin: "Singapore",
+    destination: "London, United Kingdom",
     status: "Delivered",
-    currentLocation: "Seattle, WA",
-    estimatedDelivery: "2025-07-19",
-    actualDelivery: "2025-07-19",
+    currentLocation: "London, United Kingdom",
+  estimatedDelivery: "2025-10-16",
+  actualDelivery: "2025-10-16",
     weight: "12.8 kg",
     service: "Standard Shipping",
     userId: 1, // Associated with demo user
     history: [
       {
-        timestamp: "2025-07-16 10:00",
-        location: "Miami, FL",
+  timestamp: "2025-10-16 10:00",
+        location: "Singapore",
         status: "Package picked up",
         description: "Package collected from origin"
       },
       {
-        timestamp: "2025-07-17 16:45",
-        location: "Atlanta, GA",
+  timestamp: "2025-10-16 16:45",
+        location: "Dubai, UAE",
         status: "In transit",
         description: "Package in transit"
       },
       {
-        timestamp: "2025-07-18 12:20",
-        location: "Denver, CO",
+  timestamp: "2025-10-16 12:20",
+        location: "Frankfurt, Germany",
         status: "In transit",
         description: "Package in transit"
       },
       {
-        timestamp: "2025-07-19 09:30",
-        location: "Seattle, WA",
+  timestamp: "2025-10-16 09:30",
+        location: "London, United Kingdom",
         status: "Delivered",
         description: "Package delivered to recipient"
       }
@@ -140,18 +169,18 @@ let shipments = [
   {
     id: "LZ2025003", 
     trackingNumber: "LZ2025003",
-    origin: "Houston, TX",
-    destination: "Boston, MA",
+    origin: "Dubai, UAE",
+    destination: "Cape Town, South Africa",
     status: "Processing",
-    currentLocation: "Houston, TX",
-    estimatedDelivery: "2025-07-28",
+    currentLocation: "Dubai, UAE",
+  estimatedDelivery: "2025-10-16",
     weight: "78.5 kg",
     service: "Freight Service",
     userId: 2, // Associated with admin user
     history: [
       {
-        timestamp: "2025-07-20 07:30",
-        location: "Houston, TX",
+  timestamp: "2025-10-16 07:30",
+        location: "Dubai, UAE",
         status: "Order received",
         description: "Shipment order created and processing"
       }
@@ -319,6 +348,15 @@ app.get('/api/user/profile', authenticateToken, (req, res) => {
 app.get('/api/user/shipments', authenticateToken, (req, res) => {
     const userShipments = shipments.filter(s => s.userId === req.user.id);
     res.json({ success: true, data: userShipments, count: userShipments.length });
+});
+
+app.get('/api/user/vault', authenticateToken, (req, res) => {
+    const user = users.find(u => u.id === req.user.id);
+    if (!user || !user.vaultAssets) {
+        return res.status(404).json({ success: false, message: 'No vault assets found' });
+    }
+    
+    res.json({ success: true, data: user.vaultAssets });
 });
 
 // Public Tracking Routes
@@ -498,8 +536,25 @@ app.get('/api/admin/shipments', authenticateToken, (req, res) => {
     res.json({ success: true, data: shipments });
 });
 
-// API-only root route
+// Serve HTML pages for local development
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/index.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/login.html'));
+});
+
+app.get('/track', (req, res) => {
+  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/track.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '../mannatstudio.com/html/logzee/v3/dashboard.html'));
+});
+
+// API info route
+app.get('/api', (req, res) => {
   res.json({
     message: 'FirstFortune Securities API Server',
     version: '2.0.0',
