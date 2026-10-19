@@ -42,32 +42,70 @@ app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3'
 
 // In-memory databases (replace with real database in production)
 const users = [
-    {
-        id: 1,
-        email: 'mary.craig@firstfortunesecurities.com',
-        password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
-        firstName: 'Mary Miles',
-        lastName: '& Craig Goodman',
-        company: 'FirstFortune Securities',
-        phone: '+41 22 918 8400',
-        role: 'customer',
-        verified: true,
-        createdAt: new Date('2001-08-17'),
-        vaultAssets: {
-            gold: {
-                amount: '110 kilograms',
-                type: 'Certified 24K Gold',
-                purity: '99.99%'
-            },
-            diamonds: {
-                amount: '60 carats',
-                grade: 'D-Color, VVS',
-                quality: 'Excellent-quality cut'
-            },
-            depositDate: '2001-08-17',
-            location: 'Geneva, Switzerland'
-        }
-    },
+  {
+    id: 1,
+    email: 'mary.craig@firstfortunesecurities.com',
+    password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
+    firstName: 'Mary Miles',
+    lastName: '& Craig Goodman',
+    company: 'FirstFortune Securities',
+    phone: '+41 22 918 8400',
+    role: 'customer',
+    verified: true,
+    createdAt: new Date('2001-08-17'),
+    vaultAssets: {
+      gold: {
+        description: 'Certified 24K Gold',
+        vaulted: '110 kilograms',
+        inTransit: null,
+        purity: '99.99%'
+      },
+      diamonds: {
+        description: 'Premium Diamonds',
+        vaulted: '60 carats (D-Color, VVS, Excellent-quality cut)'
+      },
+      depositDate: '2001-08-17',
+      location: 'Geneva, Switzerland'
+    }
+  },
+  {
+    id: 3,
+    email: 'kezia.osei.anderson@firstfortunesecurities.com',
+    password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // goldowner2025
+    firstName: 'Kezia Osei',
+    lastName: 'Anderson & Gerhard Hennin',
+    company: 'FirstFortune Securities',
+    phone: '+44 131 555 1234',
+    role: 'customer',
+    verified: true,
+    createdAt: new Date('2012-07-01'),
+    addresses: [
+      '77 Stone Cellar Road, Kinloch, IV16 2TF, United Kingdom',
+      'Rüderner Str. 83, 73733 Esslingen am Neckar, Germany',
+      '39 Thistle Street, Edinburgh EH2 1DY, United Kingdom'
+    ],
+    vaultAssets: {
+      owner: 'Miss Kezia Osei Anderson- Mr. Gerhard Hennin',
+      addresses: [
+        '77 Stone Cellar Road, Kinloch, IV16 2TF, United Kingdom',
+        'Rüderner Str. 83, 73733 Esslingen am Neckar, Germany'
+      ],
+      bonafideOwner: true,
+      gold: {
+        description: 'Refined Gold Bullion (Good Delivery Bars)',
+        vaulted: '350.000 kg',
+        inTransit: '50.000 kg',
+        fineness: '999.9 (or as assayed)'
+      },
+      storage: 'First Fortune Security Logistics',
+      serialNumber: 'DRFCL/PXW03',
+      transactionCode: 'DRFCL/255CPP/01',
+      securityCode: 'DFRCL80/49/03',
+      location: 'South Africa (50kg of gold is being moved to Albion Secure Metals Vault – London; remainder in storage)',
+      address: '39 Thistle Street, Edinburgh EH2 1DY, United Kingdom',
+      depositDate: 'July 2012'
+    }
+  },
     {
         id: 2,
         email: 'admin@firstfortunesecurities.com',
@@ -83,6 +121,79 @@ const users = [
 ];
 
 let shipments = [
+  {
+    id: "DRFCLPXW03",
+    trackingNumber: "DRFCLPXW03",
+    origin: "South Africa",
+    destination: "Albion Secure Metals Vault – London, United Kingdom",
+    status: "In Transit to London Vault",
+    currentLocation: "South Africa",
+    estimatedDelivery: "Pending Arrival at Albion Vault",
+    weight: "350kg Gold (Good Delivery Bars)",
+    service: "International Secure Asset Transfer",
+    userId: 3, // Associated with Kezia Osei Anderson & Gerhard Hennin
+    assetType: "gold_bullion",
+    depositDate: "2025-10-29",
+    assets: {
+      gold: "350 kilograms refined gold bullion (999.9)",
+      serialNumber: "DRFCL/PXW03",
+      transactionCode: "DRFCL/255CPP/01",
+      securityCode: "DFRCL80/49/03"
+    },
+    history: [
+      {
+        timestamp: "2025-10-29 09:00",
+        location: "South Africa",
+        status: "Assets prepared for transfer",
+        description: "350kg refined gold bullion secured for international transfer to Albion Secure Metals Vault – London"
+      },
+      {
+        timestamp: "2025-10-29 18:00",
+        location: "South Africa",
+        status: "In transit",
+        description: "Gold bullion in secure transit to London vault"
+      }
+    ]
+  },
+  // New shipment for Mary Miles & Craig Goodman, October 31, 2025
+  {
+    id: "FS20251031DELIVERY",
+    trackingNumber: "FS20251031DELIVERY",
+    origin: "Geneva, Switzerland",
+    destination: "6127 Olivet Drive, Alexandria, Virginia 22315, USA",
+    status: "On Hold",
+    currentLocation: "U.S. Customs and Border Protection – Peace Bridge Port of Entry",
+    estimatedDelivery: "2025-10-31",
+    weight: "50kg Gold (50 x 1kg bars) + 40ct Diamonds (D-color, VVS1, GIA)",
+    service: "International Secure Asset Delivery",
+    userId: 1, // Mary Miles & Craig Goodman
+    assetType: "gold_bars_diamonds",
+    depositDate: "2025-10-31",
+    assets: {
+      gold: "50 one-kilogram bars of 24 carat gold (99.99%)",
+      diamonds: "40 D-colored, VVS1 graded diamonds, each with GIA certification"
+    },
+    history: [
+      {
+        timestamp: "2025-10-31 08:00",
+        location: "Geneva, Switzerland",
+        status: "Dispatched",
+        description: "Shipment departed from Geneva, Switzerland."
+      },
+      {
+        timestamp: "2025-10-31 10:00",
+        location: "Express New York, New York, USA",
+        status: "In Transit",
+        description: "Arrived in New York (Express New York). Awaiting further transfer to Virginia."
+      },
+      {
+        timestamp: "2025-11-02 09:30",
+        location: "U.S. Customs and Border Protection – Peace Bridge Port of Entry",
+        status: "On Hold",
+        description: "HELD BY CBP (CUSTOMS & BORDER PROTECTION). REASON: MISSING DOCS AND ASSAY."
+      }
+    ]
+  },
   {
     id: "FS2001ASSETS",
     trackingNumber: "FS2001ASSETS",
