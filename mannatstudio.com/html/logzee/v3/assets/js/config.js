@@ -1,12 +1,9 @@
 // API Configuration
-// Update this URL after deploying to Render
+// Same-origin: API and frontend are served from the same Render Web Service,
+// so requests go to /api/... on whatever host is serving the page.
 const API_CONFIG = {
-    // Development
-    // BASE_URL: 'http://localhost:3000',
-    
-    // Production - Your actual Render URL
-    BASE_URL: 'https://logzeeserver.onrender.com',
-    
+    BASE_URL: '',
+
     // API Endpoints
     ENDPOINTS: {
         LOGIN: '/api/auth/login',
