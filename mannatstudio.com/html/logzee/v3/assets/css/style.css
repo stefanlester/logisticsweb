@@ -1,3 +1,26 @@
+/* Custom: Make contact cards on contact page wider and more readable */
+.contact-detail-shadow {
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    min-height: 260px;
+    border-radius: 12px;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
+    background: #fff;
+    font-size: 1.08rem;
+}
+.contact-detail-shadow h4 {
+    font-size: 1.35rem;
+    margin-bottom: 1.1rem;
+    font-weight: 700;
+}
+.contact-detail-shadow .items {
+    margin-bottom: 0.7rem;
+    font-size: 1.05rem;
+    word-break: break-word;
+}
+.contact-detail-shadow a {
+    word-break: break-all;
+}
 /* ==========================================================================
 Theme Name: FirstFortune Securities
 Description: Professional Logistics and Security Solutions Template

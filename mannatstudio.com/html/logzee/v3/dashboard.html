@@ -436,6 +436,14 @@
             color: var(--warning-color); 
             border: 1px solid #fde68a;
         }
+        .status-on-hold { 
+            background: #dc2626; 
+            color: white; 
+            border: 2px solid #991b1b;
+            padding: 8px 16px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
         
         .user-welcome {
             background: white;
@@ -1064,7 +1072,7 @@
             <div class="container">
                 <div class="row text-md-start text-center">
                     <div class="col-sm-12 col-md-6 copyright-links">
-                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a> <span>|</span> About
+                        <a href="about-us.html">Privacy Policy</a> <span>|</span> <a href="contact-us.html">Contact</a> <span>|</span> <a href="about-us.html">About</a>
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
                         © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
@@ -1205,16 +1213,69 @@
         }
 
         function updateVaultDisplay(vaultData) {
-            // Update vault statistics in the UI
-            const goldStat = document.querySelector('.vault-info .vault-stat .value.gold-badge');
-            if (goldStat && vaultData.gold) {
-                goldStat.textContent = vaultData.gold.amount;
-            }
+            // Update Account Information card and left vault card dynamically for any user
+            const infoCard = document.querySelector('.vault-section .col-md-6:last-child .vault-info');
+            const leftCard = document.querySelector('.vault-section .col-md-6:first-child .vault-info');
+            if (!infoCard || !leftCard) return;
 
-            const depositDateStat = document.querySelector('.vault-info .vault-stat:nth-child(3) .value');
-            if (depositDateStat && vaultData.depositDate) {
-                depositDateStat.textContent = new Date(vaultData.depositDate).toLocaleDateString();
+            // --- LEFT VAULT CARD ---
+            let leftRows = [];
+            // Gold in vault
+            if (vaultData.gold && vaultData.gold.vaulted) {
+                leftRows.push(`<div class="vault-stat"><span class="label">${vaultData.gold.description || 'Gold In Vault'}</span><span class="value gold-badge">${vaultData.gold.vaulted}</span></div>`);
             }
+            // Gold in transit
+            if (vaultData.gold && vaultData.gold.inTransit) {
+                leftRows.push(`<div class="vault-stat"><span class="label">Gold In Transit</span><span class="value gold-badge">${vaultData.gold.inTransit}</span></div>`);
+            }
+            // Diamonds
+            if (vaultData.diamonds && vaultData.diamonds.vaulted) {
+                leftRows.push(`<div class="vault-stat"><span class="label">${vaultData.diamonds.description || 'Premium Diamonds'}</span><span class="value" style="color: #60a5fa;">${vaultData.diamonds.vaulted}</span></div>`);
+            }
+            // Deposit Date
+            let depositDateDisplay = '';
+            if (vaultData.depositDate) {
+                let dateStr = vaultData.depositDate;
+                // Try to format if ISO, else show as is
+                if (!isNaN(Date.parse(dateStr))) {
+                    dateStr = new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
+                depositDateDisplay = dateStr;
+                leftRows.push(`<div class="vault-stat"><span class="label">Deposit Date</span><span class="value">${depositDateDisplay}</span></div>`);
+            }
+            // Vault Location
+            if (vaultData.location) {
+                leftRows.push(`<div class="vault-stat"><span class="label">Vault Location</span><span class="value">${vaultData.location}</span></div>`);
+            }
+            leftCard.innerHTML = leftRows.join('');
+
+            // --- INFO CARD ---
+            // Compose info card fields from vaultData
+            let accountHolders = vaultData.owner || (vaultData.addresses ? vaultData.addresses.join('; ') : '') || '';
+            if (!accountHolders && window.currentUser) {
+                // fallback to user name
+                accountHolders = (window.currentUser.firstName || '') + ' ' + (window.currentUser.lastName || '');
+            }
+            let depositLocation = vaultData.location || '';
+            let goldType = (vaultData.gold && (vaultData.gold.description || vaultData.gold.type)) || '';
+            let diamondGrade = (vaultData.diamonds && vaultData.diamonds.vaulted) ? vaultData.diamonds.vaulted : '';
+            let security = vaultData.storage ? `${vaultData.storage} (Serial: ${vaultData.serialNumber || ''})` : '24/7 vault protection, biometric access';
+            let underDepositSince = depositDateDisplay || vaultData.depositDate || '';
+
+            infoCard.innerHTML = `
+                <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
+                <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
+                    <li><strong>Account Holders:</strong> ${accountHolders}</li>
+                    <li><strong>Deposit Location:</strong> ${depositLocation}</li>
+                    <li><strong>Gold Type:</strong> ${goldType}</li>
+                    ${diamondGrade ? `<li><strong>Premium Diamonds:</strong> ${diamondGrade}</li>` : ''}
+                    <li><strong>Security:</strong> ${security}</li>
+                    <li><strong>Under deposit since:</strong> ${underDepositSince}</li>
+                </ul>
+                <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
+                    Assets have been under secure deposit at FirstFortune Security & Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. All precious metals and diamonds are fully insured and tracked with complete documentation and certification.
+                </p>
+            `;
         }
 
         function updateStatistics() {
@@ -1293,6 +1354,7 @@
             const statusLower = status.toLowerCase();
             if (statusLower === 'delivered') return 'status-delivered';
             if (statusLower.includes('transit')) return 'status-in-transit';
+            if (statusLower.includes('hold')) return 'status-on-hold';
             return 'status-processing';
         }
 

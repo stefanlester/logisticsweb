@@ -88,10 +88,35 @@
             letter-spacing: 1px;
         }
         
-        .status-processing { background: #fff3cd; color: #856404; }
-        .status-in-transit { background: #d1ecf1; color: #0c5460; }
-        .status-delivered { background: #d4edda; color: #155724; }
-        .status-delayed { background: #f8d7da; color: #721c24; }
+        .status-processing { 
+            background: #fef3c7; 
+            color: #d97706; 
+            border: 1px solid #fde68a;
+        }
+        .status-in-transit { 
+            background: #dbeafe; 
+            color: #1d4ed8; 
+            border: 1px solid #93c5fd;
+            font-weight: 700;
+        }
+        .status-delivered { 
+            background: #d1fae5; 
+            color: #065f46; 
+            border: 1px solid #6ee7b7;
+        }
+        .status-delayed { 
+            background: #fee2e2; 
+            color: #991b1b; 
+            border: 1px solid #fecaca;
+        }
+        .status-on-hold { 
+            background: #dc2626; 
+            color: white; 
+            border: 2px solid #991b1b;
+            padding: 10px 18px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
         
         .tracking-timeline {
             position: relative;
@@ -136,6 +161,37 @@
             height: 30px;
             background: #e0e0e0;
             z-index: 1;
+        }
+        
+        /* Timeline status colors */
+        .timeline-status {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .timeline-status.status-delivered {
+            color: #065f46;
+        }
+        
+        .timeline-status.status-in-transit {
+            color: #1d4ed8;
+        }
+        
+        .timeline-status.status-on-hold {
+            color: #dc2626;
+            text-transform: uppercase;
+        }
+        
+        .timeline-status.status-processing {
+            color: #d97706;
+        }
+        
+        .timeline-status.status-delayed {
+            color: #991b1b;
+        }
+        
+        .timeline-status.status-dispatched {
+            color: #7c3aed;
         }
         
         .error-message {
@@ -604,7 +660,7 @@
             <div class="container">
                 <div class="row text-md-start text-center">
                     <div class="col-sm-12 col-md-6 copyright-links">
-                        <a href="#">Privacy Policy</a> <span>|</span> <a href="#">Contact</a>
+                        <a href="about-us.html">Privacy Policy</a> <span>|</span> <a href="contact-us.html">Contact</a>
                     </div>
                     <div class="col-sm-12 col-md-6 text-md-end text-center">
                         © <span id="yearText"></span> FirstFortune Securities. All Rights Reserved
@@ -707,7 +763,7 @@
                             </div>
                             <div class="timeline-content">
                                 <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <strong>${event.status}</strong>
+                                    <strong class="timeline-status ${getStatusClass(event.status)}">${event.status}</strong>
                                     <small class="text-muted">${event.timestamp}</small>
                                 </div>
                                 <div class="text-muted mb-1">${event.location}</div>
@@ -724,11 +780,21 @@
         }
 
         function getStatusClass(status) {
+            const statusLower = status.toLowerCase();
+            
+            if (statusLower === 'delivered') return 'status-delivered';
+            if (statusLower.includes('transit')) return 'status-in-transit';
+            if (statusLower.includes('hold')) return 'status-on-hold';
+            if (statusLower.includes('delay')) return 'status-delayed';
+            if (statusLower === 'processing') return 'status-processing';
+            
+            // Legacy fallback
             const statusMap = {
                 'Processing': 'status-processing',
                 'In Transit': 'status-in-transit',
                 'Delivered': 'status-delivered',
-                'Delayed': 'status-delayed'
+                'Delayed': 'status-delayed',
+                'On Hold': 'status-on-hold'
             };
             return statusMap[status] || 'status-processing';
         }
