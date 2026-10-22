@@ -132,10 +132,10 @@ const users = [
         inTransit: '120.000 kg',
         purity: '99.99%'
       },
-      storage: 'Delivered to Jersey City Buyers (consignee)',
+      storage: 'In transit to Jersey City Buyers (consignee)',
       purchasedFrom: 'Gold Era Egypt',
       purchaseLocation: 'North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt',
-      location: 'Delivered to Jersey City, NJ, USA on 2026-10-29',
+      location: 'In transit from Cairo, Egypt to Jersey City, NJ, USA - estimated arrival 2026-10-31',
       depositDate: '2026-10-01'
     }
   },
@@ -159,10 +159,9 @@ let shipments = [
     trackingNumber: "GE20261029GOLD",
     origin: "Cairo, Egypt",
     destination: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
-    status: "Delivered",
-    currentLocation: "Jersey City, NJ, United States",
-    estimatedDelivery: "2026-10-29",
-    actualDelivery: "2026-10-29",
+    status: "In Transit",
+    currentLocation: "In transit from Cairo, Egypt to Jersey City, NJ, United States",
+    estimatedDelivery: "2026-10-31",
     weight: "120kg Gold (24 Karat)",
     service: "International Secure Asset Delivery",
     userId: 4, // Associated with Gifty Enu
@@ -187,10 +186,10 @@ let shipments = [
         description: "Shipment departed Cairo bound for Jersey City, NJ, United States"
       },
       {
-        timestamp: "2026-10-29 14:00",
-        location: "Jersey City, NJ, United States",
-        status: "Delivered",
-        description: "Shipment delivered to Jersey City Buyers at 264 Newark Ave, Jersey City, NJ 07302"
+        timestamp: "2026-10-02 08:00",
+        location: "In transit",
+        status: "In Transit",
+        description: "Shipment en route to Jersey City, NJ. Estimated arrival 2026-10-31"
       }
     ]
   },
