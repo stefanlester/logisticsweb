@@ -106,6 +106,39 @@ const users = [
       depositDate: 'July 2012'
     }
   },
+  {
+    id: 4,
+    email: 'gifty.enu@firstfortunesecurities.com',
+    password: '$2a$10$GVOuLS84KD3zbbsrU6HlF.VKKd4lo.i3.S1cd6TE3j.IKtij692dm', // giftygold2026
+    firstName: 'Gifty',
+    lastName: 'Enu',
+    company: 'FirstFortune Securities',
+    phone: '+44 20 7946 0820',
+    role: 'customer',
+    verified: true,
+    createdAt: new Date('2026-10-01'),
+    addresses: [
+      '25 Bolton Road, London E15 4JY, United Kingdom'
+    ],
+    vaultAssets: {
+      owner: 'Miss Gifty Enu',
+      addresses: [
+        '25 Bolton Road, London E15 4JY, United Kingdom'
+      ],
+      bonafideOwner: true,
+      gold: {
+        description: '24 Karat Gold',
+        vaulted: null,
+        inTransit: '120.000 kg',
+        purity: '99.99%'
+      },
+      storage: 'Delivered to Jersey City Buyers (consignee)',
+      purchasedFrom: 'Gold Era Egypt',
+      purchaseLocation: 'North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt',
+      location: 'Delivered to Jersey City, NJ, USA on 2026-10-29',
+      depositDate: '2026-10-01'
+    }
+  },
     {
         id: 2,
         email: 'admin@firstfortunesecurities.com',
@@ -121,6 +154,46 @@ const users = [
 ];
 
 let shipments = [
+  {
+    id: "GE20261029GOLD",
+    trackingNumber: "GE20261029GOLD",
+    origin: "Cairo, Egypt",
+    destination: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
+    status: "Delivered",
+    currentLocation: "Jersey City, NJ, United States",
+    estimatedDelivery: "2026-10-29",
+    actualDelivery: "2026-10-29",
+    weight: "120kg Gold (24 Karat)",
+    service: "International Secure Asset Delivery",
+    userId: 4, // Associated with Gifty Enu
+    assetType: "gold_bullion",
+    depositDate: "2026-10-01",
+    assets: {
+      gold: "120 kilograms of 24 karat gold (99.99%)",
+      purchasedFrom: "Gold Era Egypt",
+      purchaseLocation: "North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt"
+    },
+    history: [
+      {
+        timestamp: "2026-10-01 09:00",
+        location: "Gold Era Egypt, Cairo, Egypt",
+        status: "Assets prepared for shipment",
+        description: "120kg of 24 karat gold purchased from Gold Era Egypt and prepared for international transfer to Jersey City Buyers"
+      },
+      {
+        timestamp: "2026-10-01 17:30",
+        location: "Cairo, Egypt",
+        status: "Dispatched",
+        description: "Shipment departed Cairo bound for Jersey City, NJ, United States"
+      },
+      {
+        timestamp: "2026-10-29 14:00",
+        location: "Jersey City, NJ, United States",
+        status: "Delivered",
+        description: "Shipment delivered to Jersey City Buyers at 264 Newark Ave, Jersey City, NJ 07302"
+      }
+    ]
+  },
   {
     id: "DRFCLPXW03",
     trackingNumber: "DRFCLPXW03",
