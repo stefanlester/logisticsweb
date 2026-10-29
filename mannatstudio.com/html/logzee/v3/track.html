@@ -203,6 +203,31 @@
             border-left: 4px solid #dc3545;
             display: none;
         }
+
+        .customs-notice {
+            background: #fff8e1;
+            color: #5c3b00;
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin-top: 24px;
+            border-left: 4px solid #d97706;
+        }
+
+        .customs-notice h5 {
+            margin: 0 0 10px 0;
+            color: #92400e;
+            font-weight: 700;
+        }
+
+        .customs-notice ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .customs-notice li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
         
         .loading {
             display: none;
@@ -752,8 +777,14 @@
                         <div class="info-label">Service</div>
                         <div class="info-value">${shipment.service}</div>
                     </div>
+                    ${shipment.authorisedRecipient ? `
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Authorised Recipient</div>
+                        <div class="info-value">${shipment.authorisedRecipient}</div>
+                    </div>
+                    ` : ''}
                 </div>
-                
+
                 <h4 class="mt-4 mb-3">Tracking History</h4>
                 <div class="tracking-timeline">
                     ${shipment.history.map(event => `
@@ -772,6 +803,15 @@
                         </div>
                     `).join('')}
                 </div>
+
+                ${Array.isArray(shipment.notes) && shipment.notes.length ? `
+                <div class="customs-notice">
+                    <h5>Important Notice</h5>
+                    <ul>
+                        ${shipment.notes.map(n => `<li>${n}</li>`).join('')}
+                    </ul>
+                </div>
+                ` : ''}
             `;
             
             shipmentDetails.innerHTML = detailsHTML;

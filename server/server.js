@@ -135,7 +135,7 @@ const users = [
       storage: 'In transit to Jersey City Buyers (consignee)',
       purchasedFrom: 'Gold Era Egypt',
       purchaseLocation: 'North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt',
-      location: 'In transit from Cairo, Egypt to Jersey City, NJ, USA - estimated arrival 2026-10-31',
+      location: 'Atlantic Ocean - en route to Elizabeth-Port Authority Marine Terminal, New Jersey; estimated final arrival 2026-10-31',
       depositDate: '2026-10-01'
     }
   },
@@ -157,10 +157,11 @@ let shipments = [
   {
     id: "GE20261029GOLD",
     trackingNumber: "GE20261029GOLD",
-    origin: "Cairo, Egypt",
-    destination: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
+    origin: "Alexandria, Egypt",
+    destination: "Elizabeth-Port Authority Marine Terminal, New Jersey, United States",
+    authorisedRecipient: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
     status: "In Transit",
-    currentLocation: "In transit from Cairo, Egypt to Jersey City, NJ, United States",
+    currentLocation: "Atlantic Ocean",
     estimatedDelivery: "2026-10-31",
     weight: "120kg Gold (24 Karat)",
     service: "International Secure Asset Delivery",
@@ -174,23 +175,40 @@ let shipments = [
     },
     history: [
       {
-        timestamp: "2026-10-01 09:00",
-        location: "Gold Era Egypt, Cairo, Egypt",
-        status: "Assets prepared for shipment",
-        description: "120kg of 24 karat gold purchased from Gold Era Egypt and prepared for international transfer to Jersey City Buyers"
-      },
-      {
-        timestamp: "2026-10-01 17:30",
-        location: "Cairo, Egypt",
+        timestamp: "2026-10-01",
+        location: "Alexandria, Egypt",
         status: "Dispatched",
-        description: "Shipment departed Cairo bound for Jersey City, NJ, United States"
+        description: "Shipment departed Alexandria, Egypt, bound for the United States"
       },
       {
-        timestamp: "2026-10-02 08:00",
-        location: "In transit",
+        timestamp: "2026-10-19",
+        location: "Algeciras, Spain",
         status: "In Transit",
-        description: "Shipment en route to Jersey City, NJ. Estimated arrival 2026-10-31"
+        description: "Vessel transit through the Strait of Gibraltar; port call at Algeciras, Spain"
+      },
+      {
+        timestamp: "2026-10-27",
+        location: "Atlantic Ocean",
+        status: "In Transit",
+        description: "Vessel underway across the Atlantic Ocean bound for New Jersey"
+      },
+      {
+        timestamp: "Pending",
+        location: "Port Newark, New Jersey, USA",
+        status: "Scheduled",
+        description: "Scheduled port call at Port Newark, New Jersey prior to final discharge"
+      },
+      {
+        timestamp: "2026-10-31",
+        location: "Elizabeth-Port Authority Marine Terminal, New Jersey, USA",
+        status: "Final Arrival",
+        description: "Scheduled final arrival and discharge at Elizabeth-Port Authority Marine Terminal, New Jersey"
       }
+    ],
+    notes: [
+      "US Customs and Border Protection: gold bullion, coins and medals must be declared on entry.",
+      "The authorised recipient must provide proof of ownership and declaration before the shipment can be released.",
+      "If the shipment is not declared, the gold will be returned to the sender within 3 days for security purposes."
     ]
   },
   {
@@ -572,6 +590,8 @@ app.get('/api/track/:trackingNumber', optionalAuth, (req, res) => {
       estimatedDelivery: shipment.estimatedDelivery,
       actualDelivery: shipment.actualDelivery,
       service: shipment.service,
+      authorisedRecipient: shipment.authorisedRecipient,
+      notes: shipment.notes,
       history: shipment.history.map(h => ({
         timestamp: h.timestamp,
         location: h.location,
