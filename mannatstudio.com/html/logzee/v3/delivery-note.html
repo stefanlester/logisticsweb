@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delivery / Receipt Note | FirstFortune Securities</title>
+    <link rel="icon" href="assets/images/ship.png">
+    <style>
+        :root {
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --line: #d1d5db;
+            --accent: #0f172a;
+            --notice-bg: #fff8e1;
+            --notice-border: #d97706;
+            --notice-ink: #5c3b00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f4f6;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .toolbar {
+            background: #0f172a;
+            color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar .title { font-weight: 600; letter-spacing: 0.3px; }
+
+        .toolbar .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-primary { background: #22c55e; color: #052e16; }
+        .btn-ghost { background: transparent; color: #fff; border: 1px solid #334155; }
+
+        .page {
+            max-width: 820px;
+            margin: 24px auto;
+            background: #fff;
+            padding: 56px 64px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 4px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+            gap: 24px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 14px; }
+        .brand img { width: 56px; height: 56px; object-fit: contain; }
+        .brand .name { font-size: 20px; font-weight: 700; color: var(--accent); }
+        .brand .tag { font-size: 12px; color: var(--muted); letter-spacing: 0.4px; text-transform: uppercase; }
+
+        .doc-meta { text-align: right; font-size: 13px; }
+        .doc-meta .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .doc-meta .row { color: var(--muted); }
+        .doc-meta .row strong { color: var(--ink); }
+
+        .status-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .status-chip.in-transit { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+        .status-chip.on-hold { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .status-chip.processing { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+
+        .parties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        .party-card {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 16px 18px;
+        }
+        .party-card .label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .party-card .value { font-size: 14px; line-height: 1.5; }
+        .party-card .value strong { display: block; margin-bottom: 4px; color: var(--accent); }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 28px 0 10px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .info-table th, .info-table td {
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+        }
+        .info-table th {
+            width: 32%;
+            font-weight: 600;
+            color: var(--muted);
+            background: #f9fafb;
+        }
+
+        .timeline { font-size: 13.5px; }
+        .timeline-event {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+        .timeline-event:last-child { border-bottom: 0; }
+        .timeline-event .when { color: var(--muted); font-weight: 600; }
+        .timeline-event .what strong { display: block; color: var(--accent); margin-bottom: 2px; }
+        .timeline-event .what .where { color: var(--muted); font-size: 12.5px; margin-bottom: 2px; }
+
+        .notice {
+            background: var(--notice-bg);
+            color: var(--notice-ink);
+            border-left: 4px solid var(--notice-border);
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        .notice h4 {
+            margin: 0 0 8px 0;
+            color: #92400e;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .notice ul { margin: 0; padding-left: 20px; }
+        .notice li { margin-bottom: 4px; line-height: 1.5; }
+
+        .signatures {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 24px;
+        }
+        .sig {
+            border-top: 1px solid var(--ink);
+            padding-top: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .sig .role { font-weight: 700; color: var(--accent); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sig .who { color: var(--ink); min-height: 32px; }
+        .sig .date-line { margin-top: 10px; font-size: 11px; color: var(--muted); }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .loading, .error-box {
+            max-width: 820px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+        .error-box { color: #991b1b; border-left: 4px solid #dc2626; text-align: left; }
+
+        @media print {
+            body { background: #fff; }
+            .toolbar { display: none; }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                padding: 32px 36px;
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <div class="title">FirstFortune Securities — Delivery / Receipt Note</div>
+        <div class="actions">
+            <a class="btn btn-ghost" href="track.html" id="backLink">Back to tracking</a>
+            <button class="btn btn-primary" id="downloadBtn" disabled>Download PDF</button>
+        </div>
+    </div>
+
+    <div id="loading" class="loading">Loading delivery note…</div>
+    <div id="errorBox" class="error-box" style="display:none;"></div>
+    <div id="page" class="page" style="display:none;">
+        <div class="header">
+            <div class="brand">
+                <img src="assets/images/ship.png" alt="FirstFortune Securities">
+                <div>
+                    <div class="name">FirstFortune Securities</div>
+                    <div class="tag">Logistics &amp; Security</div>
+                </div>
+            </div>
+            <div class="doc-meta">
+                <div class="doc-title">Delivery / Receipt Note</div>
+                <div class="row">Reference: <strong id="metaRef">—</strong></div>
+                <div class="row">Issued: <strong id="metaIssued">—</strong></div>
+                <div class="row" style="margin-top:8px;"><span class="status-chip" id="metaStatus">—</span></div>
+            </div>
+        </div>
+
+        <div class="parties">
+            <div class="party-card">
+                <div class="label">Consignor (Origin)</div>
+                <div class="value">
+                    <strong>FirstFortune Securities</strong>
+                    <div id="partyOrigin">—</div>
+                </div>
+            </div>
+            <div class="party-card">
+                <div class="label">Authorised Recipient</div>
+                <div class="value">
+                    <strong id="partyRecipientName">—</strong>
+                    <div id="partyRecipientAddr"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Shipment Details</div>
+        <table class="info-table">
+            <tbody id="infoTableBody"></tbody>
+        </table>
+
+        <div class="section-title">Shipment Timeline</div>
+        <div class="timeline" id="timeline"></div>
+
+        <div id="noticeBox" style="display:none;"></div>
+
+        <div class="signatures">
+            <div class="sig">
+                <div class="role">Signed by Consignor</div>
+                <div class="who">&nbsp;</div>
+                <div class="date-line">Name · Signature · Date</div>
+            </div>
+            <div class="sig">
+                <div class="role">Received by Authorised Recipient</div>
+                <div class="who">&nbsp;</div>
+                <div class="date-line">Name · Signature · Date</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            FirstFortune Securities — International Secure Asset Transfer &amp; Logistics<br>
+            This delivery note is issued as a record of shipment and must be countersigned by the authorised recipient on release.
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        const params = new URLSearchParams(location.search);
+        const tn = (params.get('tn') || '').trim();
+
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('errorBox');
+        const pageEl = document.getElementById('page');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        function showError(msg) {
+            loadingEl.style.display = 'none';
+            pageEl.style.display = 'none';
+            errorEl.style.display = 'block';
+            errorEl.innerHTML = '<strong>Unable to load delivery note.</strong><br>' + msg;
+        }
+
+        function escapeHtml(str) {
+            return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
+                '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+            }[c]));
+        }
+
+        function statusChipClass(status) {
+            const s = (status || '').toLowerCase();
+            if (s === 'delivered') return '';
+            if (s.includes('transit')) return 'in-transit';
+            if (s.includes('hold')) return 'on-hold';
+            if (s.includes('delay') || s === 'processing' || s.includes('scheduled')) return 'processing';
+            return '';
+        }
+
+        function render(shipment) {
+            document.getElementById('metaRef').textContent = shipment.trackingNumber;
+            document.getElementById('metaIssued').textContent = new Date().toISOString().slice(0, 10);
+
+            const statusEl = document.getElementById('metaStatus');
+            statusEl.textContent = shipment.status || '—';
+            statusEl.className = 'status-chip ' + statusChipClass(shipment.status);
+
+            document.getElementById('partyOrigin').textContent = shipment.origin || '—';
+
+            // Authorised recipient: prefer explicit field; fall back to destination
+            const recipientText = shipment.authorisedRecipient || shipment.destination || '—';
+            const [firstLine, ...restLines] = recipientText.split(/,\s*/);
+            document.getElementById('partyRecipientName').textContent = firstLine || '—';
+            document.getElementById('partyRecipientAddr').textContent = restLines.join(', ');
+
+            // Shipment details table
+            const rows = [
+                ['Tracking Number', shipment.trackingNumber],
+                ['Service', shipment.service],
+                ['Origin', shipment.origin],
+                ['Destination', shipment.destination],
+                ['Current Location', shipment.currentLocation],
+                ['Weight / Contents', shipment.weight],
+                ['Estimated Delivery', shipment.estimatedDelivery],
+                ['Actual Delivery', shipment.actualDelivery]
+            ].filter(([, v]) => v);
+
+            document.getElementById('infoTableBody').innerHTML = rows
+                .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
+                .join('');
+
+            // Timeline
+            document.getElementById('timeline').innerHTML = (shipment.history || []).map(ev => `
+                <div class="timeline-event">
+                    <div class="when">${escapeHtml(ev.timestamp || '')}</div>
+                    <div class="what">
+                        <strong>${escapeHtml(ev.status || '')}</strong>
+                        <div class="where">${escapeHtml(ev.location || '')}</div>
+                        <div>${escapeHtml(ev.description || '')}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Customs notice
+            if (Array.isArray(shipment.notes) && shipment.notes.length) {
+                const notice = document.getElementById('noticeBox');
+                notice.style.display = 'block';
+                notice.innerHTML = `
+                    <div class="notice">
+                        <h4>Important Notice</h4>
+                        <ul>${shipment.notes.map(n => '<li>' + escapeHtml(n) + '</li>').join('')}</ul>
+                    </div>
+                `;
+            }
+
+            loadingEl.style.display = 'none';
+            pageEl.style.display = 'block';
+            downloadBtn.disabled = false;
+            document.title = `Delivery Note ${shipment.trackingNumber} | FirstFortune Securities`;
+
+            document.getElementById('backLink').href = `track.html?tn=${encodeURIComponent(shipment.trackingNumber)}`;
+
+            downloadBtn.addEventListener('click', () => {
+                const opts = {
+                    margin: [10, 10, 10, 10],
+                    filename: `DeliveryNote-${shipment.trackingNumber}.pdf`,
+                    image: { type: 'jpeg', quality: 0.95 },
+                    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: ['css', 'legacy'] }
+                };
+                downloadBtn.disabled = true;
+                downloadBtn.textContent = 'Generating…';
+                html2pdf().set(opts).from(pageEl).save().then(() => {
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Download PDF';
+                }).catch(err => {
+                    console.error(err);
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Download PDF';
+                    alert('Unable to generate PDF. Please try again.');
+                });
+            });
+        }
+
+        async function load() {
+            if (!tn) {
+                showError('No tracking number provided. Open this page with ?tn=YOUR_TRACKING_NUMBER.');
+                return;
+            }
+
+            // If the viewer is logged in, send the token so the owner sees full details.
+            const token = localStorage.getItem('authToken');
+            const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+
+            try {
+                const res = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.TRACK + '/' + encodeURIComponent(tn)), { headers });
+                const data = await res.json();
+                if (!res.ok || !data.success) {
+                    showError(escapeHtml(data.message || 'Tracking number not found.'));
+                    return;
+                }
+                render(data.data);
+            } catch (err) {
+                console.error(err);
+                showError('Network error while loading the shipment.');
+            }
+        }
+
+        load();
+    </script>
+</body>
+</html>

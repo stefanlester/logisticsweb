@@ -1339,8 +1339,12 @@
                             <div class="col-md-2">
                                 ${shipment.service}
                             </div>
-                            <div class="col-md-2">
-                               
+                            <div class="col-md-2 text-md-end">
+                                <a href="delivery-note.html?tn=${encodeURIComponent(shipment.trackingNumber)}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Download delivery / receipt note">
+                                    <i class="icofont-file-pdf me-1"></i>Delivery Note
+                                </a>
                             </div>
                         </div>
                     </div>

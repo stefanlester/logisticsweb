@@ -812,6 +812,14 @@
                     </ul>
                 </div>
                 ` : ''}
+
+                <div class="mt-4 text-center">
+                    <a href="delivery-note.html?tn=${encodeURIComponent(shipment.trackingNumber)}"
+                       class="btn btn-primary btn-lg"
+                       style="padding: 12px 28px; border-radius: 10px; font-weight: 600;">
+                        <i class="icofont-file-pdf me-2"></i>Download Delivery Note
+                    </a>
+                </div>
             `;
             
             shipmentDetails.innerHTML = detailsHTML;
