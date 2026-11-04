@@ -132,10 +132,10 @@ const users = [
         inTransit: '120.000 kg',
         purity: '99.99%'
       },
-      storage: 'In transit to Jersey City Buyers (consignee)',
+      storage: 'Arrived at Elizabeth-Port Authority Marine Terminal, New Jersey; awaiting authorised recipient declaration and release to Jersey City Buyers',
       purchasedFrom: 'Gold Era Egypt',
       purchaseLocation: 'North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt',
-      location: 'Atlantic Ocean - en route to Elizabeth-Port Authority Marine Terminal, New Jersey; estimated final arrival 2026-10-31',
+      location: 'Elizabeth-Port Authority Marine Terminal, New Jersey, USA - arrived 2026-11-02',
       depositDate: '2026-10-01'
     }
   },
@@ -160,9 +160,10 @@ let shipments = [
     origin: "Alexandria, Egypt",
     destination: "Elizabeth-Port Authority Marine Terminal, New Jersey, United States",
     authorisedRecipient: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
-    status: "In Transit",
-    currentLocation: "Atlantic Ocean",
+    status: "Delivered",
+    currentLocation: "Elizabeth-Port Authority Marine Terminal, New Jersey, USA",
     estimatedDelivery: "2026-10-31",
+    actualDelivery: "2026-11-02",
     weight: "120kg Gold (24 Karat)",
     service: "International Secure Asset Delivery",
     userId: 4, // Associated with Gifty Enu
@@ -193,16 +194,16 @@ let shipments = [
         description: "Vessel underway across the Atlantic Ocean bound for New Jersey"
       },
       {
-        timestamp: "Pending",
+        timestamp: "2026-11-01",
         location: "Port Newark, New Jersey, USA",
-        status: "Scheduled",
-        description: "Scheduled port call at Port Newark, New Jersey prior to final discharge"
+        status: "In Transit",
+        description: "Port call completed at Port Newark, New Jersey; vessel proceeding to Elizabeth-Port Authority Marine Terminal"
       },
       {
-        timestamp: "2026-10-31",
+        timestamp: "2026-11-02",
         location: "Elizabeth-Port Authority Marine Terminal, New Jersey, USA",
-        status: "Final Arrival",
-        description: "Scheduled final arrival and discharge at Elizabeth-Port Authority Marine Terminal, New Jersey"
+        status: "Delivered",
+        description: "Shipment arrived and discharged at Elizabeth-Port Authority Marine Terminal, New Jersey. Awaiting authorised recipient declaration and release."
       }
     ],
     notes: [
