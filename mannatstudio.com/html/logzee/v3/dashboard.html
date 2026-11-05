@@ -302,6 +302,29 @@
         .shipment-row:last-child {
             margin-bottom: 0;
         }
+
+        .shipment-row .receipt-cell .btn {
+            display: inline-block;
+        }
+
+        @media (max-width: 767.98px) {
+            .shipment-row > .row > [class*="col-"] {
+                margin-bottom: 10px;
+            }
+            .shipment-row > .row > [class*="col-"]:last-child {
+                margin-bottom: 0;
+            }
+            .shipment-row .receipt-cell {
+                text-align: center;
+                margin-top: 14px;
+            }
+            .shipment-row .receipt-cell .btn {
+                display: block;
+                width: 100%;
+                padding: 12px 14px !important;
+                font-size: 1rem !important;
+            }
+        }
         
         .status-badge {
             padding: 8px 16px;
@@ -1339,11 +1362,12 @@
                             <div class="col-md-2">
                                 ${shipment.service}
                             </div>
-                            <div class="col-md-2 text-md-end">
+                            <div class="col-12 col-md-2 text-md-end receipt-cell">
                                 <a href="delivery-note.html?tn=${encodeURIComponent(shipment.trackingNumber)}"
-                                   class="btn btn-sm btn-outline-primary"
-                                   title="Download delivery / receipt note">
-                                    <i class="icofont-file-pdf me-1"></i>Delivery Note
+                                   class="btn btn-primary"
+                                   style="background: #16a34a; border-color: #16a34a; color: #fff; font-weight: 600; padding: 8px 14px; border-radius: 8px; white-space: nowrap;"
+                                   title="Download delivery / receipt note (PDF)">
+                                    <i class="icofont-file-pdf me-2"></i>Download Receipt
                                 </a>
                             </div>
                         </div>
