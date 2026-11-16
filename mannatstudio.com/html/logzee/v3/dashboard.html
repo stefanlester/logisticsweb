@@ -865,9 +865,9 @@
                 </div>
                 <div class="header-right">
                     <div class="user-info">
-                        <div class="user-avatar" id="headerUserAvatar">MM</div>
+                        <div class="user-avatar" id="headerUserAvatar">DC</div>
                         <div class="user-details">
-                            <span class="user-name" id="headerUserName">Mary Miles & Craig Goodman</span>
+                            <span class="user-name" id="headerUserName">Demo Client One</span>
                             <span class="user-role">Dashboard</span>
                         </div>
                     </div>
@@ -887,10 +887,10 @@
             <div class="user-welcome">
                 <div class="welcome-header">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="welcome-avatar" id="userAvatar">MM</div>
+                        <div class="welcome-avatar" id="userAvatar">DC</div>
                         <div class="welcome-info">
-                            <h2 id="userName">Welcome Back, Mary & Craig!</h2>
-                            <p id="userEmail">Account Holders: Mary Miles & Craig Goodman</p>
+                            <h2 id="userName">Welcome back, Demo Client</h2>
+                            <p id="userEmail">Account holder: Demo Client One</p>
                         </div>
                     </div>
                     <div class="text-end">
@@ -995,13 +995,13 @@
                         <div class="shipment-header">
                             <div>
                                 <div class="shipment-id">FS2001ASSETS</div>
-                                <div class="shipment-route">Geneva, Switzerland → Alexandria, Virginia, USA • International Transfer</div>
+                                <div class="shipment-route">Geneva, Switzerland → Demo City, NY, USA • International Transfer</div>
                             </div>
                             <span class="status-badge status-processing">Ready for Transfer</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div style="font-size: 0.875rem; color: #6b7280;">
-                                <strong>Assets:</strong> 110kg 24K Gold + 60ct Diamonds • <strong>Destination:</strong> 6127 Oliver Drive, Alexandria, VA
+                                <strong>Assets:</strong> 110kg 24K Gold + 60ct Diamonds • <strong>Destination:</strong> 500 Example Avenue, Demo City, NY
                             </div>
                             <div style="font-size: 0.75rem; color: #9ca3af;">
                                 Transfer Prepared: October 18, 2025
@@ -1040,7 +1040,7 @@
                         <div class="vault-info">
                             <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
                             <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
-                                <li><strong>Account Holders:</strong> Mary Miles & Craig Goodman</li>
+                                <li><strong>Account holder:</strong> Demo Client One</li>
                                 <li><strong>Deposit Location:</strong> Geneva, Switzerland</li>
                                 <li><strong>Gold Type:</strong> Certified 24K Gold Bars</li>
                                 <li><strong>Diamond Grade:</strong> Excellent-quality cut, D-color, VVS clarity</li>
@@ -1172,15 +1172,15 @@
                     const result = await response.json();
                     const user = result.data;
                     
-                    // Special handling for Mary Miles & Craig Goodman account
-                    if (user.firstName === 'Mary Miles' && user.lastName === '& Craig Goodman') {
-                        document.getElementById('userName').textContent = 'Welcome Back, Mary & Craig!';
-                        document.getElementById('userEmail').textContent = 'Account Holders: Mary Miles & Craig Goodman';
-                        document.getElementById('headerUserName').textContent = 'Mary Miles & Craig Goodman';
+                    // Special handling for the seeded demo account
+                    if (user.firstName === 'Demo Client' && user.lastName === 'One') {
+                        document.getElementById('userName').textContent = 'Welcome back, Demo Client';
+                        document.getElementById('userEmail').textContent = 'Account holder: Demo Client One';
+                        document.getElementById('headerUserName').textContent = 'Demo Client One';
                         
                         // Use MM for avatars
-                        document.getElementById('userAvatar').textContent = 'MM';
-                        document.getElementById('headerUserAvatar').textContent = 'MM';
+                        document.getElementById('userAvatar').textContent = 'DC';
+                        document.getElementById('headerUserAvatar').textContent = 'DC';
                     } else {
                         // Default behavior for other users
                         document.getElementById('userName').textContent = `Welcome, ${user.firstName} ${user.lastName}`;

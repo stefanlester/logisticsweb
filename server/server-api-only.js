@@ -30,8 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 const users = [
     {
         id: 1,
-        email: 'vanessa@sovereignfortunesecurities.com',
-        password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
+        email: 'demo.client1@example.com',
+        password: '$2a$10$AHpoNElcaFEXpDI8/FdDF.nzKI.qSXnd0F2PhHC/f7CI/RKIhQlbK', // demo-client-1
         firstName: 'Vanessa',
         lastName: 'Johnson',
         company: 'Sovereign Fortune Securities',
@@ -43,7 +43,7 @@ const users = [
     {
         id: 2,
         email: 'admin@sovereignfortunesecurities.com',
-        password: '$2a$10$D7fne4VLoIPDvfPGhyG2qOLPh29/e9uR4nauGvZof0mITTL7y2ziy', // admin123
+        password: '$2a$10$z7bk3Z/bmsi4waBdSUsWHeal3mkaVPGDm0Km9yF3tC70uqR0B0XYy', // demo-admin
         firstName: 'Admin',
         lastName: 'User',
         company: 'Sovereign Fortune Securities',
@@ -554,8 +554,8 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📍 API Base: http://localhost:${PORT}/api`);
   console.log(`💡 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔐 Test Accounts:`);
-  console.log(`  Customer: vanessa@sovereignfortunesecurities.com / bumblebee`);
-  console.log(`  Admin: admin@sovereignfortunesecurities.com / admin123`);
+  console.log(`  Customer: demo.client1@example.com / demo-client-1`);
+  console.log(`  Admin: admin@example.com / demo-admin`);
   console.log(`📦 Demo Tracking: FF123456789, FF987654321, DEMO123456789`);
 });
 

@@ -8,7 +8,7 @@
 
 ### **2. Updated Customer Credentials**
 - ❌ **Old**: `demo@sovereignfortunesecurities.com` / `demo123`
-- ✅ **New**: `vanessa@sovereignfortunesecurities.com` / `bumblebee`
+- ✅ **New**: `demo.client1@example.com` / `demo-client-1`
 
 ### **3. Updated Files:**
 - ✅ `login.html` - Removed demo alert
@@ -20,14 +20,14 @@
 ## 🎯 New Test Credentials:
 
 ### **Customer Account:**
-- **Email**: `vanessa@sovereignfortunesecurities.com`  
-- **Password**: `bumblebee`
+- **Email**: `demo.client1@example.com`  
+- **Password**: `demo-client-1`
 - **Name**: Vanessa Johnson
 - **Role**: Customer
 
 ### **Admin Account** (unchanged):
-- **Email**: `admin@sovereignfortunesecurities.com`
-- **Password**: `admin123`
+- **Email**: `admin@example.com`
+- **Password**: `demo-admin`
 - **Role**: Admin
 
 ## 📋 What Users Will See:
@@ -51,7 +51,7 @@
 
 Once Render redeploys (2-3 minutes), test with:
 - Visit: `https://sovereignfortunesecurities.com/login.html`
-- Login: `vanessa@sovereignfortunesecurities.com` / `bumblebee`
+- Login: `demo.client1@example.com` / `demo-client-1`
 - Should work without any demo alerts showing
 
 The login page is now much cleaner and more professional! 🎉

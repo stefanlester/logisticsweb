@@ -44,12 +44,12 @@ app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3'
 const users = [
   {
     id: 1,
-    email: 'mary.craig@sovereignfortunesecurities.com',
-    password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
-    firstName: 'Mary Miles',
-    lastName: '& Craig Goodman',
+    email: 'demo.client1@example.com',
+    password: '$2a$10$AHpoNElcaFEXpDI8/FdDF.nzKI.qSXnd0F2PhHC/f7CI/RKIhQlbK', // demo-client-1
+    firstName: 'Demo Client',
+    lastName: 'One',
     company: 'Sovereign Fortune Securities',
-    phone: '+41 22 918 8400',
+    phone: '+41 22 555 0171',
     role: 'customer',
     verified: true,
     createdAt: new Date('2001-08-17'),
@@ -70,25 +70,25 @@ const users = [
   },
   {
     id: 3,
-    email: 'kezia.osei.anderson@sovereignfortunesecurities.com',
-    password: '$2a$10$wCK4rrV6Pzv8Yp75nBIWuu4CBh911kTtbUTui1Z2rhhCO8bL9rrB6', // goldowner2025
-    firstName: 'Kezia Osei',
-    lastName: 'Anderson & Gerhard Hennin',
+    email: 'demo.client2@example.com',
+    password: '$2a$10$bSEAj5zOVJB4hTYnsE3Zke0KelEHZO6NQW5lqHQtXH66OWR5BYlpC', // demo-client-2
+    firstName: 'Demo Client',
+    lastName: 'Two',
     company: 'Sovereign Fortune Securities',
-    phone: '+44 131 555 1234',
+    phone: '+377 99 55 01 20',
     role: 'customer',
     verified: true,
     createdAt: new Date('2012-07-01'),
     addresses: [
-      '77 Stone Cellar Road, Kinloch, IV16 2TF, United Kingdom',
-      'Rüderner Str. 83, 73733 Esslingen am Neckar, Germany',
-      '39 Thistle Street, Edinburgh EH2 1DY, United Kingdom'
+      '1 Example Street, Demo Town, DM1 0AA',
+      '2 Musterweg, 00000 Demostadt',
+      '3 Sample Lane, Demo Town, DM2 0BB'
     ],
     vaultAssets: {
-      owner: 'Miss Kezia Osei Anderson- Mr. Gerhard Hennin',
+      owner: 'Demo Client Two',
       addresses: [
-        '77 Stone Cellar Road, Kinloch, IV16 2TF, United Kingdom',
-        'Rüderner Str. 83, 73733 Esslingen am Neckar, Germany'
+        '1 Example Street, Demo Town, DM1 0AA',
+        '2 Musterweg, 00000 Demostadt'
       ],
       bonafideOwner: true,
       gold: {
@@ -98,32 +98,32 @@ const users = [
         fineness: '999.9 (or as assayed)'
       },
       storage: 'Sovereign Fortune Security Logistics',
-      serialNumber: 'DRFCL/PXW03',
-      transactionCode: 'DRFCL/255CPP/01',
-      securityCode: 'DFRCL80/49/03',
-      location: 'South Africa (50kg of gold is being moved to Albion Secure Metals Vault – London; remainder in storage)',
-      address: '39 Thistle Street, Edinburgh EH2 1DY, United Kingdom',
+      serialNumber: 'DEMO-SN-0001',
+      transactionCode: 'DEMO-TX-0001',
+      securityCode: 'DEMO-SC-0001',
+      location: 'South Africa (50kg of gold is being moved to Meridian Vault House, Sydney; remainder in storage)',
+      address: '3 Sample Lane, Demo Town, DM2 0BB',
       depositDate: 'July 2012'
     }
   },
   {
     id: 4,
-    email: 'gifty.enu@sovereignfortunesecurities.com',
-    password: '$2a$10$GVOuLS84KD3zbbsrU6HlF.VKKd4lo.i3.S1cd6TE3j.IKtij692dm', // giftygold2026
-    firstName: 'Gifty',
-    lastName: 'Enu',
+    email: 'demo.client3@example.com',
+    password: '$2a$10$s7TsLnBl48sWTH.Agr7a9erIf/xwTPavteKhZktIOk10JXz3rNhUG', // demo-client-3
+    firstName: 'Demo Client',
+    lastName: 'Three',
     company: 'Sovereign Fortune Securities',
-    phone: '+44 20 7946 0820',
+    phone: '+61 2 5550 0133',
     role: 'customer',
     verified: true,
     createdAt: new Date('2026-10-01'),
     addresses: [
-      '25 Bolton Road, London E15 4JY, United Kingdom'
+      '4 Placeholder Close, Demo Town, DM3 0CC'
     ],
     vaultAssets: {
-      owner: 'Miss Gifty Enu',
+      owner: 'Demo Client Three',
       addresses: [
-        '25 Bolton Road, London E15 4JY, United Kingdom'
+        '4 Placeholder Close, Demo Town, DM3 0CC'
       ],
       bonafideOwner: true,
       gold: {
@@ -132,17 +132,17 @@ const users = [
         inTransit: '120.000 kg',
         purity: '99.99%'
       },
-      storage: 'Arrived at Elizabeth-Port Authority Marine Terminal, New Jersey; awaiting authorised recipient declaration and release to Jersey City Buyers',
-      purchasedFrom: 'Gold Era Egypt',
-      purchaseLocation: 'North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt',
-      location: 'Elizabeth-Port Authority Marine Terminal, New Jersey, USA - arrived 2026-11-02',
+      storage: 'Arrived at Harborline Vault Center, New York; awaiting authorised recipient declaration and release to the authorised recipient',
+      purchasedFrom: 'Demo Metals Supplier',
+      purchaseLocation: '5 Example Boulevard, Demo City',
+      location: 'Harborline Vault Center, New York, USA - arrived 2026-11-02',
       depositDate: '2026-10-01'
     }
   },
     {
         id: 2,
-        email: 'admin@sovereignfortunesecurities.com',
-        password: '$2a$10$D7fne4VLoIPDvfPGhyG2qOLPh29/e9uR4nauGvZof0mITTL7y2ziy', // admin123
+        email: 'admin@example.com',
+        password: '$2a$10$z7bk3Z/bmsi4waBdSUsWHeal3mkaVPGDm0Km9yF3tC70uqR0B0XYy', // demo-admin
         firstName: 'Admin',
         lastName: 'User',
         company: 'Sovereign Fortune Securities',
@@ -157,29 +157,29 @@ let shipments = [
   {
     id: "GE20261029GOLD",
     trackingNumber: "GE20261029GOLD",
-    origin: "Alexandria, Egypt",
-    destination: "Elizabeth-Port Authority Marine Terminal, New Jersey, United States",
-    authorisedRecipient: "Jersey City Buyers, 264 Newark Ave, Jersey City, NJ 07302, United States",
+    origin: "Demo Port, Example Country",
+    destination: "Harborline Vault Center, New York, United States",
+    authorisedRecipient: "Demo Recipient Ltd, 500 Example Avenue, Demo City, NY 10001, USA",
     status: "Delivered",
-    currentLocation: "Elizabeth-Port Authority Marine Terminal, New Jersey, USA",
+    currentLocation: "Harborline Vault Center, New York, USA",
     estimatedDelivery: "2026-10-31",
     actualDelivery: "2026-11-02",
     weight: "120kg Gold (24 Karat)",
     service: "International Secure Asset Delivery",
-    userId: 4, // Associated with Gifty Enu
+    userId: 4, // Associated with Demo Client Three
     assetType: "gold_bullion",
     depositDate: "2026-10-01",
     assets: {
       gold: "120 kilograms of 24 karat gold (99.99%)",
-      purchasedFrom: "Gold Era Egypt",
+      purchasedFrom: "Demo Metals Supplier",
       purchaseLocation: "North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt"
     },
     history: [
       {
         timestamp: "2026-10-01",
-        location: "Alexandria, Egypt",
+        location: "Demo Port, Example Country",
         status: "Dispatched",
-        description: "Shipment departed Alexandria, Egypt, bound for the United States"
+        description: "Sample departure event for demonstration purposes."
       },
       {
         timestamp: "2026-10-19",
@@ -195,48 +195,48 @@ let shipments = [
       },
       {
         timestamp: "2026-11-01",
-        location: "Port Newark, New Jersey, USA",
+        location: "Harborline Terminal, New York, USA",
         status: "In Transit",
         description: "Port call completed at Port Newark, New Jersey; vessel proceeding to Elizabeth-Port Authority Marine Terminal"
       },
       {
         timestamp: "2026-11-02",
-        location: "Elizabeth-Port Authority Marine Terminal, New Jersey, USA",
+        location: "Harborline Vault Center, New York, USA",
         status: "Delivered",
-        description: "Shipment arrived and discharged at Elizabeth-Port Authority Marine Terminal, New Jersey. Awaiting authorised recipient declaration and release."
+        description: "Sample arrival event for demonstration purposes."
       }
     ],
     notes: [
-      "US Customs and Border Protection: gold bullion, coins and medals must be declared on entry.",
-      "The authorised recipient must provide proof of ownership and declaration before the shipment can be released.",
-      "If the shipment is not declared, the gold will be returned to the sender within 3 days for security purposes."
+      "Sample note: high-value consignments require a customs declaration on entry.",
+      "Sample note: the authorised recipient completes a release declaration on collection.",
+      "Sample note: this is demonstration data and does not describe a real consignment."
     ]
   },
   {
-    id: "DRFCLPXW03",
-    trackingNumber: "DRFCLPXW03",
+    id: "DEMOSN0001",
+    trackingNumber: "DEMOSN0001",
     origin: "South Africa",
-    destination: "Albion Secure Metals Vault – London, United Kingdom",
+    destination: "Meridian Vault House, Sydney, Australia",
     status: "In Transit to London Vault",
     currentLocation: "South Africa",
     estimatedDelivery: "Pending Arrival at Albion Vault",
     weight: "350kg Gold (Good Delivery Bars)",
     service: "International Secure Asset Transfer",
-    userId: 3, // Associated with Kezia Osei Anderson & Gerhard Hennin
+    userId: 3, // Associated with Demo Client Two
     assetType: "gold_bullion",
     depositDate: "2025-10-29",
     assets: {
       gold: "350 kilograms refined gold bullion (999.9)",
-      serialNumber: "DRFCL/PXW03",
-      transactionCode: "DRFCL/255CPP/01",
-      securityCode: "DFRCL80/49/03"
+      serialNumber: "DEMO-SN-0001",
+      transactionCode: "DEMO-TX-0001",
+      securityCode: "DEMO-SC-0001"
     },
     history: [
       {
         timestamp: "2025-10-29 09:00",
         location: "South Africa",
         status: "Assets prepared for transfer",
-        description: "350kg refined gold bullion secured for international transfer to Albion Secure Metals Vault – London"
+        description: "350kg refined gold bullion secured for international transfer to Meridian Vault House, Sydney"
       },
       {
         timestamp: "2025-10-29 18:00",
@@ -246,18 +246,18 @@ let shipments = [
       }
     ]
   },
-  // New shipment for Mary Miles & Craig Goodman, October 31, 2025
+  // Sample shipment for Demo Client One
   {
     id: "FS20251031DELIVERY",
     trackingNumber: "FS20251031DELIVERY",
     origin: "Geneva, Switzerland",
-    destination: "6127 Olivet Drive, Alexandria, Virginia 22315, USA",
+    destination: "500 Example Avenue, Demo City, NY 10001, USA",
     status: "On Hold",
-    currentLocation: "U.S. Customs and Border Protection – Peace Bridge Port of Entry",
+    currentLocation: "Demo Customs Inspection Point",
     estimatedDelivery: "2025-10-31",
     weight: "50kg Gold (50 x 1kg bars) + 40ct Diamonds (D-color, VVS1, GIA)",
     service: "International Secure Asset Delivery",
-    userId: 1, // Mary Miles & Craig Goodman
+    userId: 1, // Demo Client One
     assetType: "gold_bars_diamonds",
     depositDate: "2025-10-31",
     assets: {
@@ -279,9 +279,9 @@ let shipments = [
       },
       {
         timestamp: "2025-11-02 09:30",
-        location: "U.S. Customs and Border Protection – Peace Bridge Port of Entry",
+        location: "Demo Customs Inspection Point",
         status: "On Hold",
-        description: "HELD BY CBP (CUSTOMS & BORDER PROTECTION). REASON: MISSING DOCS AND ASSAY."
+        description: "Sample hold state for demonstration: awaiting documentation."
       }
     ]
   },
@@ -289,13 +289,13 @@ let shipments = [
     id: "FS2001ASSETS",
     trackingNumber: "FS2001ASSETS",
     origin: "Geneva, Switzerland",
-    destination: "6127 Oliver Drive, Alexandria, Virginia 22315, USA",
+    destination: "500 Example Avenue, Demo City, NY 10001, USA",
     status: "Secured in Vault - Ready for Transfer",
     currentLocation: "Geneva Vault Facility",
     estimatedDelivery: "Pending Transfer Authorization",
     weight: "110kg Gold + 60ct Diamonds",
     service: "International Secure Asset Transfer",
-    userId: 1, // Associated with Mary Miles & Craig Goodman
+    userId: 1, // Demo Client One
     assetType: "precious_metals_diamonds",
     depositDate: "2001-08-17",
     assets: {
@@ -319,13 +319,13 @@ let shipments = [
         timestamp: "2025-10-18 09:00",
         location: "Geneva Vault Facility",
         status: "Transfer preparation",
-        description: "Assets prepared for international transfer to Alexandria, Virginia"
+        description: "Sample preparation event for demonstration purposes."
       },
       {
         timestamp: "2025-10-18 14:30",
         location: "Geneva Vault Facility",
         status: "Ready for transfer",
-        description: "All documentation prepared for secure transfer to 6127 Oliver Drive, Alexandria, VA"
+        description: "Sample documentation event for demonstration purposes."
       }
     ]
   },
@@ -810,8 +810,8 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`� Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log('');
   console.log('🔑 Demo Accounts:');
-  console.log('  Customer: vanessa@sovereignfortunesecurities.com / bumblebee');
-  console.log('  Admin: admin@sovereignfortunesecurities.com / admin123');
+  console.log('  Customer: demo.client1@example.com / demo-client-1');
+  console.log('  Admin: admin@example.com / demo-admin');
   console.log('');
   console.log('📦 Sample tracking numbers:');
   console.log('  - LZ2025001 (In Transit)');
