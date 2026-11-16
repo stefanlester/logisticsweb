@@ -35,7 +35,7 @@ const users = [
         firstName: 'Vanessa',
         lastName: 'Johnson',
         company: 'Sovereign Fortune Securities',
-        phone: '+1 (800) 555-DEMO',
+        phone: '+1 (707) 530-2265',
         role: 'customer',
         verified: true,
         createdAt: new Date('2025-01-01')
@@ -47,7 +47,7 @@ const users = [
         firstName: 'Admin',
         lastName: 'User',
         company: 'Sovereign Fortune Securities',
-        phone: '+1 (800) 555-ADMIN',
+        phone: '+1 (707) 530-2265',
         role: 'admin',
         verified: true,
         createdAt: new Date('2025-01-01')
