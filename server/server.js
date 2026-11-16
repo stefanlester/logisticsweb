@@ -14,6 +14,8 @@ const corsOptions = {
     'http://localhost:3000',
     'https://firstfortunesecurities.com',  // Your Hostinger domain
     'https://www.firstfortunesecurities.com',  // With www
+    'https://sovereignfortunesecurities.com',  // Hostinger domain
+    'https://www.sovereignfortunesecurities.com',  // With www
     'https://logzeeserver.onrender.com'  // Render domain
   ],
   credentials: true,
