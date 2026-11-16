@@ -2104,3 +2104,101 @@ button[type="submit"].btn-outline-primary { color: var(--ap-accent); }
 .shipment-header .status-badge { flex: 0 0 auto; }
 
 .shipment-item .d-flex.justify-content-between { gap: 1rem; flex-wrap: wrap; }
+
+/* ==========================================================================
+   18. Revolution Slider captions on small screens
+   --------------------------------------------------------------------------
+   Revolution Slider positions each .tp-parallax-wrap absolutely with a
+   JS-computed `top` scaled from the desktop layout. Those offsets assume the
+   caption text stays on one or two lines; at phone width each layer wraps to
+   three or four, grows past the next layer's offset, and the title, subtitle
+   and paragraph print on top of each other.
+
+   The page's own @media (max-width: 600px) block tried to fix this by forcing
+   `transform: translateX(-50%)` on .tp-caption, but the caption is not what
+   carries the vertical position — the wrapper is — so the layers stayed put.
+
+   Take the layers out of absolute positioning below the tablet breakpoint and
+   let them stack in normal flow, centred in the slide. .slotholder stays
+   absolute, so the background image is unaffected by the flex container.
+   These rules use !important deliberately: the slider rewrites the inline
+   `top` on every resize and slide change, and an important author
+   declaration outranks an inline one.
+   ========================================================================== */
+@media (max-width: 767.98px) {
+    .rev_slider .tp-revslider-slidesli {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0 22px !important;
+    }
+
+    .rev_slider .tp-parallax-wrap {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        margin: 0 0 14px !important;
+    }
+
+    .rev_slider .tp-parallax-wrap:last-child { margin-bottom: 0 !important; }
+
+    .rev_slider .tp-loop-wrap,
+    .rev_slider .tp-mask-wrap {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        transform: none !important;
+        text-align: center !important;
+    }
+
+    .rev_slider .tp-caption {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        white-space: normal !important;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    /* Apple's mobile type scale for the hero */
+    .rev_slider .tp-caption.NotGeneric-Title,
+    .rev_slider .tp-caption.NotGeneric-Title * {
+        font-size: 1.75rem !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.03em !important;
+    }
+
+    .rev_slider .tp-caption.medium_light_white {
+        font-size: 1.0625rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .rev_slider .tp-caption.small_light_white {
+        font-size: 0.9375rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* The button must not inherit the full-width caption rule */
+    .rev_slider .tp-caption.rev-btn,
+    .rev_slider .tp-caption.btn-theme {
+        width: auto !important;
+        display: inline-flex !important;
+        margin: 0.25rem auto 0 !important;
+    }
+
+    /* Slider arrows crowd the text at this size */
+    .rev_slider .tp-leftarrow,
+    .rev_slider .tp-rightarrow { display: none !important; }
+}
