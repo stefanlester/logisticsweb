@@ -1,0 +1,2106 @@
+@charset "UTF-8";
+/* ==========================================================================
+   Sovereign Fortune Securities — Apple UI Layer
+   --------------------------------------------------------------------------
+   A single override stylesheet that re-skins the Logzee theme in Apple's
+   Human Interface design language: SF Pro typography, the Apple neutral
+   grayscale, restrained elevation, generous whitespace, frosted-glass
+   chrome and a single brand accent sampled from the shield logo (#1800AD).
+
+   Load LAST — after theme-plugins.min.css, style.css, responsive.css and
+   after any per-page <style> block, so it wins at equal specificity.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Type */
+    --ap-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+               "Helvetica Neue", "Inter", Helvetica, Arial, sans-serif;
+
+    /* Brand accent — sampled from the shield logo */
+    --ap-accent: #1800AD;
+    --ap-accent-hover: #2a16d6;
+    --ap-accent-press: #13008a;
+    --ap-accent-soft: #eeebff;
+    --ap-accent-ring: rgba(24, 0, 173, 0.28);
+
+    /* Apple neutrals */
+    --ap-ink: #1d1d1f;
+    --ap-ink-2: #424245;
+    --ap-ink-3: #6e6e73;
+    --ap-ink-4: #86868b;
+    --ap-line: #d2d2d7;
+    --ap-line-soft: #e8e8ed;
+    --ap-surface: #ffffff;
+    --ap-surface-2: #f5f5f7;
+    --ap-surface-3: #fbfbfd;
+    --ap-dark: #1d1d1f;
+    --ap-dark-2: #000000;
+
+    /* Semantic */
+    --ap-green: #248a3d;
+    --ap-green-soft: #e3f7e8;
+    --ap-amber: #a05a00;
+    --ap-amber-soft: #fff3e0;
+    --ap-red: #d70015;
+    --ap-red-soft: #ffeced;
+    --ap-blue: #0071e3;
+    --ap-blue-soft: #e8f2ff;
+
+    /* Radii — Apple uses large, continuous corners */
+    --ap-r-xs: 8px;
+    --ap-r-sm: 12px;
+    --ap-r-md: 18px;
+    --ap-r-lg: 22px;
+    --ap-r-xl: 28px;
+    --ap-r-pill: 980px;
+
+    /* Elevation — barely-there */
+    --ap-sh-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+    --ap-sh-2: 0 2px 6px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+    --ap-sh-3: 0 4px 10px rgba(0, 0, 0, 0.05), 0 18px 48px rgba(0, 0, 0, 0.09);
+
+    /* Motion */
+    --ap-ease: cubic-bezier(0.4, 0, 0.22, 1);
+    --ap-ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ap-dur: 0.32s;
+
+    /* --- Re-point the theme's own variables at the Apple palette --- */
+    --font-body: var(--ap-font);
+    --primary-color: var(--ap-accent);
+    --secondary-color: var(--ap-dark);
+    --secondary-rgb: 29, 29, 31;
+    --main-dark-color: var(--ap-ink-3);
+    --bg-light-theme: var(--ap-surface-2);
+    --bg-light-gray: var(--ap-surface-2);
+    --bg-white: var(--ap-surface);
+    --shadow-primary: var(--ap-sh-2);
+    --shadow-secondary: var(--ap-sh-2);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base & typography
+   -------------------------------------------------------------------------- */
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body,
+.rev_slider .caption,
+.rev_slider .tp-caption,
+input,
+select,
+textarea,
+button {
+    font-family: var(--ap-font);
+}
+
+body {
+    background: var(--ap-surface);
+    color: var(--ap-ink);
+    font-size: 1.0625rem;      /* 17px — Apple body */
+    line-height: 1.47059;
+    letter-spacing: -0.022em;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+    color: var(--ap-ink-2);
+    font-size: 1.0625rem;
+    line-height: 1.5294;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.1em;
+}
+
+small,
+.small {
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+    color: var(--ap-ink-3);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--ap-font);
+    color: var(--ap-ink);
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    line-height: 1.1;
+}
+
+h1, .h1 { font-size: 3rem;     letter-spacing: -0.03em;  line-height: 1.06; }
+h2, .h2 { font-size: 2.5rem;   letter-spacing: -0.028em; line-height: 1.08; }
+h3, .h3 { font-size: 1.75rem;  letter-spacing: -0.024em; line-height: 1.14; }
+h4, .h4 { font-size: 1.3125rem; letter-spacing: -0.02em;  line-height: 1.2; }
+h5, .h5 { font-size: 1.125rem; letter-spacing: -0.018em; }
+h6, .h6 { font-size: 1rem;     letter-spacing: -0.015em; }
+
+.h2-xl  { font-size: 2.75rem; letter-spacing: -0.03em;  font-weight: 600; }
+.h3-sm  { font-size: 1.3125rem; letter-spacing: -0.02em; font-weight: 600; }
+.h4-md  { font-size: 1.25rem; letter-spacing: -0.02em;  font-weight: 600; }
+.fw-6   { font-weight: 600; }
+.fw-7   { font-weight: 700; }
+
+/* Section heading + eyebrow */
+.heading-main {
+    color: var(--ap-ink);
+    font-size: 2.75rem;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+}
+
+.heading-main span {
+    color: var(--ap-accent);
+    text-transform: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+    padding-bottom: 0.4rem;
+}
+
+.parallax-head.heading-main,
+.parallax-head.heading-main span,
+[class*="bg-navy-blue"] .heading-main,
+.bg-overlay .heading-main {
+    color: #f5f5f7;
+}
+
+.parallax-head.heading-main span,
+[class*="bg-navy-blue"] .heading-main span {
+    color: #a1a1a6;
+}
+
+.heading-left-border {
+    border-left: 3px solid var(--ap-accent);
+    color: var(--ap-ink-2);
+    font-weight: 500;
+    padding: 0.35rem 1.1rem;
+}
+
+blockquote,
+.blockquote {
+    border-left: 3px solid var(--ap-line);
+    color: var(--ap-ink-2);
+    font-size: 1.3125rem;
+    letter-spacing: -0.021em;
+    line-height: 1.38;
+    padding-left: 1.5rem;
+}
+
+.blockquote-footer {
+    color: var(--ap-ink-4);
+    font-size: 0.9375rem;
+}
+
+/* Links */
+a {
+    color: var(--ap-accent);
+    transition: color 0.18s var(--ap-ease), opacity 0.18s var(--ap-ease);
+}
+
+a:hover {
+    color: var(--ap-accent-hover);
+}
+
+.link-oragne,
+.link-blue,
+.link-dark {
+    font-weight: 500;
+}
+
+.txt-blue   { color: var(--ap-ink); }
+.txt-orange { color: var(--ap-accent); }
+.txt-ligt-gray { color: var(--ap-ink-3); }
+
+/* Selection + focus — Apple's crisp ring */
+::selection {
+    background: var(--ap-accent-soft);
+    color: var(--ap-accent-press);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 4px solid var(--ap-accent-ring);
+    outline-offset: 2px;
+    border-radius: var(--ap-r-xs);
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout rhythm
+   -------------------------------------------------------------------------- */
+.wide-tb-100 { padding-top: 7.5rem; padding-bottom: 7.5rem; }
+.wide-tb-90  { padding-top: 6.5rem; padding-bottom: 6.5rem; }
+.wide-tb-80  { padding-top: 6rem;   padding-bottom: 6rem; }
+.wide-tb-70  { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+.wide-tb-60  { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+.wide-tb-50  { padding-top: 3.75rem; padding-bottom: 3.75rem; }
+
+.bg-light-gray,
+.bg-light-theme { background: var(--ap-surface-2); }
+.bg-navy-blue   { background: var(--ap-dark); }
+.bg-orange      { background: var(--ap-accent); }
+.bg-blue-light  { background: var(--ap-surface-2); }
+
+/* Apple doesn't do fixed parallax panels */
+.bg-fixed { background-attachment: scroll; }
+
+/* Soften decorative wave / overlay art */
+.bg-wave { background-size: cover; opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   4. Buttons
+   -------------------------------------------------------------------------- */
+.btn-theme,
+.btn,
+.btn-primary,
+.track-btn,
+.btn-login,
+button[type="submit"].btn-theme {
+    font-family: var(--ap-font);
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+.btn-theme {
+    background: var(--ap-accent);
+    color: #fff !important;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.72rem 1.4rem;
+    border-radius: var(--ap-r-pill);
+    border: none;
+    box-shadow: none !important;
+    line-height: 1.2;
+    min-height: 44px;                    /* Apple's touch target */
+    transition: background-color 0.22s var(--ap-ease),
+                transform 0.22s var(--ap-ease),
+                opacity 0.22s var(--ap-ease);
+}
+
+/* Kill the theme's sliding white wipe — Apple buttons just darken */
+.btn-theme:before,
+.btn-theme:hover::before {
+    display: none !important;
+    content: none !important;
+}
+
+.btn-theme:hover,
+.btn-theme:focus {
+    background: var(--ap-accent-hover);
+    color: #fff !important;
+    transform: none;
+    box-shadow: none !important;
+}
+
+.btn-theme:active {
+    background: var(--ap-accent-press);
+    transform: scale(0.98);
+}
+
+.btn-theme.bg-navy-blue { background: var(--ap-dark); }
+.btn-theme.bg-navy-blue:hover { background: #333336; }
+
+.btn-theme.light,
+.btn-theme.bg-white {
+    background: var(--ap-surface);
+    color: var(--ap-accent) !important;
+    border: 1px solid var(--ap-line);
+}
+
+.btn-theme.light:hover,
+.btn-theme.bg-white:hover {
+    background: var(--ap-surface-2);
+    color: var(--ap-accent-hover) !important;
+}
+
+.btn-theme i,
+[class*="link-"] i {
+    top: 0;
+    padding-left: 0.45rem;
+    font-size: 0.95em;
+}
+
+.btn-theme.icon-left i,
+[class*="link-"].icon-left i {
+    padding-right: 0.45rem;
+    padding-left: 0;
+}
+
+.btn-theme.inverse-icon-org i,
+.btn-theme.inverse-icon-blk i { color: inherit; }
+
+/* Bootstrap buttons inherit the same language */
+.btn {
+    border-radius: var(--ap-r-pill);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.66rem 1.3rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    box-shadow: none;
+    transition: background-color 0.22s var(--ap-ease), transform 0.22s var(--ap-ease);
+}
+
+.btn-primary,
+.btn-primary:focus {
+    background: var(--ap-accent);
+    border-color: var(--ap-accent);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--ap-accent-hover);
+    border-color: var(--ap-accent-hover);
+}
+
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-outline-primary {
+    color: var(--ap-accent);
+    border-color: var(--ap-line);
+}
+
+.btn-outline-primary:hover {
+    background: var(--ap-surface-2);
+    color: var(--ap-accent-hover);
+    border-color: var(--ap-line);
+}
+
+.btn-sm { font-size: 0.875rem; padding: 0.4rem 0.95rem; min-height: 32px; }
+.btn-lg { font-size: 1.0625rem; padding: 0.85rem 1.8rem; min-height: 52px; }
+
+/* Circular arrow button on cards */
+.btn-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ap-surface-2) !important;
+    color: var(--ap-accent) !important;
+    box-shadow: none;
+    transition: background-color 0.22s var(--ap-ease), color 0.22s var(--ap-ease);
+}
+
+.btn-arrow:hover {
+    background: var(--ap-accent) !important;
+    color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Header / navigation — frosted glass chrome
+   -------------------------------------------------------------------------- */
+.top-bar,
+.header-one .top-bar {
+    background: var(--ap-surface-2);
+    border-bottom: 1px solid var(--ap-line-soft);
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+    color: var(--ap-ink-3);
+}
+
+.top-bar a,
+.header-one .top-text a {
+    color: var(--ap-ink-3);
+    font-weight: 400;
+}
+
+.top-bar a:hover,
+.header-one .top-text a:hover { color: var(--ap-accent); }
+
+.header-one .top-text {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--ap-ink-3);
+}
+
+.header-one .top-text small.txt-black {
+    display: block;
+    color: var(--ap-ink-4);
+    font-size: 0.6875rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.navbar {
+    background: var(--ap-surface);
+    padding: 0.35rem 15px;
+}
+
+/* Only the over-hero header is transparent */
+.header-one .navbar,
+.header-three .navbar { background: transparent; }
+
+.navbar-brand {
+    padding: 0.55rem 0;
+    width: 124px;
+}
+
+.navbar-brand img { max-height: 46px; width: auto; }
+
+/* Nav links: sentence case, light weight, Apple tracking */
+.navbar-nav .nav-link,
+.navbar-expand-lg .navbar-nav .nav-link,
+.navbar-expand-md .navbar-nav .nav-link {
+    text-transform: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ap-ink);
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--ap-r-xs);
+    opacity: 0.86;
+    transition: opacity 0.18s var(--ap-ease), color 0.18s var(--ap-ease), background-color 0.18s var(--ap-ease);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .active .nav-link,
+.navbar-nav .nav-link.active {
+    background: transparent;
+    opacity: 1;
+    color: var(--ap-ink);
+}
+
+.navbar-nav .nav-link.active { font-weight: 500; }
+
+/* Light (over-hero) variant */
+@media (min-width: 991px) {
+    .nav-light .navbar-nav .nav-link,
+    .nav-light .navbar-nav .active .nav-link {
+        color: #f5f5f7;
+        background: transparent;
+        opacity: 0.82;
+    }
+
+    .nav-light .navbar-nav .nav-link:hover,
+    .nav-light .navbar-nav .nav-link.active {
+        color: #fff;
+        opacity: 1;
+        background: transparent;
+    }
+}
+
+/* The login pill in the nav keeps its fill */
+.navbar-nav .nav-item .btn-theme {
+    color: #fff !important;
+    opacity: 1;
+    padding: 0.5rem 1.15rem;
+    min-height: 36px;
+    font-size: 0.875rem;
+}
+
+/* Sticky state — Apple's translucent bar */
+.header-fullpage.fixed,
+.header-one .navbar.header-fullpage.fixed {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+    padding: 0;
+}
+
+.header-fullpage.fixed .navbar-nav .nav-link,
+.header-one .navbar.header-fullpage.fixed .navbar-nav .nav-link {
+    color: var(--ap-ink) !important;
+    opacity: 0.86;
+}
+
+.header-fullpage.fixed .navbar-nav .nav-link:hover,
+.header-one .navbar.header-fullpage.fixed .navbar-nav .nav-link:hover {
+    color: var(--ap-ink) !important;
+    opacity: 1;
+}
+
+.header-fullpage.fixed .navbar-brand { width: 108px; padding: 0.3rem 0; }
+
+.header-one .request-btn a#search_home,
+.request-btn a#search_home {
+    color: var(--ap-ink);
+    opacity: 0.7;
+}
+
+.nav-light .request-btn a#search_home { color: #fff; opacity: 0.82; }
+
+.header-fullpage.fixed .request-btn a#search_home { color: var(--ap-ink); }
+
+.header-one .request-btn a#search_home:hover { color: var(--ap-accent); opacity: 1; }
+
+.bdr-nav { border: none; }
+
+/* Burger */
+.navbar-toggler {
+    border: none;
+    box-shadow: none !important;
+    padding: 0.5rem;
+}
+
+.navbar-toggler .icon-bar {
+    background: var(--ap-ink);
+    border-radius: 2px;
+    height: 1.5px;
+}
+
+.nav-light .navbar-toggler .icon-bar { background: #fff; }
+.header-fullpage.fixed .navbar-toggler .icon-bar { background: var(--ap-ink); }
+
+/* Dropdowns — Apple menu sheet */
+.dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--ap-r-sm);
+    padding: 0.35rem;
+    min-width: 220px;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: var(--ap-sh-3) !important;
+}
+
+.dropdown-menu:after { display: none; }
+
+.dropdown-menu a,
+.dropdown-menu li > a,
+.dropdown-item {
+    border: none;
+    border-radius: var(--ap-r-xs);
+    color: var(--ap-ink);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    padding: 0.5rem 0.7rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:focus,
+.dropdown-item:hover,
+.dropdown-menu > li.show > a {
+    background: var(--ap-surface-2);
+    color: var(--ap-accent);
+}
+
+/* Offcanvas mobile menu */
+.offcanvas,
+.navbar-collapse.offcanvas {
+    background: var(--ap-surface);
+    border: none;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--ap-line-soft);
+    padding: 1rem 1.25rem;
+}
+
+.offcanvas-body { padding: 0.75rem 1rem; }
+
+/* The same .offcanvas element is the horizontal nav on desktop and the
+   drawer on mobile, so the drawer treatment must stay inside the breakpoint
+   or it overrides the over-hero nav links on every page. */
+@media (max-width: 991.98px) {
+    .offcanvas .navbar-nav .nav-link {
+        color: var(--ap-ink) !important;
+        font-size: 1.0625rem;
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px solid var(--ap-line-soft);
+        border-radius: 0;
+        opacity: 1;
+    }
+
+    .offcanvas .navbar-nav .nav-item:last-child .nav-link { border-bottom: none; }
+
+    .offcanvas .navbar-nav .nav-item .btn-theme {
+        color: #fff !important;
+        margin-top: 0.75rem;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero / slider captions
+   -------------------------------------------------------------------------- */
+.tp-caption.NotGeneric-Title,
+.tp-caption.NotGeneric-Title * {
+    font-family: var(--ap-font) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.03em !important;
+    text-shadow: none !important;
+    line-height: 1.07 !important;
+}
+
+.tp-caption.medium_light_white,
+.tp-caption.small_light_white {
+    font-family: var(--ap-font) !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.02em !important;
+    text-shadow: none !important;
+}
+
+.slider.bg-navy-blue { background: var(--ap-dark); }
+
+/* Breadcrumb hero on inner pages */
+.breadcrumbs-page { background-color: var(--ap-dark); }
+
+.breadcrumbs-page h1,
+.page-header .page-title {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+}
+
+.breadcrumbs-page .breadcrumb,
+.page-header .breadcrumb {
+    background: transparent;
+    justify-content: center;
+    padding: 0;
+    font-size: 0.9375rem;
+}
+
+.breadcrumbs-page .breadcrumb a,
+.page-header .breadcrumb a { color: #a1a1a6; }
+
+.breadcrumbs-page .breadcrumb a:hover,
+.page-header .breadcrumb a:hover { color: #fff; }
+
+.breadcrumb-item.active { color: #f5f5f7; }
+
+.breadcrumb-item + .breadcrumb-item::before,
+.breadcrumbs-page .breadcrumb-item + .breadcrumb-item::before {
+    color: #6e6e73;
+}
+
+.bg-overlay:before,
+.bg-overlay:after {
+    background: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Cards & content blocks
+   -------------------------------------------------------------------------- */
+.icon-box-1,
+.icon-box-2,
+.icon-box-3,
+.icon-box-4,
+.icon-box-5,
+.icon-box-6,
+.icon-box-7,
+.icon-box-with-img,
+.counter-block,
+.contact-detail-shadow,
+.blog-warp,
+.client-testimonial,
+.pricing-table,
+.card {
+    border-radius: var(--ap-r-md);
+    border: 1px solid var(--ap-line-soft);
+    background: var(--ap-surface);
+    box-shadow: none;
+    transition: transform var(--ap-dur) var(--ap-ease),
+                box-shadow var(--ap-dur) var(--ap-ease),
+                border-color var(--ap-dur) var(--ap-ease);
+}
+
+.icon-box-1:hover,
+.icon-box-3:hover,
+.icon-box-4:hover,
+.icon-box-6:hover,
+.icon-box-7:hover,
+.icon-box-with-img:hover,
+.counter-block:hover,
+.contact-detail-shadow:hover,
+.blog-warp:hover,
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ap-sh-2);
+    border-color: var(--ap-line);
+}
+
+.icon-box-3[class*="bg-"],
+.icon-box-3.bg-light-theme {
+    background: var(--ap-surface-2);
+    border-color: transparent;
+    border-radius: var(--ap-r-md);
+    padding: 1.75rem;
+}
+
+.icon-box-6 {
+    padding: 1.75rem;
+}
+
+.icon-box-6 > i,
+.icon-box-5 i,
+.icon-box-4 i {
+    color: var(--ap-accent);
+    background: none;
+    -webkit-text-fill-color: currentColor;
+}
+
+.icon-box-6 > h3,
+.icon-box-6 h3 {
+    color: var(--ap-ink);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.icon-box-6 p,
+.icon-box-3 p,
+.icon-box-2 p {
+    color: var(--ap-ink-3);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.service-icon i {
+    color: var(--ap-accent);
+    border-radius: var(--ap-r-sm);
+}
+
+.icon-box-3 .service-icon:before { display: none; }
+
+.contact-detail-shadow {
+    box-shadow: none;
+    border-radius: var(--ap-r-md);
+    border: 1px solid var(--ap-line-soft);
+}
+
+.contact-detail-shadow h4 {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.bordered-img,
+.rounded,
+img.rounded {
+    border-radius: var(--ap-r-md) !important;
+}
+
+/* Counters */
+.counter-style-1,
+.counter {
+    color: var(--ap-ink);
+}
+
+.counter-style-1 span,
+.counter-block .counter,
+.trust-stat .h3 {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ap-ink);
+}
+
+.counter-block {
+    padding: 2rem 1.5rem;
+    border-radius: var(--ap-r-md);
+    box-shadow: none;
+}
+
+.counter-icon i {
+    color: var(--ap-accent) !important;
+    background: none !important;
+    -webkit-text-fill-color: var(--ap-accent) !important;
+}
+
+/* Testimonials */
+.client-testimonial {
+    padding: 2rem;
+    border-radius: var(--ap-r-md);
+    background: var(--ap-surface-2);
+    border-color: transparent;
+}
+
+.client-testimonial-icon i { color: var(--ap-accent); }
+
+.client-inner-content p {
+    font-size: 1.125rem;
+    line-height: 1.45;
+    letter-spacing: -0.021em;
+    color: var(--ap-ink-2);
+}
+
+/* Skill bars → Apple progress tracks */
+.skillbar {
+    background: var(--ap-line-soft);
+    border-radius: var(--ap-r-pill);
+    height: 6px;
+    overflow: visible;
+}
+
+.skillbar-bar {
+    background: var(--ap-accent);
+    border-radius: var(--ap-r-pill);
+    height: 6px;
+}
+
+.skillbar-percent {
+    color: var(--ap-ink-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.skillbar-wrap .clearfix {
+    color: var(--ap-ink);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress {
+    background: var(--ap-line-soft);
+    border-radius: var(--ap-r-pill);
+    height: 6px;
+}
+
+.progress-bar { background: var(--ap-accent); border-radius: var(--ap-r-pill); }
+
+/* --------------------------------------------------------------------------
+   8. Forms
+   -------------------------------------------------------------------------- */
+.form-control,
+.form-select,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+select,
+textarea,
+.rounded-field input[type="text"],
+.rounded-field input[type="email"],
+.rounded-field select,
+.rounded-field textarea,
+.rounded-field .nice-select,
+.tracking-input,
+.track-input {
+    font-family: var(--ap-font);
+    font-size: 1.0625rem;
+    letter-spacing: -0.021em;
+    color: var(--ap-ink);
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line);
+    border-radius: var(--ap-r-sm);
+    padding: 0.78rem 1rem;
+    min-height: 48px;
+    box-shadow: none;
+    transition: border-color 0.18s var(--ap-ease), box-shadow 0.18s var(--ap-ease);
+}
+
+textarea,
+.rounded-field textarea { min-height: 120px; }
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus,
+.rounded-field input[type="text"]:focus,
+.rounded-field input[type="email"]:focus,
+.rounded-field select:focus,
+.rounded-field textarea:focus,
+.tracking-input:focus,
+.track-input:focus {
+    border-color: var(--ap-accent);
+    box-shadow: 0 0 0 4px var(--ap-accent-ring);
+    outline: none;
+}
+
+.form-control::placeholder,
+.tracking-input::placeholder,
+.track-input::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: var(--ap-ink-4);
+    opacity: 1;
+}
+
+.gray-field.rounded-field input[type="text"],
+.gray-field.rounded-field input[type="email"],
+.gray-field.rounded-field select,
+.gray-field.rounded-field textarea {
+    background: var(--ap-surface-2);
+    border-color: transparent;
+}
+
+.form-label,
+label {
+    color: var(--ap-ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.4rem;
+}
+
+/* Floating labels (login) */
+.form-floating > .form-control,
+.form-floating input {
+    height: 58px;
+    border: 1px solid var(--ap-line);
+    border-radius: var(--ap-r-sm);
+    font-size: 1.0625rem;
+}
+
+.form-floating > label,
+.form-floating label {
+    color: var(--ap-ink-4);
+    font-weight: 400;
+    padding-left: 1rem;
+}
+
+.form-floating > .form-control:focus,
+.form-floating input:focus {
+    border-color: var(--ap-accent);
+    box-shadow: 0 0 0 4px var(--ap-accent-ring);
+}
+
+/* Checkbox / radio */
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--ap-accent);
+    width: 18px;
+    height: 18px;
+    min-height: 0;
+}
+
+.form-check-input:checked {
+    background-color: var(--ap-accent);
+    border-color: var(--ap-accent);
+}
+
+.form-check-input:focus {
+    border-color: var(--ap-accent);
+    box-shadow: 0 0 0 4px var(--ap-accent-ring);
+}
+
+/* --------------------------------------------------------------------------
+   9. Modals, alerts, tables, badges
+   -------------------------------------------------------------------------- */
+.modal-content {
+    border: none;
+    border-radius: var(--ap-r-xl);
+    box-shadow: var(--ap-sh-3);
+    overflow: hidden;
+}
+
+.modal-header,
+.modal-footer { border-color: var(--ap-line-soft); }
+
+.modal-backdrop.show { opacity: 0.38; }
+
+.alert,
+.alert-custom {
+    border: 1px solid transparent;
+    border-radius: var(--ap-r-sm);
+    font-size: 0.9375rem;
+    letter-spacing: -0.015em;
+    padding: 0.85rem 1.1rem;
+}
+
+.alert-success { background: var(--ap-green-soft); color: var(--ap-green); border-color: rgba(36, 138, 61, 0.18); }
+.alert-danger  { background: var(--ap-red-soft);   color: var(--ap-red);   border-color: rgba(215, 0, 21, 0.18); }
+.alert-warning { background: var(--ap-amber-soft); color: var(--ap-amber); border-color: rgba(160, 90, 0, 0.18); }
+.alert-info    { background: var(--ap-blue-soft);  color: var(--ap-blue);  border-color: rgba(0, 113, 227, 0.18); }
+
+.table {
+    color: var(--ap-ink);
+    font-size: 0.9375rem;
+}
+
+.table > :not(caption) > * > * {
+    border-bottom-color: var(--ap-line-soft);
+    padding: 0.9rem 0.75rem;
+}
+
+.table thead th {
+    color: var(--ap-ink-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    border-bottom: 1px solid var(--ap-line);
+}
+
+.badge {
+    border-radius: var(--ap-r-pill);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    padding: 0.35em 0.75em;
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer
+   -------------------------------------------------------------------------- */
+footer {
+    background: var(--ap-surface-2) !important;
+    color: var(--ap-ink-3);
+    font-size: 0.875rem;
+}
+
+footer p,
+footer li,
+footer a {
+    font-size: 0.875rem;
+    letter-spacing: -0.016em;
+    color: var(--ap-ink-3);
+    line-height: 1.6;
+}
+
+footer a:hover { color: var(--ap-accent); text-decoration: underline; }
+
+.footer-heading {
+    color: var(--ap-ink);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
+}
+
+.footer-menu li { margin-bottom: 0.45rem; }
+
+.logo-footer { width: 132px; margin-bottom: 1.25rem; }
+
+footer .social-icons a {
+    background: var(--ap-surface);
+    color: var(--ap-ink-3);
+    border: 1px solid var(--ap-line);
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+
+footer .social-icons a:hover {
+    background: var(--ap-accent);
+    border-color: var(--ap-accent);
+    color: #fff;
+}
+
+.copyright-wrap {
+    margin-top: 2.5rem;
+    background: transparent !important;
+    border-top: 1px solid var(--ap-line);
+    color: var(--ap-ink-4);
+    font-size: 0.75rem;
+    padding: 1.25rem 0;
+}
+
+.copyright-wrap a,
+.copyright-links a {
+    color: var(--ap-ink-4);
+}
+
+.copyright-wrap a:hover,
+.copyright-links a:hover { color: var(--ap-accent); }
+
+.copyright-wrap span { color: var(--ap-line); }
+
+/* Back to top */
+#mkdf-back-to-top {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid var(--ap-line);
+    color: var(--ap-ink);
+    border-radius: 50%;
+    box-shadow: var(--ap-sh-1);
+}
+
+/* --------------------------------------------------------------------------
+   11. Page loader — Apple's thin indeterminate spinner
+   -------------------------------------------------------------------------- */
+#pageloader { background: var(--ap-surface); }
+
+#pageloader .spin,
+#pageloader .bounce {
+    border-color: var(--ap-line) !important;
+    border-top-color: var(--ap-accent) !important;
+    background: transparent !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. Motion
+   -------------------------------------------------------------------------- */
+a,
+button,
+.btn,
+.btn-theme,
+.nav-link,
+.dropdown-item,
+.icon-box-1,
+.icon-box-3,
+.icon-box-6,
+.card {
+    transition-timing-function: var(--ap-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive type
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    .heading-main { font-size: 2.125rem; }
+    h1, .h1 { font-size: 2.25rem; }
+    h2, .h2 { font-size: 1.875rem; }
+    .h2-xl  { font-size: 2rem; }
+    .breadcrumbs-page h1,
+    .page-header .page-title { font-size: 2.125rem; }
+    .wide-tb-100 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+    .wide-tb-90,
+    .wide-tb-80,
+    .wide-tb-70 { padding-top: 3.75rem; padding-bottom: 3.75rem; }
+}
+
+@media (max-width: 575.98px) {
+    body { font-size: 1rem; }
+    .heading-main { font-size: 1.75rem; }
+    h1, .h1 { font-size: 1.875rem; }
+    .btn-theme, .btn { width: auto; }
+}
+
+/* ==========================================================================
+   14. Portal pages — login, dashboard, tracking
+   These pages carry their own inline <style> block, so this sheet must be
+   linked after it. All of the purple #667eea → #764ba2 gradients are
+   replaced with Apple's neutral canvas and the single brand accent.
+   ========================================================================== */
+
+/* ---------- 14.1 Login ---------- */
+.login-container {
+    background: var(--ap-surface-2);
+    padding: 3rem 1rem;
+}
+
+.login-container::before { display: none; }
+
+.login-card {
+    border-radius: var(--ap-r-xl);
+    box-shadow: var(--ap-sh-3);
+    max-width: 960px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.login-left {
+    background: var(--ap-dark);
+    color: #f5f5f7;
+    padding: 3.5rem 2.75rem;
+    text-align: left;
+}
+
+.login-left h3 {
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.024em;
+    line-height: 1.14;
+}
+
+.login-left p,
+.login-left small { color: #a1a1a6; }
+
+.login-left .logo-section img {
+    max-width: 64px;
+    filter: brightness(0) invert(1);
+}
+
+.login-right { padding: 3.5rem 3rem; }
+
+.login-header { text-align: left; margin-bottom: 2rem; }
+
+.login-header h2 {
+    color: var(--ap-ink);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.4rem;
+}
+
+.login-header p {
+    color: var(--ap-ink-3);
+    font-size: 1.0625rem;
+}
+
+.feature-item { margin-bottom: 1.25rem; align-items: flex-start; }
+
+.feature-item h6 {
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 17px;
+    color: #f5f5f7;
+    margin-right: 0.9rem;
+}
+
+.security-badge {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--ap-r-sm);
+    padding: 1rem;
+    margin-top: 2rem;
+    text-align: left;
+    color: #a1a1a6;
+}
+
+.security-badge strong { color: #f5f5f7; font-weight: 500; }
+
+.btn-login,
+.btn.btn-login,
+.btn-primary.btn-login {
+    background: var(--ap-accent);
+    border: none;
+    border-radius: var(--ap-r-pill);
+    height: 50px;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.021em;
+    box-shadow: none;
+}
+
+.btn-login:hover,
+.btn.btn-login:hover {
+    background: var(--ap-accent-hover);
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-login:active { background: var(--ap-accent-press); transform: scale(0.99); }
+
+.forgot-password {
+    color: var(--ap-accent);
+    font-weight: 400;
+    font-size: 0.9375rem;
+}
+
+.forgot-password:hover { color: var(--ap-accent-hover); }
+
+.remember-me {
+    gap: 0.6rem;
+    font-size: 0.9375rem;
+    color: var(--ap-ink-2);
+    margin-bottom: 1.5rem;
+}
+
+.remember-me input[type="checkbox"] { transform: none; margin-right: 0; }
+.remember-me label { margin-bottom: 0; font-weight: 400; }
+
+.loading-overlay { background: rgba(255, 255, 255, 0.86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+.spinner {
+    border: 3px solid var(--ap-line);
+    border-top-color: var(--ap-accent);
+    width: 32px;
+    height: 32px;
+}
+
+@media (max-width: 991.98px) {
+    .login-right { padding: 2.5rem 1.75rem; }
+    .login-container { padding: 1.5rem 0.75rem; }
+}
+
+/* ---------- 14.2 Dashboard ---------- */
+body:has(.dashboard-container),
+body:has(.dashboard-header) {
+    background: var(--ap-surface-2);
+}
+
+.dashboard-container {
+    background: transparent;
+    margin-top: 76px;
+    padding-bottom: 3rem;
+}
+
+.dashboard-header {
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+}
+
+.header-content { padding: 0.75rem 0; }
+
+.company-name {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    color: var(--ap-ink);
+}
+
+.header-logo { width: 32px; height: 32px; }
+
+.user-name { font-size: 0.9375rem; font-weight: 500; color: var(--ap-ink); }
+.user-role { font-size: 0.75rem; color: var(--ap-ink-4); }
+
+.user-avatar,
+.welcome-avatar {
+    background: var(--ap-accent) !important;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.user-avatar { width: 34px; height: 34px; font-size: 0.8125rem; }
+
+.logout-btn {
+    background: var(--ap-surface);
+    color: var(--ap-ink);
+    border: 1px solid var(--ap-line);
+    border-radius: var(--ap-r-pill);
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    min-height: 36px;
+}
+
+.logout-btn:hover {
+    background: var(--ap-surface-2);
+    color: var(--ap-red);
+    border-color: var(--ap-line);
+    transform: none;
+}
+
+/* Welcome panel */
+.user-welcome {
+    background: var(--ap-surface) !important;
+    color: var(--ap-ink);
+    border: 1px solid var(--ap-line-soft);
+    border-radius: var(--ap-r-xl);
+    box-shadow: none;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-avatar { width: 56px; height: 56px; font-size: 1.125rem; }
+
+.welcome-info h2 {
+    color: var(--ap-ink);
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.026em;
+    margin-bottom: 0.2rem;
+}
+
+.welcome-info p { color: var(--ap-ink-3); font-size: 0.9375rem; margin: 0; }
+
+.welcome-stats {
+    border-top: 1px solid var(--ap-line-soft);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    gap: 1rem;
+}
+
+.welcome-stat { text-align: left; }
+
+.welcome-stat-number {
+    color: var(--ap-ink);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.welcome-stat-label {
+    color: var(--ap-ink-3);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    opacity: 1;
+}
+
+/* Stat cards */
+.stats-grid { gap: 1rem; margin-bottom: 1.5rem; }
+
+.stat-card {
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line-soft);
+    border-radius: var(--ap-r-md);
+    box-shadow: none;
+    padding: 1.5rem;
+    margin-bottom: 0;
+}
+
+.stat-card::before { display: none; }
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--ap-sh-2);
+    border-color: var(--ap-line);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: none;
+}
+
+.stat-icon.shipments  { background: var(--ap-accent-soft); }
+.stat-icon.delivered  { background: var(--ap-green-soft); }
+.stat-icon.transit    { background: var(--ap-amber-soft); }
+.stat-icon.processing { background: var(--ap-surface-2); }
+
+.stat-number {
+    color: var(--ap-ink);
+    font-size: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+.stat-label {
+    color: var(--ap-ink-3);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-transform: none;
+}
+
+.stat-change { color: var(--ap-ink-4); font-size: 0.8125rem; }
+
+/* Sections */
+.dashboard-section {
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line-soft);
+    border-radius: var(--ap-r-xl);
+    box-shadow: none;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-section:hover { transform: none; box-shadow: none; }
+
+.section-title {
+    color: var(--ap-ink);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    border-bottom: 1px solid var(--ap-line-soft);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-title::after { display: none; }
+
+.section-title .icon {
+    font-size: 1rem;
+    background: none;
+    width: auto;
+    height: auto;
+    padding: 0;
+    opacity: 0.9;
+}
+
+/* Shipment rows */
+.shipment-item,
+.shipment-row {
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line-soft);
+    border-radius: var(--ap-r-sm);
+    box-shadow: none;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s var(--ap-ease), border-color 0.2s var(--ap-ease);
+}
+
+.shipment-item:hover,
+.shipment-row:hover {
+    background: var(--ap-surface-3);
+    border-color: var(--ap-line);
+    transform: none;
+    box-shadow: none;
+}
+
+.shipment-id {
+    color: var(--ap-ink);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+}
+
+.shipment-route { color: var(--ap-ink-3); font-size: 0.8125rem; }
+
+/* Status pills — Apple's soft tinted badges */
+.status-badge {
+    border-radius: var(--ap-r-pill);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    padding: 0.3rem 0.7rem;
+    border: none !important;
+    box-shadow: none !important;
+    white-space: nowrap;
+}
+
+.status-badge.status-delivered,
+.status-delivered   { background: var(--ap-green-soft) !important; color: var(--ap-green) !important; }
+.status-badge.status-in-transit,
+.status-in-transit  { background: var(--ap-blue-soft) !important;  color: var(--ap-blue) !important; }
+.status-badge.status-processing,
+.status-processing  { background: var(--ap-amber-soft) !important; color: var(--ap-amber) !important; }
+.status-badge.status-delayed,
+.status-delayed     { background: var(--ap-red-soft) !important;   color: var(--ap-red) !important; }
+.status-badge.status-on-hold,
+.status-on-hold     { background: var(--ap-red-soft) !important;   color: var(--ap-red) !important; padding: 0.3rem 0.7rem !important; font-weight: 600 !important; }
+
+/* Track form inside dashboard */
+.track-form { gap: 0.75rem; }
+.chart-container { padding: 0.5rem 0; }
+
+.dashboard-section .btn-theme,
+.btn-theme.btn-block {
+    background: var(--ap-accent);
+    border-radius: var(--ap-r-pill);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.72rem 1.4rem;
+    box-shadow: none;
+}
+
+.dashboard-section .btn-theme:hover,
+.btn-theme.btn-block:hover { background: var(--ap-accent-hover); transform: none; box-shadow: none; }
+
+/* Vault panel — dark Apple surface rather than purple */
+.vault-section {
+    background: var(--ap-dark) !important;
+    color: #f5f5f7;
+    border: none;
+    border-radius: var(--ap-r-xl);
+}
+
+.vault-section .section-title {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.vault-section p,
+.vault-section li,
+.vault-section ul { color: #a1a1a6 !important; }
+
+.vault-section strong,
+.vault-section h5 { color: #f5f5f7 !important; }
+
+.vault-info {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--ap-r-md);
+    padding: 1.5rem;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+.vault-stat {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.85rem 0;
+}
+
+.vault-stat .label { color: #a1a1a6; font-weight: 400; font-size: 0.9375rem; }
+
+.vault-stat .value {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--ap-r-pill);
+    color: #f5f5f7;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    padding: 0.35rem 0.8rem;
+}
+
+.gold-badge {
+    background: #f5d67b !important;
+    color: #3d2d00 !important;
+    font-weight: 600 !important;
+}
+
+/* Dashboard footer sits on the gray canvas */
+.dashboard-container ~ footer,
+body:has(.dashboard-container) footer {
+    background: var(--ap-surface) !important;
+    border-top: 1px solid var(--ap-line-soft);
+}
+
+/* ---------- 14.3 Tracking ---------- */
+.tracking-container {
+    background: var(--ap-surface-2);
+    min-height: 0;
+    padding: 4rem 0;
+}
+
+.tracking-form,
+.shipment-details {
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line-soft);
+    border-radius: var(--ap-r-xl);
+    box-shadow: var(--ap-sh-2);
+    padding: 2.5rem;
+    margin: 0 0 1.5rem;
+}
+
+.tracking-input {
+    margin-bottom: 1rem;
+}
+
+.track-btn {
+    background: var(--ap-accent);
+    border: none;
+    border-radius: var(--ap-r-pill);
+    padding: 0.85rem 2rem;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.021em;
+    min-height: 50px;
+    box-shadow: none;
+}
+
+.track-btn:hover {
+    background: var(--ap-accent-hover);
+    transform: none;
+    box-shadow: none;
+}
+
+.track-btn:active { background: var(--ap-accent-press); transform: scale(0.99); }
+
+.page-header {
+    background: var(--ap-dark);
+    padding: 7rem 0 3.5rem;
+}
+
+.page-header .page-title { margin-bottom: 0.75rem; }
+
+/* Tracking timeline, if present */
+.timeline-item::before,
+.tracking-timeline .timeline-dot {
+    background: var(--ap-accent);
+}
+
+/* ---------- 14.4 Shared portal niceties ---------- */
+.receipt-cell .btn,
+.btn-receipt {
+    border-radius: var(--ap-r-pill);
+    font-size: 0.8125rem;
+    min-height: 34px;
+    padding: 0.35rem 0.9rem;
+}
+
+[id$="Result"] .card,
+#trackingResult > div {
+    border-radius: var(--ap-r-md);
+    border: 1px solid var(--ap-line-soft);
+    box-shadow: none;
+}
+
+/* Numbers read better tabular in a logistics UI */
+.stat-number,
+.welcome-stat-number,
+.counter-style-1 span,
+.shipment-id,
+.vault-stat .value {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+}
+
+/* ==========================================================================
+   15. Leftover-colour cleanup
+   The portal pages hard-code the old #FF7A00/#FF9500 orange and the purple
+   gradients inside their own <style> blocks. These rules retire them.
+   ========================================================================== */
+
+:root {
+    /* dashboard.html defines this and paints buttons + scrollbars with it */
+    --primary-gradient: var(--ap-accent);
+    --primary-light: var(--ap-accent-hover);
+    --secondary-color: var(--ap-dark);
+    --success-color: var(--ap-green);
+    --warning-color: var(--ap-amber);
+    --danger-color: var(--ap-red);
+    --dark-color: var(--ap-ink);
+    --light-color: var(--ap-surface-2);
+    --border-color: var(--ap-line-soft);
+    --shadow-light: var(--ap-sh-1);
+    --shadow-medium: var(--ap-sh-2);
+    --shadow-large: var(--ap-sh-3);
+}
+
+.bg-gradient-orange,
+.bg-gradient-orange.bg-gradient-orange {
+    background: var(--ap-accent) !important;
+}
+
+/* index.html homepage polish block */
+.counter-icon i,
+.counter-block .counter-icon i {
+    color: var(--ap-accent) !important;
+    -webkit-text-fill-color: var(--ap-accent) !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+}
+
+.trust-stat .h3 { color: var(--ap-ink); }
+
+.skill-name {
+    color: var(--ap-ink-3);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+}
+
+.chart .percent { color: var(--ap-ink); font-weight: 600; letter-spacing: -0.03em; }
+
+/* track.html timeline + info tiles */
+.timeline-icon {
+    background: var(--ap-accent);
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+    margin-right: 1rem;
+}
+
+.timeline-content,
+.info-item {
+    background: var(--ap-surface-2);
+    border-left: 3px solid var(--ap-accent);
+    border-radius: var(--ap-r-sm);
+    padding: 1rem 1.15rem;
+}
+
+.timeline-item:not(:last-child)::after { background: var(--ap-line); left: 16px; top: 34px; }
+
+.info-label {
+    color: var(--ap-ink-4);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.info-value {
+    color: var(--ap-ink);
+    font-size: 1rem;
+    letter-spacing: -0.018em;
+}
+
+.timeline-status { font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.015em; }
+.timeline-status.status-delivered  { color: var(--ap-green) !important; background: none !important; }
+.timeline-status.status-in-transit { color: var(--ap-blue) !important;  background: none !important; }
+.timeline-status.status-on-hold    { color: var(--ap-red) !important;   background: none !important; }
+
+.loading-spinner {
+    border: 3px solid var(--ap-line);
+    border-top-color: var(--ap-accent);
+    width: 32px;
+    height: 32px;
+}
+
+/* Scrollbars — Apple keeps them neutral and out of the way */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: var(--ap-r-pill);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.38); background-clip: content-box; }
+
+/* Revolution slider CTA buttons */
+.tp-caption.rev-btn,
+.tp-caption.btn-theme.rev-btn,
+.tp-caption.BigBold-Button {
+    background: var(--ap-accent) !important;
+    border-radius: var(--ap-r-pill) !important;
+    font-family: var(--ap-font) !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.tp-caption.rev-btn:hover,
+.tp-caption.BigBold-Button:hover { background: var(--ap-accent-hover) !important; }
+
+/* ==========================================================================
+   16. track.html masthead
+   .header-style-fullpage is never defined by the theme, so its nav-light
+   (white) links sat on the default white navbar — invisible. Render it as
+   one continuous dark masthead that flows into the dark page header below.
+   ========================================================================== */
+.header-style-fullpage { background: var(--ap-dark); }
+
+.header-style-fullpage .navbar {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-style-fullpage .navbar-nav .nav-link {
+    color: #f5f5f7;
+    opacity: 0.82;
+}
+
+.header-style-fullpage .navbar-nav .nav-link:hover,
+.header-style-fullpage .navbar-nav .nav-link.active { color: #fff; opacity: 1; }
+
+.header-style-fullpage .navbar-toggler .icon-bar { background: #fff; }
+
+.header-style-fullpage .navbar-brand img { filter: brightness(0) invert(1); }
+
+.header-style-fullpage .page-header,
+.header-style-fullpage + .page-header,
+.header-style-fullpage ~ .page-header { padding-top: 3.5rem; }
+
+/* Dark topbar variant used on track.html */
+.topbar,
+.topbar.bg-navy-blue {
+    background: var(--ap-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.55rem 0;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+    color: #a1a1a6;
+}
+
+.topbar a,
+.topbar-link,
+.topbar-link div { color: #a1a1a6; }
+
+.topbar a:hover { color: #fff; }
+
+.topbar .btn-theme {
+    padding: 0.4rem 1rem;
+    min-height: 34px;
+    font-size: 0.8125rem;
+}
+
+/* The sticky state still flips to the light glass bar, so force dark text */
+.header-style-fullpage .header-fullpage.fixed .navbar-nav .nav-link { color: var(--ap-ink) !important; }
+.header-style-fullpage .header-fullpage.fixed .navbar-brand img { filter: none; }
+
+/* ==========================================================================
+   17. Fixes found while reviewing the rendered pages
+   ========================================================================== */
+
+/* 17.1 Contact card floating over the map.
+   Two 37-character e-mail addresses were held on one line by .text-nowrap
+   inside a 530px card, so the columns overlapped. Let them wrap. */
+.contact-details-on-map {
+    max-width: 640px;
+    padding: 1.75rem 2rem;
+    border-radius: var(--ap-r-md);
+    box-shadow: var(--ap-sh-3);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.contact-details-on-map .text-nowrap,
+.contact-details-on-map .text-nowrap a {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.contact-details-on-map h4 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    color: var(--ap-ink);
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+}
+
+.contact-details-on-map p,
+.contact-details-on-map .text-nowrap {
+    color: var(--ap-ink-3);
+    font-size: 0.9375rem;
+    margin-bottom: 0.45rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.contact-details-on-map a { color: var(--ap-accent); }
+.contact-details-on-map a:hover { color: var(--ap-accent-hover); }
+
+.contact-details-on-map i {
+    color: var(--ap-ink-4);
+    font-size: 1rem;
+    top: 2px;
+    padding-right: 0;
+    flex: 0 0 auto;
+}
+
+/* 17.2 The footer wordmark was competing with the content. */
+.logo-footer { width: 84px; margin-bottom: 1rem; }
+.logo-footer img { width: 100%; height: auto; }
+
+/* 17.3 Legibility scrim behind the transparent over-hero nav.
+   Hero slides range from dark sky to bright daylight, so white nav links
+   lost contrast on the lighter frames. A top-down scrim fixes it without
+   showing as a bar — the same thing Apple does over hero imagery. */
+.header-one::before,
+.header-three::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 190px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* The top bar is opaque, so the scrim only needs to cover the nav itself. */
+.header-one .top-bar { position: relative; z-index: 1; }
+
+/* Once the bar turns solid on scroll, the scrim must not darken it. */
+.header-one:has(.header-fullpage.fixed)::before { opacity: 0; }
+
+/* 17.4 Skill bar percentage label sat on top of the track. */
+.skillbar-wrap { margin-bottom: 1.5rem; }
+
+.skillbar {
+    position: relative;
+    margin-top: 0.35rem;
+}
+
+.skillbar-percent {
+    position: absolute;
+    right: 0;
+    top: -1.75rem;
+    background: none;
+    color: var(--ap-ink-3);
+    padding: 0;
+}
+
+/* 17.5 style.css carries `a, button[type="submit"], input[type=text] { color: #333 }`.
+   That selector scores 0,1,1 and so outranks a plain .btn-primary (0,1,0),
+   leaving dark-grey label text on a filled button. Win it back explicitly. */
+button[type="submit"].btn,
+button[type="submit"].btn-theme,
+button[type="submit"].btn-primary,
+button[type="submit"].btn-login,
+button[type="submit"].track-btn,
+input[type="submit"].btn,
+.btn-primary,
+.btn-login {
+    color: #fff;
+}
+
+button[type="submit"].btn-theme,
+button[type="submit"].btn-theme:hover { color: #fff !important; }
+
+button[type="submit"].btn.light,
+button[type="submit"].btn-outline-primary { color: var(--ap-accent); }
+
+/* 17.6 The shield logo is a deep-blue mark with a white letterform, so
+   brightness(0) invert(1) flattened it into a featureless white shape.
+   Sit it on a white tile instead and keep the artwork intact. */
+.login-left .logo-section img,
+.header-style-fullpage .navbar-brand img {
+    filter: none;
+    background: #fff;
+    border-radius: 14px;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
+.login-left .logo-section img { width: 56px; height: 56px; max-width: 56px; }
+
+.header-style-fullpage .navbar-brand img {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    padding: 5px;
+}
+
+.header-style-fullpage .navbar-brand { width: auto; }
+
+/* 17.7 Dashboard details caught in review.
+   .stat-change is a block element carrying a pill background, so it stretched
+   into a full-width green bar. Apple would set this as a quiet caption.
+   .logout-btn is declared twice in the page, and the second copy's red glow
+   survived the background override. */
+.stat-change {
+    display: inline-block;
+    background: none !important;
+    color: var(--ap-ink-4) !important;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    padding: 0;
+    border-radius: 0;
+}
+
+.stat-change.is-up   { color: var(--ap-green) !important; }
+.stat-change.is-down { color: var(--ap-red) !important; }
+
+.logout-btn,
+.logout-btn:hover,
+.logout-btn:focus {
+    box-shadow: none !important;
+    background-image: none;
+}
+
+/* 17.8 .shipment-header declares `justify-content: between`, which is not a
+   valid value, so the badge never moved to the end and sat on top of the
+   route text. Restore the intended layout and let the route text shrink. */
+.shipment-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.shipment-header > div:first-child { min-width: 0; flex: 1 1 auto; }
+
+.shipment-header .status-badge { flex: 0 0 auto; }
+
+.shipment-item .d-flex.justify-content-between { gap: 1rem; flex-wrap: wrap; }
