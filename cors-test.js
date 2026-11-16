@@ -1,4 +1,4 @@
-// Quick CORS test script - run in browser console on firstfortunesecurities.com
+// Quick CORS test script - run in browser console on sovereignfortunesecurities.com
 // This will test if CORS is working properly
 
 async function testCORS() {

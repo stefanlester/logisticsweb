@@ -7,7 +7,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 10000;
-const JWT_SECRET = process.env.JWT_SECRET || 'firstfortune-super-secret-key-2025';
+const JWT_SECRET = process.env.JWT_SECRET || 'sovereignfortune-super-secret-key-2025';
 
 // Enhanced CORS configuration for production
 const corsOptions = {
@@ -30,11 +30,11 @@ app.use(express.urlencoded({ extended: true }));
 const users = [
     {
         id: 1,
-        email: 'vanessa@firstfortunesecurities.com',
+        email: 'vanessa@sovereignfortunesecurities.com',
         password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
         firstName: 'Vanessa',
         lastName: 'Johnson',
-        company: 'FirstFortune Securities',
+        company: 'Sovereign Fortune Securities',
         phone: '+1 (800) 555-DEMO',
         role: 'customer',
         verified: true,
@@ -42,11 +42,11 @@ const users = [
     },
     {
         id: 2,
-        email: 'admin@firstfortunesecurities.com',
+        email: 'admin@sovereignfortunesecurities.com',
         password: '$2a$10$D7fne4VLoIPDvfPGhyG2qOLPh29/e9uR4nauGvZof0mITTL7y2ziy', // admin123
         firstName: 'Admin',
         lastName: 'User',
-        company: 'FirstFortune Securities',
+        company: 'Sovereign Fortune Securities',
         phone: '+1 (800) 555-ADMIN',
         role: 'admin',
         verified: true,
@@ -515,9 +515,9 @@ app.get('/api/admin/users', authenticateToken, (req, res) => {
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
-        message: 'FirstFortune Securities API is running',
+        message: 'Sovereign Fortune Securities API is running',
         timestamp: new Date().toISOString(),
-        server: 'FirstFortune Securities Tracking API',
+        server: 'Sovereign Fortune Securities Tracking API',
         version: '2.0.0'
     });
 });
@@ -525,7 +525,7 @@ app.get('/api/health', (req, res) => {
 // API-only root route
 app.get('/', (req, res) => {
   res.json({
-    message: 'FirstFortune Securities API Server',
+    message: 'Sovereign Fortune Securities API Server',
     version: '2.0.0',
     status: 'operational',
     endpoints: {
@@ -550,12 +550,12 @@ app.use('*', (req, res) => {
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚚 FirstFortune Securities Tracking Server running on port ${PORT}`);
+  console.log(`🚚 Sovereign Fortune Securities Tracking Server running on port ${PORT}`);
   console.log(`📍 API Base: http://localhost:${PORT}/api`);
   console.log(`💡 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔐 Test Accounts:`);
-  console.log(`  Customer: vanessa@firstfortunesecurities.com / bumblebee`);
-  console.log(`  Admin: admin@firstfortunesecurities.com / admin123`);
+  console.log(`  Customer: vanessa@sovereignfortunesecurities.com / bumblebee`);
+  console.log(`  Admin: admin@sovereignfortunesecurities.com / admin123`);
   console.log(`📦 Demo Tracking: FF123456789, FF987654321, DEMO123456789`);
 });
 

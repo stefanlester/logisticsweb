@@ -1,8 +1,8 @@
 
 
-# FirstFortune Securities Server
+# Sovereign Fortune Securities Server
 
-Backend server for the FirstFortune Securities logistics platform.
+Backend server for the Sovereign Fortune Securities logistics platform.
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) (v14 or higher recommended)

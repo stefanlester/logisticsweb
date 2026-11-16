@@ -33,7 +33,7 @@ Replace the removed routes with:
 // API-only root route
 app.get('/', (req, res) => {
   res.json({
-    message: 'FirstFortune Securities API Server',
+    message: 'Sovereign Fortune Securities API Server',
     version: '2.0.0',
     endpoints: {
       health: '/api/health',

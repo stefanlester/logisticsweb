@@ -3,7 +3,7 @@
 ## ✅ Ready for Hostinger Upload!
 
 ### **What's Ready:**
-- ✅ All HTML files rebranded to "FirstFortune Securities"  
+- ✅ All HTML files rebranded to "Sovereign Fortune Securities"  
 - ✅ API configuration system implemented (`config.js`)
 - ✅ All API calls updated to use dynamic endpoints
 - ✅ Cross-origin requests configured
@@ -75,7 +75,7 @@ const API_CONFIG = {
 #### **Step 2: Test Functionality**
 - ✅ Visit your domain
 - ✅ Test tracking: `FF123456789` or `DEMO123456789`
-- ✅ Test login: `vanessa@firstfortunesecurities.com / bumblebee`
+- ✅ Test login: `vanessa@sovereignfortunesecurities.com / bumblebee`
 - ✅ Check browser console for errors
 
 ### **🌐 Hostinger Domain Setup:**
@@ -108,7 +108,7 @@ const API_CONFIG = {
 
 ### **✨ What's Different from Original:**
 - ❌ Removed: CreatorX, MannatStudio branding
-- ✅ Added: FirstFortune Securities branding
+- ✅ Added: Sovereign Fortune Securities branding
 - ✅ Added: DHL-inspired red color scheme (#d40511)
 - ✅ Added: Professional contact info
 - ✅ Added: API configuration system

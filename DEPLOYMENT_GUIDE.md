@@ -1,4 +1,4 @@
-# FirstFortune Securities - Deployment Guide
+# Sovereign Fortune Securities - Deployment Guide
 
 ## Render (Backend) + Hostinger (Frontend) Setup
 
@@ -16,7 +16,7 @@
 2. **Connect GitHub**: Link your repository
 3. **New Web Service** with these settings:
    ```
-   Name: firstfortune-api
+   Name: sovereignfortune-api
    Region: Choose closest to your users
    Branch: main
    Root Directory: server
@@ -32,7 +32,7 @@
    PORT=10000
    ```
 
-5. **Deploy** - Note your app URL: `https://firstfortune-api.onrender.com`
+5. **Deploy** - Note your app URL: `https://sovereignfortune-api.onrender.com`
 
 ### 🌐 **Phase 2: Prepare Frontend for Hostinger**
 
@@ -42,7 +42,7 @@ Update `/assets/js/config.js` with your Render URL:
 ```javascript
 const API_CONFIG = {
     // Replace with your actual Render URL
-    BASE_URL: 'https://firstfortune-api.onrender.com',
+    BASE_URL: 'https://sovereignfortune-api.onrender.com',
     
     ENDPOINTS: {
         LOGIN: '/api/auth/login',
@@ -113,7 +113,7 @@ public_html/
 #### **Backend Testing (Render):**
 ```bash
 # Test API endpoints
-curl https://firstfortune-api.onrender.com/api/track/FF123456789
+curl https://sovereignfortune-api.onrender.com/api/track/FF123456789
 ```
 
 #### **Frontend Testing (Hostinger):**

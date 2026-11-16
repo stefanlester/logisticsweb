@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Delivery / Receipt Note | FirstFortune Securities</title>
+    <title>Delivery / Receipt Note | Sovereign Fortune Securities</title>
     <link rel="icon" href="assets/images/ship.png">
     <style>
         :root {
@@ -245,7 +245,7 @@
 </head>
 <body>
     <div class="toolbar">
-        <div class="title">FirstFortune Securities — Delivery / Receipt Note</div>
+        <div class="title">Sovereign Fortune Securities — Delivery / Receipt Note</div>
         <div class="actions">
             <a class="btn btn-ghost" href="track.html" id="backLink">Back to tracking</a>
             <button class="btn btn-primary" id="downloadBtn" disabled>Download PDF</button>
@@ -257,9 +257,9 @@
     <div id="page" class="page" style="display:none;">
         <div class="header">
             <div class="brand">
-                <img src="assets/images/ship.png" alt="FirstFortune Securities">
+                <img src="assets/images/ship.png" alt="Sovereign Fortune Securities">
                 <div>
-                    <div class="name">FirstFortune Securities</div>
+                    <div class="name">Sovereign Fortune Securities</div>
                     <div class="tag">Logistics &amp; Security</div>
                 </div>
             </div>
@@ -275,7 +275,7 @@
             <div class="party-card">
                 <div class="label">Consignor (Origin)</div>
                 <div class="value">
-                    <strong>FirstFortune Securities</strong>
+                    <strong>Sovereign Fortune Securities</strong>
                     <div id="partyOrigin">—</div>
                 </div>
             </div>
@@ -312,7 +312,7 @@
         </div>
 
         <div class="footer">
-            FirstFortune Securities — International Secure Asset Transfer &amp; Logistics<br>
+            Sovereign Fortune Securities — International Secure Asset Transfer &amp; Logistics<br>
             This delivery note is issued as a record of shipment and must be countersigned by the authorised recipient on release.
         </div>
     </div>
@@ -409,7 +409,7 @@
             loadingEl.style.display = 'none';
             pageEl.style.display = 'block';
             downloadBtn.disabled = false;
-            document.title = `Delivery Note ${shipment.trackingNumber} | FirstFortune Securities`;
+            document.title = `Delivery Note ${shipment.trackingNumber} | Sovereign Fortune Securities`;
 
             document.getElementById('backLink').href = `track.html?tn=${encodeURIComponent(shipment.trackingNumber)}`;
 

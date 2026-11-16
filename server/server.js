@@ -6,14 +6,12 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || 'firstfortune-super-secret-key-2025';
+const JWT_SECRET = process.env.JWT_SECRET || 'sovereignfortune-super-secret-key-2025';
 
 // Enhanced CORS configuration for production
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://firstfortunesecurities.com',  // Your Hostinger domain
-    'https://www.firstfortunesecurities.com',  // With www
     'https://sovereignfortunesecurities.com',  // Hostinger domain
     'https://www.sovereignfortunesecurities.com',  // With www
     'https://logzeeserver.onrender.com'  // Render domain
@@ -46,11 +44,11 @@ app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3'
 const users = [
   {
     id: 1,
-    email: 'mary.craig@firstfortunesecurities.com',
+    email: 'mary.craig@sovereignfortunesecurities.com',
     password: '$2a$10$LfRJ5vw3Aa6z1q.tTKJeIurfQ/mKcfx2MB5h0tSbPNJ15Ox3JZ1Oa', // bumblebee
     firstName: 'Mary Miles',
     lastName: '& Craig Goodman',
-    company: 'FirstFortune Securities',
+    company: 'Sovereign Fortune Securities',
     phone: '+41 22 918 8400',
     role: 'customer',
     verified: true,
@@ -72,11 +70,11 @@ const users = [
   },
   {
     id: 3,
-    email: 'kezia.osei.anderson@firstfortunesecurities.com',
+    email: 'kezia.osei.anderson@sovereignfortunesecurities.com',
     password: '$2a$10$wCK4rrV6Pzv8Yp75nBIWuu4CBh911kTtbUTui1Z2rhhCO8bL9rrB6', // goldowner2025
     firstName: 'Kezia Osei',
     lastName: 'Anderson & Gerhard Hennin',
-    company: 'FirstFortune Securities',
+    company: 'Sovereign Fortune Securities',
     phone: '+44 131 555 1234',
     role: 'customer',
     verified: true,
@@ -99,7 +97,7 @@ const users = [
         inTransit: '50.000 kg',
         fineness: '999.9 (or as assayed)'
       },
-      storage: 'First Fortune Security Logistics',
+      storage: 'Sovereign Fortune Security Logistics',
       serialNumber: 'DRFCL/PXW03',
       transactionCode: 'DRFCL/255CPP/01',
       securityCode: 'DFRCL80/49/03',
@@ -110,11 +108,11 @@ const users = [
   },
   {
     id: 4,
-    email: 'gifty.enu@firstfortunesecurities.com',
+    email: 'gifty.enu@sovereignfortunesecurities.com',
     password: '$2a$10$GVOuLS84KD3zbbsrU6HlF.VKKd4lo.i3.S1cd6TE3j.IKtij692dm', // giftygold2026
     firstName: 'Gifty',
     lastName: 'Enu',
-    company: 'FirstFortune Securities',
+    company: 'Sovereign Fortune Securities',
     phone: '+44 20 7946 0820',
     role: 'customer',
     verified: true,
@@ -143,11 +141,11 @@ const users = [
   },
     {
         id: 2,
-        email: 'admin@firstfortunesecurities.com',
+        email: 'admin@sovereignfortunesecurities.com',
         password: '$2a$10$D7fne4VLoIPDvfPGhyG2qOLPh29/e9uR4nauGvZof0mITTL7y2ziy', // admin123
         firstName: 'Admin',
         lastName: 'User',
-        company: 'FirstFortune Securities',
+        company: 'Sovereign Fortune Securities',
         phone: '+1 (800) 555-ADMIN',
         role: 'admin',
         verified: true,
@@ -762,7 +760,7 @@ app.get('/dashboard', (req, res) => {
 // API info route
 app.get('/api', (req, res) => {
   res.json({
-    message: 'FirstFortune Securities API Server',
+    message: 'Sovereign Fortune Securities API Server',
     version: '2.0.0',
     status: 'operational',
     endpoints: {
@@ -781,7 +779,7 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
         timestamp: new Date().toISOString(),
-        server: 'FirstFortune Securities Tracking API',
+        server: 'Sovereign Fortune Securities Tracking API',
         version: '2.0.0',
         features: ['authentication', 'tracking', 'user_management']
     });
@@ -807,13 +805,13 @@ app.use('*', (req, res) => {
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚚 FirstFortune Securities Tracking Server running on port ${PORT}`);
+  console.log(`🚚 Sovereign Fortune Securities Tracking Server running on port ${PORT}`);
   console.log(`� API Base: http://localhost:${PORT}/api`);
   console.log(`� Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log('');
   console.log('🔑 Demo Accounts:');
-  console.log('  Customer: vanessa@firstfortunesecurities.com / bumblebee');
-  console.log('  Admin: admin@firstfortunesecurities.com / admin123');
+  console.log('  Customer: vanessa@sovereignfortunesecurities.com / bumblebee');
+  console.log('  Admin: admin@sovereignfortunesecurities.com / admin123');
   console.log('');
   console.log('📦 Sample tracking numbers:');
   console.log('  - LZ2025001 (In Transit)');

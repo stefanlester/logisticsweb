@@ -7,8 +7,8 @@
 - ✅ **Result**: Clean login page without demo instructions
 
 ### **2. Updated Customer Credentials**
-- ❌ **Old**: `demo@firstfortunesecurities.com` / `demo123`
-- ✅ **New**: `vanessa@firstfortunesecurities.com` / `bumblebee`
+- ❌ **Old**: `demo@sovereignfortunesecurities.com` / `demo123`
+- ✅ **New**: `vanessa@sovereignfortunesecurities.com` / `bumblebee`
 
 ### **3. Updated Files:**
 - ✅ `login.html` - Removed demo alert
@@ -20,13 +20,13 @@
 ## 🎯 New Test Credentials:
 
 ### **Customer Account:**
-- **Email**: `vanessa@firstfortunesecurities.com`  
+- **Email**: `vanessa@sovereignfortunesecurities.com`  
 - **Password**: `bumblebee`
 - **Name**: Vanessa Johnson
 - **Role**: Customer
 
 ### **Admin Account** (unchanged):
-- **Email**: `admin@firstfortunesecurities.com`
+- **Email**: `admin@sovereignfortunesecurities.com`
 - **Password**: `admin123`
 - **Role**: Admin
 
@@ -34,7 +34,7 @@
 
 ### **Before:**
 - Login page showed demo instructions
-- Had to use demo@firstfortunesecurities.com
+- Had to use demo@sovereignfortunesecurities.com
 
 ### **After:**
 - ✅ Clean professional login page
@@ -50,8 +50,8 @@
 ## 🧪 Testing:
 
 Once Render redeploys (2-3 minutes), test with:
-- Visit: `https://firstfortunesecurities.com/login.html`
-- Login: `vanessa@firstfortunesecurities.com` / `bumblebee`
+- Visit: `https://sovereignfortunesecurities.com/login.html`
+- Login: `vanessa@sovereignfortunesecurities.com` / `bumblebee`
 - Should work without any demo alerts showing
 
 The login page is now much cleaner and more professional! 🎉
