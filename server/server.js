@@ -142,7 +142,7 @@ const users = [
   {
     id: 5,
     email: 'f.marshall@sovereignfortunesecurities.com',
-    password: '$2a$10$HE2rHac3dx2HXEwX4YzVpeX.RbCsPuDz9Pu5VK8PS2Pa2WTVco/vS', // frank-demo-2009
+    password: '$2a$10$feEv49kr7oDUak1FeR2FKe6ZkhXFZbgcJySfWAyzLCuPLPCN8y872', // Meridian-dkaEa-5840
     firstName: 'Frank',
     lastName: 'Marshall',
     company: 'Sovereign Fortune Securities',
