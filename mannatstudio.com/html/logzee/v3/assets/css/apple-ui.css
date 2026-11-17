@@ -656,8 +656,30 @@ button[type="submit"].btn-theme {
 
 .slider.bg-navy-blue { background: var(--ap-dark); }
 
-/* Breadcrumb hero on inner pages */
-.breadcrumbs-page { background-color: var(--ap-dark); }
+/* Breadcrumb hero on inner pages.
+
+   The markup on all 17 inner pages is
+   `class="slider bg-navy-blue bg-fixed pos-rel breadcrumbs-page"`, so the
+   `background` shorthand immediately above applies to it too. A shorthand
+   resets every background sub-property, which wiped the theme's own
+   `background-image: url(../images/breadcrumbs_bg.jpg)` on .breadcrumbs-page,
+   and at (0,2,0) it outranks that (0,1,0) rule whatever the load order. The
+   result was a flat dark band with no photograph on every page but the home
+   page.
+
+   Restore the image here at (0,3,0) so it beats the shorthand, and lay a
+   gradient over it so the white heading keeps its contrast on a light photo.
+   `background-size`/`position` are restated because the shorthand cleared
+   those too. */
+.slider.bg-navy-blue.breadcrumbs-page,
+.breadcrumbs-page {
+    background-color: var(--ap-dark);
+    background-image: linear-gradient(rgba(12, 12, 14, 0.62), rgba(12, 12, 14, 0.62)),
+                      url(../images/breadcrumbs_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
 
 .breadcrumbs-page h1,
 .page-header .page-title {
