@@ -310,10 +310,17 @@ app.get('/api/user/profile', authenticateToken, (req, res) => {
 });
 
 app.get('/api/user/shipments', authenticateToken, (req, res) => {
-    // In a real app, filter shipments by user
+    // This used to return shipments.slice(0, 3) to every caller, ignoring who
+    // was signed in, so each account saw three consignments belonging to
+    // somebody else. Scope to the signed-in user and return nothing when the
+    // record carries no owner, rather than guessing.
+    const userShipments = shipments.filter(s => s.userId === req.user.id);
+
+    // Match server.js: the clients read `data` and `count`.
     res.json({
         success: true,
-        shipments: shipments.slice(0, 3) // Return first 3 for demo
+        data: userShipments,
+        count: userShipments.length
     });
 });
 
