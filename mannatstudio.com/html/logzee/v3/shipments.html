@@ -733,6 +733,9 @@
             if (!u) return;
             var full = ((u.firstName || '') + ' ' + (u.lastName || '')).trim();
             document.getElementById('userName').textContent = full || 'Account holder';
+            // The token is shared across tabs, so state plainly whose data this is.
+            var roleEl = document.querySelector('.user-role');
+            if (roleEl && u.email) roleEl.textContent = u.email;
             document.getElementById('userAvatar').textContent =
                 ((u.firstName || ' ')[0] + (u.lastName || ' ')[0]).toUpperCase().trim() || '--';
             document.getElementById('pageSub').textContent =
