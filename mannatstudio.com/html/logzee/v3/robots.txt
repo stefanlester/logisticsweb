@@ -1,0 +1,33 @@
+# Sovereign Fortune Securities
+User-agent: *
+Allow: /
+
+# Customer portal and account screens: no public search value
+Disallow: /login.html
+Disallow: /dashboard.html
+Disallow: /delivery-note.html
+
+# API surface
+Disallow: /api/
+
+# Template pages retained in the build but not part of the public site
+Disallow: /index-2.html
+Disallow: /index-3.html
+Disallow: /index-4.html
+Disallow: /index-5.html
+Disallow: /index-6.html
+Disallow: /contact-us-option.html
+Disallow: /pricing-plan.html
+Disallow: /request-page.html
+Disallow: /service-details.html
+Disallow: /shortcodes-element.html
+Disallow: /typography.html
+Disallow: /project-masonary.html
+Disallow: /project-single.html
+Disallow: /blog-grid.html
+Disallow: /blog-standard.html
+Disallow: /blog-single.html
+Disallow: /404-page.html
+Disallow: /href.html
+
+Sitemap: https://sovereignfortunesecurities.com/sitemap.xml
