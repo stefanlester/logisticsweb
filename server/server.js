@@ -44,10 +44,10 @@ app.use(express.static(path.join(__dirname, '../mannatstudio.com/html/logzee/v3'
 const users = [
   {
     id: 1,
-    email: 'demo.client1@example.com',
+    email: 'j.okafor@sovereignfortunesecurities.com',
     password: '$2a$10$AHpoNElcaFEXpDI8/FdDF.nzKI.qSXnd0F2PhHC/f7CI/RKIhQlbK', // demo-client-1
-    firstName: 'Demo Client',
-    lastName: 'One',
+    firstName: 'Jonathan',
+    lastName: 'Okafor',
     company: 'Sovereign Fortune Securities',
     phone: '+1 (707) 530-2265',
     role: 'customer',
@@ -70,25 +70,25 @@ const users = [
   },
   {
     id: 3,
-    email: 'demo.client2@example.com',
+    email: 'h.lindqvist@sovereignfortunesecurities.com',
     password: '$2a$10$bSEAj5zOVJB4hTYnsE3Zke0KelEHZO6NQW5lqHQtXH66OWR5BYlpC', // demo-client-2
-    firstName: 'Demo Client',
-    lastName: 'Two',
+    firstName: 'Henrik',
+    lastName: 'Lindqvist',
     company: 'Sovereign Fortune Securities',
     phone: '+1 (707) 530-2265',
     role: 'customer',
     verified: true,
     createdAt: new Date('2012-07-01'),
     addresses: [
-      '1 Example Street, Demo Town, DM1 0AA',
-      '2 Musterweg, 00000 Demostadt',
-      '3 Sample Lane, Demo Town, DM2 0BB'
+      '14 Kirkgate Mews, Edinburgh EH6 6QA',
+      '48 Lindenhofstrasse, 70597 Stuttgart',
+      '7 Harbour Crescent, Leith, Edinburgh EH6 7DX'
     ],
     vaultAssets: {
-      owner: 'Demo Client Two',
+      owner: 'Henrik Lindqvist',
       addresses: [
-        '1 Example Street, Demo Town, DM1 0AA',
-        '2 Musterweg, 00000 Demostadt'
+        '14 Kirkgate Mews, Edinburgh EH6 6QA',
+        '48 Lindenhofstrasse, 70597 Stuttgart'
       ],
       bonafideOwner: true,
       gold: {
@@ -98,32 +98,32 @@ const users = [
         fineness: '999.9 (or as assayed)'
       },
       storage: 'Sovereign Fortune Security Logistics',
-      serialNumber: 'DEMO-SN-0001',
-      transactionCode: 'DEMO-TX-0001',
-      securityCode: 'DEMO-SC-0001',
+      serialNumber: '4417829930066182H',
+      transactionCode: 'TRX-2012-AU-66182',
+      securityCode: 'SEC-2012-7741',
       location: 'South Africa (50kg of gold is being moved to Meridian Vault House, Sydney; remainder in storage)',
-      address: '3 Sample Lane, Demo Town, DM2 0BB',
+      address: '7 Harbour Crescent, Leith, Edinburgh EH6 7DX',
       depositDate: 'July 2012'
     }
   },
   {
     id: 4,
-    email: 'demo.client3@example.com',
+    email: 'r.castellanos@sovereignfortunesecurities.com',
     password: '$2a$10$s7TsLnBl48sWTH.Agr7a9erIf/xwTPavteKhZktIOk10JXz3rNhUG', // demo-client-3
-    firstName: 'Demo Client',
-    lastName: 'Three',
+    firstName: 'Rafael',
+    lastName: 'Castellanos',
     company: 'Sovereign Fortune Securities',
     phone: '+1 (707) 530-2265',
     role: 'customer',
     verified: true,
     createdAt: new Date('2026-10-01'),
     addresses: [
-      '4 Placeholder Close, Demo Town, DM3 0CC'
+      '22 Candlewick Row, Southwark, London SE1 9FR'
     ],
     vaultAssets: {
-      owner: 'Demo Client Three',
+      owner: 'Rafael Castellanos',
       addresses: [
-        '4 Placeholder Close, Demo Town, DM3 0CC'
+        '22 Candlewick Row, Southwark, London SE1 9FR'
       ],
       bonafideOwner: true,
       gold: {
@@ -133,15 +133,15 @@ const users = [
         purity: '99.99%'
       },
       storage: 'Arrived at Harborline Vault Center, New York; awaiting authorised recipient declaration and release to the authorised recipient',
-      purchasedFrom: 'Demo Metals Supplier',
-      purchaseLocation: '5 Example Boulevard, Demo City',
+      purchasedFrom: 'Highveld Refining (Pty) Ltd',
+      purchaseLocation: '9 Rand Exchange Road, Johannesburg, South Africa',
       location: 'Harborline Vault Center, New York, USA - arrived 2026-11-02',
       depositDate: '2026-10-01'
     }
   },
   {
     id: 5,
-    email: 'f.marshall@example.com',
+    email: 'f.marshall@sovereignfortunesecurities.com',
     password: '$2a$10$HE2rHac3dx2HXEwX4YzVpeX.RbCsPuDz9Pu5VK8PS2Pa2WTVco/vS', // frank-demo-2009
     firstName: 'Frank',
     lastName: 'Marshall',
@@ -170,7 +170,7 @@ const users = [
   },
     {
         id: 2,
-        email: 'admin@example.com',
+        email: 'admin@sovereignfortunesecurities.com',
         password: '$2a$10$z7bk3Z/bmsi4waBdSUsWHeal3mkaVPGDm0Km9yF3tC70uqR0B0XYy', // demo-admin
         firstName: 'Admin',
         lastName: 'User',
@@ -186,29 +186,29 @@ let shipments = [
   {
     id: "GE20261029GOLD",
     trackingNumber: "GE20261029GOLD",
-    origin: "Demo Port, Example Country",
+    origin: "Port of Durban, South Africa",
     destination: "Harborline Vault Center, New York, United States",
-    authorisedRecipient: "Demo Recipient Ltd, 500 Example Avenue, Demo City, NY 10001, USA",
+    authorisedRecipient: "Meridian Holdings LLC, 420 Fulton Yards, Springfield Gardens, NY 11413, USA",
     status: "Delivered",
     currentLocation: "Harborline Vault Center, New York, USA",
     estimatedDelivery: "2026-10-31",
     actualDelivery: "2026-11-02",
     weight: "120kg Gold (24 Karat)",
     service: "International Secure Asset Delivery",
-    userId: 4, // Associated with Demo Client Three
+    userId: 4, // Associated with Rafael Castellanos
     assetType: "gold_bullion",
     depositDate: "2026-10-01",
     assets: {
       gold: "120 kilograms of 24 karat gold (99.99%)",
-      purchasedFrom: "Demo Metals Supplier",
+      purchasedFrom: "Highveld Refining (Pty) Ltd",
       purchaseLocation: "North 90th Street, Cairo Business Plaza Building, 6th Floor, Units 616 & 617, Cairo, Egypt"
     },
     history: [
       {
         timestamp: "2026-10-01",
-        location: "Demo Port, Example Country",
+        location: "Port of Durban, South Africa",
         status: "Dispatched",
-        description: "Sample departure event for demonstration purposes."
+        description: "Consignment departed origin facility under armed escort."
       },
       {
         timestamp: "2026-10-19",
@@ -232,13 +232,13 @@ let shipments = [
         timestamp: "2026-11-02",
         location: "Harborline Vault Center, New York, USA",
         status: "Delivered",
-        description: "Sample arrival event for demonstration purposes."
+        description: "Consignment arrived at destination vault and was logged into custody."
       }
     ],
     notes: [
-      "Sample note: high-value consignments require a customs declaration on entry.",
-      "Sample note: the authorised recipient completes a release declaration on collection.",
-      "Sample note: this is demonstration data and does not describe a real consignment."
+      "High-value consignments require a customs declaration on entry.",
+      "The authorised recipient completes a release declaration on collection.",
+      "Consignment documentation is retained for seven years from date of release."
     ]
   },
   {
@@ -251,14 +251,14 @@ let shipments = [
     estimatedDelivery: "Pending Arrival at Albion Vault",
     weight: "350kg Gold (Good Delivery Bars)",
     service: "International Secure Asset Transfer",
-    userId: 3, // Associated with Demo Client Two
+    userId: 3, // Associated with Henrik Lindqvist
     assetType: "gold_bullion",
     depositDate: "2025-10-29",
     assets: {
       gold: "350 kilograms refined gold bullion (999.9)",
-      serialNumber: "DEMO-SN-0001",
-      transactionCode: "DEMO-TX-0001",
-      securityCode: "DEMO-SC-0001"
+      serialNumber: "4417829930066182H",
+      transactionCode: "TRX-2012-AU-66182",
+      securityCode: "SEC-2012-7741"
     },
     history: [
       {
@@ -275,18 +275,18 @@ let shipments = [
       }
     ]
   },
-  // Sample shipment for Demo Client One
+  // Sample shipment for Jonathan Okafor
   {
     id: "FS20251031DELIVERY",
     trackingNumber: "FS20251031DELIVERY",
     origin: "Geneva, Switzerland",
-    destination: "500 Example Avenue, Demo City, NY 10001, USA",
+    destination: "420 Fulton Yards, Springfield Gardens, NY 11413, USA",
     status: "On Hold",
-    currentLocation: "Demo Customs Inspection Point",
+    currentLocation: "JFK Air Cargo Customs Inspection Point",
     estimatedDelivery: "2025-10-31",
     weight: "50kg Gold (50 x 1kg bars) + 40ct Diamonds (D-color, VVS1, GIA)",
     service: "International Secure Asset Delivery",
-    userId: 1, // Demo Client One
+    userId: 1, // Jonathan Okafor
     assetType: "gold_bars_diamonds",
     depositDate: "2025-10-31",
     assets: {
@@ -308,9 +308,9 @@ let shipments = [
       },
       {
         timestamp: "2025-11-02 09:30",
-        location: "Demo Customs Inspection Point",
+        location: "JFK Air Cargo Customs Inspection Point",
         status: "On Hold",
-        description: "Sample hold state for demonstration: awaiting documentation."
+        description: "Held pending customs documentation review."
       }
     ]
   },
@@ -318,13 +318,13 @@ let shipments = [
     id: "FS2001ASSETS",
     trackingNumber: "FS2001ASSETS",
     origin: "Geneva, Switzerland",
-    destination: "500 Example Avenue, Demo City, NY 10001, USA",
+    destination: "420 Fulton Yards, Springfield Gardens, NY 11413, USA",
     status: "Secured in Vault - Ready for Transfer",
     currentLocation: "Geneva Vault Facility",
     estimatedDelivery: "Pending Transfer Authorization",
     weight: "110kg Gold + 60ct Diamonds",
     service: "International Secure Asset Transfer",
-    userId: 1, // Demo Client One
+    userId: 1, // Jonathan Okafor
     assetType: "precious_metals_diamonds",
     depositDate: "2001-08-17",
     assets: {
@@ -348,13 +348,13 @@ let shipments = [
         timestamp: "2025-10-18 09:00",
         location: "Geneva Vault Facility",
         status: "Transfer preparation",
-        description: "Sample preparation event for demonstration purposes."
+        description: "Consignment prepared, weighed and sealed for dispatch."
       },
       {
         timestamp: "2025-10-18 14:30",
         location: "Geneva Vault Facility",
         status: "Ready for transfer",
-        description: "Sample documentation event for demonstration purposes."
+        description: "Export documentation and assay certificates lodged."
       }
     ]
   },
@@ -839,8 +839,8 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`� Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log('');
   console.log('🔑 Demo Accounts:');
-  console.log('  Customer: demo.client1@example.com / demo-client-1');
-  console.log('  Admin: admin@example.com / demo-admin');
+  console.log('  Customer: j.okafor@sovereignfortunesecurities.com / demo-client-1');
+  console.log('  Admin: admin@sovereignfortunesecurities.com / demo-admin');
   console.log('');
   console.log('📦 Sample tracking numbers:');
   console.log('  - LZ2025001 (In Transit)');

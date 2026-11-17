@@ -30,10 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 const users = [
     {
         id: 1,
-        email: 'demo.client1@example.com',
+        email: 'j.okafor@sovereignfortunesecurities.com',
         password: '$2a$10$AHpoNElcaFEXpDI8/FdDF.nzKI.qSXnd0F2PhHC/f7CI/RKIhQlbK', // demo-client-1
-        firstName: 'Vanessa',
-        lastName: 'Johnson',
+        firstName: 'Jonathan',
+        lastName: 'Okafor',
         company: 'Sovereign Fortune Securities',
         phone: '+1 (707) 530-2265',
         role: 'customer',
@@ -343,16 +343,16 @@ app.get('/api/track/:trackingNumber', optionalAuth, (req, res) => {
         const demoShipment = {
             trackingNumber: trackingNumber,
             status: 'In Transit',
-            origin: 'Demo Origin',
-            destination: 'Demo Destination',
+            origin: 'Port of Durban, South Africa',
+            destination: 'Harborline Vault Center, New York',
             estimatedDelivery: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-            currentLocation: 'Demo Hub',
+            currentLocation: 'JFK Air Cargo Terminal, New York',
             weight: '1.0 kg',
             dimensions: '20x15x10 cm',
             service: 'Express Delivery',
             updates: [
-                { timestamp: new Date().toISOString(), location: 'Demo Origin', status: 'Package picked up' },
-                { timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), location: 'Demo Hub', status: 'In transit' }
+                { timestamp: new Date().toISOString(), location: 'Port of Durban, South Africa', status: 'Package picked up' },
+                { timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), location: 'JFK Air Cargo Terminal, New York', status: 'In transit' }
             ]
         };
         
@@ -554,8 +554,8 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📍 API Base: http://localhost:${PORT}/api`);
   console.log(`💡 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔐 Test Accounts:`);
-  console.log(`  Customer: demo.client1@example.com / demo-client-1`);
-  console.log(`  Admin: admin@example.com / demo-admin`);
+  console.log(`  Customer: j.okafor@sovereignfortunesecurities.com / demo-client-1`);
+  console.log(`  Admin: admin@sovereignfortunesecurities.com / demo-admin`);
   console.log(`📦 Demo Tracking: FF123456789, FF987654321, DEMO123456789`);
 });
 
