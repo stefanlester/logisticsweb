@@ -5,6 +5,7 @@ Allow: /
 # Customer portal and account screens: no public search value
 Disallow: /login.html
 Disallow: /dashboard.html
+Disallow: /shipments.html
 Disallow: /delivery-note.html
 
 # API surface

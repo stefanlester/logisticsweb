@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consignments | Sovereign Fortune Securities</title>
+    <meta name="author" content="Sovereign Fortune Securities">
+    <meta name="description"
+        content="Sovereign Fortune Securities customer portal - consignment register, asset holdings and shipment analytics.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/logoreal.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="assets/css/theme-plugins.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #FF7A00;
+            --primary-gradient: linear-gradient(135deg, #FF7A00, #FF9500);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #3b82f6;
+            --dark-color: #1f2937;
+            --muted-color: #6b7280;
+            --faint-color: #9ca3af;
+            --line-color: #e5e7eb;
+            --surface: #ffffff;
+            --surface-2: #f8fafc;
+            --radius: 16px;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, .07);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, .08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--surface-2);
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        /* ---------- header ---------- */
+        .portal-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--line-color);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-logo { height: 38px; width: auto; }
+
+        .company-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--dark-color);
+            letter-spacing: -.02em;
+        }
+
+        .header-right { display: flex; align-items: center; gap: 14px; }
+
+        .user-info { display: flex; align-items: center; gap: 10px; }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .8rem;
+        }
+
+        .user-details { display: flex; flex-direction: column; line-height: 1.2; }
+        .user-name { font-weight: 600; font-size: .9rem; }
+        .user-role { font-size: .72rem; color: var(--muted-color); }
+
+        .logout-btn {
+            border: 1px solid var(--line-color);
+            background: var(--surface);
+            color: var(--dark-color) !important;
+            border-radius: 980px;
+            padding: 8px 16px;
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: none !important;
+            min-height: 40px;
+        }
+
+        .logout-btn:hover { background: var(--surface-2); }
+
+        /* ---------- portal nav ---------- */
+        .portal-nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .portal-nav .inner { display: flex; gap: 4px; overflow-x: auto; }
+
+        .portal-nav a {
+            padding: 12px 16px;
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--muted-color);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .portal-nav a:hover { color: var(--dark-color); }
+
+        .portal-nav a.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* ---------- layout ---------- */
+        .page-head { padding: 28px 0 8px; }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            margin: 0 0 4px;
+        }
+
+        .page-sub { color: var(--muted-color); font-size: .95rem; margin: 0; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            padding: 22px;
+            margin-bottom: 22px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-note { font-size: .8rem; color: var(--muted-color); margin: 0 0 16px; }
+
+        /* ---------- holdings reconciliation ---------- */
+        .holdings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+        }
+
+        .holding {
+            border: 1px solid var(--line-color);
+            border-radius: 12px;
+            padding: 16px;
+            background: var(--surface-2);
+        }
+
+        .holding.total { background: #111827; border-color: #111827; }
+        .holding.total .holding-label { color: rgba(255, 255, 255, .72); }
+        .holding.total .holding-value { color: #fff; }
+        .holding.total .holding-meta { color: rgba(255, 255, 255, .6); }
+
+        .holding-label {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--muted-color);
+            font-weight: 700;
+        }
+
+        .holding-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            margin-top: 6px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .holding-meta { font-size: .78rem; color: var(--faint-color); margin-top: 2px; }
+
+        .reconcile {
+            margin-top: 14px;
+            font-size: .82rem;
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .reconcile.ok { background: #ecfdf5; color: #065f46; }
+        .reconcile.warn { background: #fffbeb; color: #92400e; }
+
+        /* ---------- kpi tiles ---------- */
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .kpi {
+            background: var(--surface);
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .kpi-top { display: flex; align-items: center; justify-content: space-between; }
+
+        .kpi-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-total { background: var(--info-color); }
+        .dot-transit { background: var(--warning-color); }
+        .dot-delivered { background: var(--success-color); }
+        .dot-hold { background: var(--danger-color); }
+        .dot-prep { background: #8b5cf6; }
+
+        .kpi-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            margin-top: 8px;
+        }
+
+        .kpi-label { font-size: .78rem; color: var(--muted-color); font-weight: 600; }
+
+        /* ---------- valuation ---------- */
+        .val-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+
+        .val-field { display: flex; flex-direction: column; gap: 5px; }
+
+        .val-field label { font-size: .75rem; font-weight: 700; color: var(--muted-color); }
+
+        .val-field input {
+            border: 1px solid var(--line-color);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: .9rem;
+            font-family: inherit;
+            width: 150px;
+            min-height: 42px;
+        }
+
+        .val-out { margin-left: auto; text-align: right; }
+
+        .val-out .amount {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .assumption {
+            margin-top: 14px;
+            font-size: .78rem;
+            color: #92400e;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        /* ---------- charts ---------- */
+        .chart-wrap { position: relative; height: 260px; }
+
+        /* ---------- filters ---------- */
+        .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+
+        .filters input,
+        .filters select {
+            border: 1px solid var(--line-color);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: .88rem;
+            font-family: inherit;
+            min-height: 44px;
+            background: var(--surface);
+        }
+
+        .filters input { flex: 1 1 240px; }
+
+        /* ---------- consignment rows ---------- */
+        .rows { display: flex; flex-direction: column; gap: 12px; }
+
+        .row-item {
+            border: 1px solid var(--line-color);
+            border-radius: 14px;
+            background: var(--surface);
+            overflow: hidden;
+        }
+
+        .row-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr) minmax(0, 1fr) auto;
+            gap: 14px;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        .row-main:hover { background: var(--surface-2); }
+
+        .track-no {
+            font-weight: 700;
+            font-size: .95rem;
+            font-variant-numeric: tabular-nums;
+            word-break: break-all;
+        }
+
+        .track-sub { font-size: .78rem; color: var(--muted-color); margin-top: 2px; }
+
+        .route { font-size: .85rem; color: var(--dark-color); }
+        .route .arrow { color: var(--faint-color); margin: 0 6px; }
+        .route-meta { font-size: .76rem; color: var(--faint-color); margin-top: 2px; }
+
+        .assets-cell { font-size: .85rem; font-variant-numeric: tabular-nums; }
+        .assets-cell .muted { color: var(--faint-color); font-size: .76rem; }
+
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 980px;
+            font-size: .74rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .chip-delivered { background: #d1fae5; color: #065f46; }
+        .chip-in_transit { background: #fef3c7; color: #92400e; }
+        .chip-on_hold { background: #fee2e2; color: #991b1b; }
+        .chip-preparing { background: #ede9fe; color: #5b21b6; }
+        .chip-unknown { background: #f3f4f6; color: #374151; }
+
+        .row-detail {
+            display: none;
+            border-top: 1px solid var(--line-color);
+            padding: 18px;
+            background: var(--surface-2);
+        }
+
+        .row-item.open .row-detail { display: block; }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .detail-grid dt {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--muted-color);
+            font-weight: 700;
+        }
+
+        .detail-grid dd { font-size: .88rem; margin: 3px 0 0; word-break: break-word; }
+
+        .timeline { border-left: 2px solid var(--line-color); padding-left: 16px; margin: 0; }
+
+        .tl-item { position: relative; padding-bottom: 14px; }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--line-color);
+            border: 2px solid var(--surface-2);
+        }
+
+        .tl-item.latest::before { background: var(--primary-color); }
+        .tl-status { font-weight: 600; font-size: .86rem; }
+        .tl-meta { font-size: .76rem; color: var(--muted-color); }
+        .tl-desc { font-size: .82rem; color: var(--muted-color); margin-top: 2px; }
+
+        /* ---------- states ---------- */
+        .state { text-align: center; padding: 46px 20px; color: var(--muted-color); }
+        .state h5 { font-weight: 700; color: var(--dark-color); margin-bottom: 6px; }
+
+        .skeleton {
+            height: 76px;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #eef1f5 25%, #f6f8fa 37%, #eef1f5 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 100% 50%; }
+            100% { background-position: 0 50%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton { animation: none; }
+        }
+
+        .portal-footer {
+            border-top: 1px solid var(--line-color);
+            background: var(--surface);
+            padding: 20px 0;
+            margin-top: 30px;
+            font-size: .82rem;
+            color: var(--muted-color);
+        }
+
+        /* ---------- responsive ---------- */
+        @media (max-width: 860px) {
+            .row-main { grid-template-columns: 1fr; gap: 8px; }
+            .val-out { margin-left: 0; text-align: left; width: 100%; }
+        }
+
+        @media (max-width: 575px) {
+            .page-title { font-size: 1.4rem; }
+            .company-name { display: none; }
+            .holding-value { font-size: 1.35rem; }
+            .kpi-value { font-size: 1.5rem; }
+        }
+
+        @media print {
+            .portal-nav, .filters, .logout-btn, .portal-footer { display: none !important; }
+            .row-detail { display: block !important; }
+            .card { break-inside: avoid; box-shadow: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="portal-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/images/logoreal.png" alt="Sovereign Fortune Securities" class="header-logo">
+                    <span class="company-name">Sovereign Fortune Securities</span>
+                </a>
+                <div class="header-right">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">&nbsp;</div>
+                        <div class="user-details">
+                            <span class="user-name" id="userName">&nbsp;</span>
+                            <span class="user-role">Consignments</span>
+                        </div>
+                    </div>
+                    <button class="logout-btn" type="button" onclick="logout()">Log out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="portal-nav">
+        <div class="container">
+            <div class="inner">
+                <a href="dashboard.html">Overview</a>
+                <a href="shipments.html" class="active" aria-current="page">Consignments</a>
+                <a href="track.html">Track</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-head">
+            <h1 class="page-title">Consignment register</h1>
+            <p class="page-sub" id="pageSub">Every consignment held or moved on your account.</p>
+        </div>
+
+        <!-- Holdings reconciliation -->
+        <section class="card" id="holdingsCard" hidden>
+            <h2 class="card-title">Asset position</h2>
+            <p class="card-note">Vaulted holdings come from your vault record. In-transit figures are summed from the
+                consignments below.</p>
+            <div class="holdings" id="holdings"></div>
+            <div id="reconcile"></div>
+        </section>
+
+        <!-- KPIs -->
+        <section class="kpis" id="kpis" aria-label="Consignment summary"></section>
+
+        <!-- Analytics -->
+        <div class="row">
+            <div class="col-lg-5 col-md-12">
+                <section class="card">
+                    <h2 class="card-title">Status mix</h2>
+                    <p class="card-note">Consignments by current state.</p>
+                    <div class="chart-wrap"><canvas id="statusChart"></canvas></div>
+                </section>
+            </div>
+            <div class="col-lg-7 col-md-12">
+                <section class="card">
+                    <h2 class="card-title">Gold by consignment</h2>
+                    <p class="card-note">Kilograms of bullion per consignment, highest first.</p>
+                    <div class="chart-wrap"><canvas id="weightChart"></canvas></div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Indicative valuation -->
+        <section class="card" id="valuationCard" hidden>
+            <h2 class="card-title">Indicative valuation</h2>
+            <p class="card-note">A working figure only. Change the reference price to match your own.</p>
+            <div class="val-row">
+                <div class="val-field">
+                    <label for="spotPrice">Gold reference price (USD / troy oz)</label>
+                    <input type="number" id="spotPrice" value="2400" min="0" step="10" inputmode="decimal">
+                </div>
+                <div class="val-field">
+                    <label for="goldKgInput">Gold across consignments (kg)</label>
+                    <input type="text" id="goldKgInput" value="0" readonly aria-readonly="true">
+                </div>
+                <div class="val-out">
+                    <div class="kpi-label">Indicative gold value</div>
+                    <div class="amount" id="valuationOut">&mdash;</div>
+                </div>
+            </div>
+            <p class="assumption">
+                <strong>Assumption, not a valuation.</strong> This multiplies the weights recorded against the price in
+                the box above, at 32.1507 troy ounces per kilogram. It is not an appraisal, excludes diamonds and
+                non-bullion cargo, and carries no assay, premium, fees or insurance. It covers gold recorded
+                against consignments, which is not the same as your vaulted position above. Use a
+                certified valuation for anything that matters.
+            </p>
+        </section>
+
+        <!-- Register -->
+        <section class="card">
+            <h2 class="card-title">Consignments</h2>
+            <p class="card-note" id="resultCount">&nbsp;</p>
+
+            <div class="filters">
+                <input type="search" id="searchInput" placeholder="Search tracking number, origin or destination"
+                    aria-label="Search consignments">
+                <select id="statusFilter" aria-label="Filter by status">
+                    <option value="">All statuses</option>
+                    <option value="in_transit">In transit</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="on_hold">On hold</option>
+                    <option value="delivered">Delivered</option>
+                </select>
+                <select id="sortSelect" aria-label="Sort consignments">
+                    <option value="gold_desc">Most gold first</option>
+                    <option value="gold_asc">Least gold first</option>
+                    <option value="track_asc">Tracking number A-Z</option>
+                    <option value="status_asc">Status</option>
+                </select>
+            </div>
+
+            <div class="rows" id="rows">
+                <div class="skeleton"></div>
+                <div class="skeleton" style="margin-top:12px"></div>
+                <div class="skeleton" style="margin-top:12px"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="portal-footer">
+        <div class="container">
+            &copy; <span id="yearText"></span> Sovereign Fortune Securities. Customer portal.
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        'use strict';
+
+        var OZ_PER_KG = 32.1507;
+
+        var STATUS_META = {
+            delivered:  { label: 'Delivered',  colour: '#10b981' },
+            in_transit: { label: 'In transit', colour: '#f59e0b' },
+            on_hold:    { label: 'On hold',    colour: '#ef4444' },
+            preparing:  { label: 'Preparing',  colour: '#8b5cf6' },
+            unknown:    { label: 'Unknown',    colour: '#9ca3af' }
+        };
+
+        var state = { shipments: [], vault: null, user: null };
+
+        /* ---------- helpers ---------- */
+
+        function token() { return localStorage.getItem('authToken'); }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            window.location.href = 'login.html';
+        }
+
+        function toLogin() { window.location.href = 'login.html'; }
+
+        function esc(v) {
+            return String(v === null || v === undefined ? '' : v)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function num(n, dp) {
+            if (!isFinite(n)) return '0';
+            return n.toLocaleString('en-US', {
+                minimumFractionDigits: dp || 0, maximumFractionDigits: dp === undefined ? 2 : dp
+            });
+        }
+
+        /* Records predating the structured fields, and any created through
+           POST /api/shipments, carry only free text. Derive rather than trust. */
+        function statusCodeOf(s) {
+            if (s.statusCode && STATUS_META[s.statusCode]) return s.statusCode;
+            var t = String(s.status || '').toLowerCase();
+            if (t.indexOf('deliver') > -1) return 'delivered';
+            if (t.indexOf('hold') > -1) return 'on_hold';
+            if (t.indexOf('transit') > -1 || t.indexOf('dispatch') > -1) return 'in_transit';
+            if (t.indexOf('prepar') > -1 || t.indexOf('process') > -1 ||
+                t.indexOf('ready') > -1 || t.indexOf('secured') > -1) return 'preparing';
+            return 'unknown';
+        }
+
+        function assetsOf(s) {
+            var a = s.assetTotals;
+            if (a && (a.goldKg || a.diamondsCt || a.otherKg)) {
+                return { goldKg: a.goldKg || 0, diamondsCt: a.diamondsCt || 0, otherKg: a.otherKg || 0 };
+            }
+            // fall back to parsing the free-text weight string
+            var w = String(s.weight || '');
+            var gold = /([\d.]+)\s*kg[^+]*gold/i.exec(w);
+            var dia = /([\d.]+)\s*ct/i.exec(w);
+            var plain = /^\s*([\d.]+)\s*kg\s*$/i.exec(w);
+            return {
+                goldKg: gold ? parseFloat(gold[1]) : 0,
+                diamondsCt: dia ? parseFloat(dia[1]) : 0,
+                otherKg: plain ? parseFloat(plain[1]) : 0
+            };
+        }
+
+        /* "110 kilograms" / "350.000 kg" -> 110 / 350 */
+        function kgFrom(text) {
+            if (!text) return 0;
+            var m = /([\d.,]+)\s*(kg|kilogram)/i.exec(String(text));
+            if (!m) return 0;
+            var v = parseFloat(m[1].replace(/,/g, ''));
+            return isFinite(v) ? v : 0;
+        }
+
+        function ctFrom(text) {
+            if (!text) return 0;
+            var m = /([\d.,]+)\s*(ct|carat)/i.exec(String(text));
+            if (!m) return 0;
+            var v = parseFloat(m[1].replace(/,/g, ''));
+            return isFinite(v) ? v : 0;
+        }
+
+        /* ---------- data ---------- */
+
+        async function api(path) {
+            var res = await fetch(path, { headers: { Authorization: 'Bearer ' + token() } });
+            if (res.status === 401 || res.status === 403) { logout(); throw new Error('unauthorised'); }
+            return res;
+        }
+
+        async function load() {
+            if (!token()) { toLogin(); return; }
+
+            var profileRes;
+            try {
+                profileRes = await api('/api/user/profile');
+            } catch (e) { return; }
+
+            if (!profileRes.ok) { logout(); return; }
+            var profile = await profileRes.json();
+            state.user = profile.user || profile.data || profile;
+            paintUser(state.user);
+
+            // Vault is optional: not every account holds vaulted assets.
+            try {
+                var vRes = await api('/api/user/vault');
+                if (vRes.ok) {
+                    var vJson = await vRes.json();
+                    state.vault = vJson.data || null;
+                }
+            } catch (e) { /* non-fatal */ }
+
+            try {
+                var sRes = await api('/api/user/shipments');
+                if (!sRes.ok) throw new Error('shipments');
+                var sJson = await sRes.json();
+                state.shipments = sJson.data || [];
+            } catch (e) {
+                document.getElementById('rows').innerHTML =
+                    '<div class="state"><h5>Could not load your consignments</h5>' +
+                    '<p>Please refresh. If this continues, call +1 (707) 530-2265.</p></div>';
+                return;
+            }
+
+            render();
+        }
+
+        function paintUser(u) {
+            if (!u) return;
+            var full = ((u.firstName || '') + ' ' + (u.lastName || '')).trim();
+            document.getElementById('userName').textContent = full || 'Account holder';
+            document.getElementById('userAvatar').textContent =
+                ((u.firstName || ' ')[0] + (u.lastName || ' ')[0]).toUpperCase().trim() || '--';
+            document.getElementById('pageSub').textContent =
+                'Every consignment held or moved on ' + (full ? full + "'s" : 'your') + ' account.';
+        }
+
+        /* ---------- totals ---------- */
+
+        function totals() {
+            var t = {
+                count: state.shipments.length,
+                byStatus: { delivered: 0, in_transit: 0, on_hold: 0, preparing: 0, unknown: 0 },
+                // Gold is bucketed by where it physically is, not just lumped
+                // together. A consignment marked "preparing" is still sitting in
+                // the vault, so it is already inside the vaulted figure; adding it
+                // to a running total would count the same bars twice.
+                inTransitGoldKg: 0,   // in_transit + on_hold: has left the vault
+                stagedGoldKg: 0,      // preparing: still vaulted, awaiting release
+                deliveredGoldKg: 0,
+                consignmentGoldKg: 0, // every consignment, for the valuation box
+                diamondsCt: 0, otherKg: 0
+            };
+            state.shipments.forEach(function (s) {
+                var code = statusCodeOf(s);
+                var a = assetsOf(s);
+                t.byStatus[code] = (t.byStatus[code] || 0) + 1;
+                t.consignmentGoldKg += a.goldKg;
+                t.diamondsCt += a.diamondsCt;
+                t.otherKg += a.otherKg;
+                if (code === 'delivered') t.deliveredGoldKg += a.goldKg;
+                else if (code === 'preparing') t.stagedGoldKg += a.goldKg;
+                else t.inTransitGoldKg += a.goldKg;
+            });
+            return t;
+        }
+
+        /* ---------- render ---------- */
+
+        function render() {
+            var t = totals();
+            renderHoldings(t);
+            renderKpis(t);
+            renderCharts(t);
+            renderValuation(t);
+            applyFilters();
+        }
+
+        function renderHoldings(t) {
+            var card = document.getElementById('holdingsCard');
+            var vaultKg = 0, vaultCt = 0, vaultTransitKg = 0;
+
+            if (state.vault && state.vault.gold) {
+                vaultKg = kgFrom(state.vault.gold.vaulted);
+                vaultTransitKg = kgFrom(state.vault.gold.inTransit);
+            }
+            if (state.vault && state.vault.diamonds) vaultCt = ctFrom(state.vault.diamonds.vaulted);
+
+            if (!state.vault && !t.consignmentGoldKg) { card.hidden = true; return; }
+            card.hidden = false;
+
+            var movingKg = t.inTransitGoldKg;
+
+            var cells = [
+                { label: 'Vaulted gold', value: num(vaultKg, 3) + ' kg',
+                  meta: (state.vault && state.vault.location) ? state.vault.location : 'Per vault record',
+                  total: true },
+                { label: 'In transit', value: num(movingKg, 3) + ' kg',
+                  meta: (t.byStatus.in_transit + t.byStatus.on_hold) + ' consignment(s) outside the vault' },
+                { label: 'Staged for transfer', value: num(t.stagedGoldKg, 3) + ' kg',
+                  meta: t.stagedGoldKg ? 'Still vaulted, within the figure left' : 'Nothing staged' },
+                { label: 'Delivered to date', value: num(t.deliveredGoldKg, 3) + ' kg',
+                  meta: t.byStatus.delivered + ' completed consignment(s)' }
+            ];
+
+            if (vaultCt + t.diamondsCt > 0) {
+                cells.push({ label: 'Diamonds', value: num(vaultCt + t.diamondsCt, 2) + ' ct',
+                             meta: vaultCt ? num(vaultCt, 2) + ' ct vaulted' : 'Across consignments' });
+            }
+
+            document.getElementById('holdings').innerHTML = cells.map(function (c) {
+                return '<div class="holding' + (c.total ? ' total' : '') + '">' +
+                    '<div class="holding-label">' + esc(c.label) + '</div>' +
+                    '<div class="holding-value">' + esc(c.value) + '</div>' +
+                    '<div class="holding-meta">' + esc(c.meta) + '</div></div>';
+            }).join('');
+
+            // The vault record carries its own in-transit figure. Where that
+            // disagrees with what the consignments add up to, say so plainly
+            // rather than publishing a total that hides the gap.
+            var box = document.getElementById('reconcile');
+            var notes = [];
+
+            if (vaultTransitKg > 0 || movingKg > 0) {
+                var diff = Math.abs(vaultTransitKg - movingKg);
+                if (diff < 0.001) {
+                    notes.push({ ok: true, text: 'Vault record and consignments agree on ' +
+                        num(movingKg, 3) + ' kg in transit.' });
+                } else {
+                    notes.push({ ok: false, text: 'Vault record shows ' + num(vaultTransitKg, 3) +
+                        ' kg in transit; open consignments total ' + num(movingKg, 3) + ' kg. ' +
+                        'A difference of ' + num(diff, 3) + ' kg is unreconciled.' });
+                }
+            }
+
+            if (t.stagedGoldKg > 0) {
+                notes.push({ ok: true, text: num(t.stagedGoldKg, 3) +
+                    ' kg is staged for transfer but has not left the vault, so it is counted in the ' +
+                    'vaulted figure and not added again.' });
+            }
+
+            box.innerHTML = notes.map(function (n) {
+                return '<div class="reconcile ' + (n.ok ? 'ok' : 'warn') + '">' + esc(n.text) + '</div>';
+            }).join('');
+        }
+
+        function renderKpis(t) {
+            var tiles = [
+                { k: 'total', dot: 'dot-total', value: t.count, label: 'Consignments' },
+                { k: 'in_transit', dot: 'dot-transit', value: t.byStatus.in_transit, label: 'In transit' },
+                { k: 'preparing', dot: 'dot-prep', value: t.byStatus.preparing, label: 'Preparing' },
+                { k: 'on_hold', dot: 'dot-hold', value: t.byStatus.on_hold, label: 'On hold' },
+                { k: 'delivered', dot: 'dot-delivered', value: t.byStatus.delivered, label: 'Delivered' }
+            ];
+            document.getElementById('kpis').innerHTML = tiles.map(function (x) {
+                return '<div class="kpi"><div class="kpi-top"><span class="kpi-label">' + esc(x.label) +
+                    '</span><span class="kpi-dot ' + x.dot + '"></span></div>' +
+                    '<div class="kpi-value">' + x.value + '</div></div>';
+            }).join('');
+        }
+
+        var charts = {};
+
+        function renderCharts(t) {
+            if (typeof Chart === 'undefined') return;
+
+            var codes = ['in_transit', 'preparing', 'on_hold', 'delivered'];
+            var present = codes.filter(function (c) { return t.byStatus[c] > 0; });
+            var empty = present.length === 0;
+
+            var sCtx = document.getElementById('statusChart').getContext('2d');
+            if (charts.status) charts.status.destroy();
+            charts.status = new Chart(sCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: empty ? ['No consignments'] : present.map(function (c) { return STATUS_META[c].label; }),
+                    datasets: [{
+                        data: empty ? [1] : present.map(function (c) { return t.byStatus[c]; }),
+                        backgroundColor: empty ? ['#e5e7eb'] : present.map(function (c) { return STATUS_META[c].colour; }),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '62%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14, font: { size: 12 } } },
+                        tooltip: { enabled: !empty }
+                    }
+                }
+            });
+
+            var gold = state.shipments
+                .map(function (s) { return { t: s.trackingNumber, kg: assetsOf(s).goldKg, c: statusCodeOf(s) }; })
+                .filter(function (x) { return x.kg > 0; })
+                .sort(function (a, b) { return b.kg - a.kg; });
+
+            var wCtx = document.getElementById('weightChart').getContext('2d');
+            if (charts.weight) charts.weight.destroy();
+            charts.weight = new Chart(wCtx, {
+                type: 'bar',
+                data: {
+                    labels: gold.length ? gold.map(function (x) { return x.t; }) : ['No bullion recorded'],
+                    datasets: [{
+                        label: 'Gold (kg)',
+                        data: gold.length ? gold.map(function (x) { return x.kg; }) : [0],
+                        backgroundColor: gold.length
+                            ? gold.map(function (x) { return STATUS_META[x.c].colour; })
+                            : ['#e5e7eb'],
+                        borderRadius: 6,
+                        maxBarThickness: 34
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, title: { display: true, text: 'Kilograms' }, grid: { color: '#f1f5f9' } },
+                        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        function renderValuation(t) {
+            var card = document.getElementById('valuationCard');
+            var kg = t.consignmentGoldKg;
+            card.hidden = kg <= 0;
+            document.getElementById('goldKgInput').value = num(kg, 3);
+            recalcValuation();
+        }
+
+        function recalcValuation() {
+            var kg = parseFloat(String(document.getElementById('goldKgInput').value).replace(/,/g, '')) || 0;
+            var spot = parseFloat(document.getElementById('spotPrice').value) || 0;
+            var usd = kg * OZ_PER_KG * spot;
+            document.getElementById('valuationOut').textContent =
+                usd > 0 ? '$' + num(usd, 0) : '--';
+        }
+
+        /* ---------- register ---------- */
+
+        function applyFilters() {
+            var q = document.getElementById('searchInput').value.trim().toLowerCase();
+            var sf = document.getElementById('statusFilter').value;
+            var sort = document.getElementById('sortSelect').value;
+
+            var list = state.shipments.filter(function (s) {
+                if (sf && statusCodeOf(s) !== sf) return false;
+                if (!q) return true;
+                return [s.trackingNumber, s.origin, s.destination, s.currentLocation, s.service, s.status]
+                    .join(' ').toLowerCase().indexOf(q) > -1;
+            });
+
+            list.sort(function (a, b) {
+                var ga = assetsOf(a).goldKg, gb = assetsOf(b).goldKg;
+                if (sort === 'gold_desc') return gb - ga;
+                if (sort === 'gold_asc') return ga - gb;
+                if (sort === 'track_asc') return String(a.trackingNumber).localeCompare(String(b.trackingNumber));
+                if (sort === 'status_asc') return statusCodeOf(a).localeCompare(statusCodeOf(b));
+                return 0;
+            });
+
+            var counter = document.getElementById('resultCount');
+            counter.textContent = state.shipments.length === 0
+                ? ''
+                : 'Showing ' + list.length + ' of ' + state.shipments.length + ' consignment' +
+                  (state.shipments.length === 1 ? '' : 's') + '.';
+
+            renderRows(list);
+        }
+
+        function renderRows(list) {
+            var host = document.getElementById('rows');
+
+            if (state.shipments.length === 0) {
+                host.innerHTML = '<div class="state"><h5>No consignments yet</h5>' +
+                    '<p>Consignments appear here once they are booked against your account.</p></div>';
+                return;
+            }
+            if (list.length === 0) {
+                host.innerHTML = '<div class="state"><h5>Nothing matches that filter</h5>' +
+                    '<p>Try a different search term or status.</p></div>';
+                return;
+            }
+
+            host.innerHTML = list.map(function (s, i) {
+                var code = statusCodeOf(s);
+                var a = assetsOf(s);
+                var meta = STATUS_META[code];
+
+                var assetBits = [];
+                if (a.goldKg) assetBits.push(num(a.goldKg, 3) + ' kg gold');
+                if (a.diamondsCt) assetBits.push(num(a.diamondsCt, 2) + ' ct diamonds');
+                if (a.otherKg) assetBits.push(num(a.otherKg, 2) + ' kg cargo');
+
+                var eta = s.actualDelivery
+                    ? 'Delivered ' + esc(s.actualDelivery)
+                    : (s.estimatedDelivery ? 'ETA ' + esc(s.estimatedDelivery) : 'No ETA recorded');
+
+                var history = Array.isArray(s.history) ? s.history.slice().reverse() : [];
+
+                return '' +
+                '<article class="row-item" data-i="' + i + '">' +
+                  '<div class="row-main" role="button" tabindex="0" aria-expanded="false">' +
+                    '<div>' +
+                      '<div class="track-no">' + esc(s.trackingNumber) + '</div>' +
+                      '<div class="track-sub">' + esc(s.service || 'Secure transport') + '</div>' +
+                    '</div>' +
+                    '<div>' +
+                      '<div class="route">' + esc(s.origin || '--') +
+                        '<span class="arrow">&rarr;</span>' + esc(s.destination || '--') + '</div>' +
+                      '<div class="route-meta">' + (s.currentLocation ? 'Now at ' + esc(s.currentLocation) : eta) + '</div>' +
+                    '</div>' +
+                    '<div class="assets-cell">' +
+                      (assetBits.length ? esc(assetBits.join(' + ')) : '<span class="muted">Not itemised</span>') +
+                      '<div class="muted">' + eta + '</div>' +
+                    '</div>' +
+                    '<div><span class="status-chip chip-' + code + '">' + esc(meta.label) + '</span></div>' +
+                  '</div>' +
+                  '<div class="row-detail">' +
+                    '<dl class="detail-grid">' +
+                      '<div><dt>Recorded weight</dt><dd>' + esc(s.weight || 'Not recorded') + '</dd></div>' +
+                      '<div><dt>Current status</dt><dd>' + esc(s.status || meta.label) + '</dd></div>' +
+                      '<div><dt>Current location</dt><dd>' + esc(s.currentLocation || 'Not recorded') + '</dd></div>' +
+                      (s.authorisedRecipient
+                        ? '<div><dt>Authorised recipient</dt><dd>' + esc(s.authorisedRecipient) + '</dd></div>' : '') +
+                      (s.depositDate
+                        ? '<div><dt>Deposit date</dt><dd>' + esc(s.depositDate) + '</dd></div>' : '') +
+                    '</dl>' +
+                    (history.length
+                      ? '<div class="timeline">' + history.map(function (h, hi) {
+                            return '<div class="tl-item' + (hi === 0 ? ' latest' : '') + '">' +
+                              '<div class="tl-status">' + esc(h.status || '') + '</div>' +
+                              '<div class="tl-meta">' + esc(h.timestamp || '') +
+                                (h.location ? ' &middot; ' + esc(h.location) : '') + '</div>' +
+                              (h.description ? '<div class="tl-desc">' + esc(h.description) + '</div>' : '') +
+                            '</div>';
+                        }).join('') + '</div>'
+                      : '<p class="card-note">No movement history recorded.</p>') +
+                  '</div>' +
+                '</article>';
+            }).join('');
+        }
+
+        /* ---------- events ---------- */
+
+        document.getElementById('rows').addEventListener('click', function (e) {
+            var head = e.target.closest('.row-main');
+            if (!head) return;
+            var item = head.parentNode;
+            var open = item.classList.toggle('open');
+            head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        document.getElementById('rows').addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            var head = e.target.closest('.row-main');
+            if (!head) return;
+            e.preventDefault();
+            head.click();
+        });
+
+        ['searchInput', 'statusFilter', 'sortSelect'].forEach(function (id) {
+            document.getElementById(id).addEventListener('input', applyFilters);
+        });
+        document.getElementById('spotPrice').addEventListener('input', recalcValuation);
+
+        document.getElementById('yearText').textContent = new Date().getFullYear();
+
+        load();
+    </script>
+</body>
+
+</html>

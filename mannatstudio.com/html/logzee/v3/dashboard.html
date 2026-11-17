@@ -61,6 +61,34 @@
         }
         
         /* Modern Dashboard Header */
+        /* Portal navigation, shared with shipments.html */
+        .portal-nav {
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .portal-nav .inner { display: flex; gap: 4px; overflow-x: auto; }
+
+        .portal-nav a {
+            padding: 12px 16px;
+            font-size: .88rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .portal-nav a:hover { color: var(--dark-color); }
+
+        .portal-nav a.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
         .dashboard-header {
             background: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -879,6 +907,17 @@
             </div>
         </div>
     </header>
+
+    <!-- Portal navigation (shared with shipments.html) -->
+    <nav class="portal-nav">
+        <div class="container">
+            <div class="inner">
+                <a href="dashboard.html" class="active" aria-current="page">Overview</a>
+                <a href="shipments.html">Consignments</a>
+                <a href="track.html">Track</a>
+            </div>
+        </div>
+    </nav>
 
     <main class="dashboard-container">
         <div class="container">

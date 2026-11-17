@@ -57,13 +57,15 @@ const users = [
       gold: {
         description: 'Certified 24K Gold',
         vaulted: '110 kilograms',
-        inTransit: null,
+        inTransit: '50.000 kg',
         purity: '99.99%'
       },
       diamonds: {
         description: 'Premium Diamonds',
         vaulted: '60 carats (D-Color, VVS, Excellent-quality cut)'
       },
+      // 50 kg is with the carrier on consignment FS20251031DELIVERY
+      goldInTransitNote: 'FS20251031DELIVERY',
       depositDate: '2001-08-17',
       location: 'Geneva, Switzerland'
     }
@@ -128,8 +130,8 @@ const users = [
       bonafideOwner: true,
       gold: {
         description: '24 Karat Gold',
-        vaulted: null,
-        inTransit: '120.000 kg',
+        vaulted: '120.000 kg',
+        inTransit: null,
         purity: '99.99%'
       },
       storage: 'Arrived at Harborline Vault Center, New York; awaiting authorised recipient declaration and release to the authorised recipient',
@@ -194,6 +196,8 @@ let shipments = [
     estimatedDelivery: "2026-10-31",
     actualDelivery: "2026-11-02",
     weight: "120kg Gold (24 Karat)",
+    statusCode: "delivered",
+    assetTotals: { goldKg: 120 },
     service: "International Secure Asset Delivery",
     userId: 4, // Associated with Rafael Castellanos
     assetType: "gold_bullion",
@@ -242,14 +246,16 @@ let shipments = [
     ]
   },
   {
-    id: "DEMOSN0001",
-    trackingNumber: "DEMOSN0001",
+    id: "SFS2012AU0050",
+    trackingNumber: "SFS2012AU0050",
     origin: "South Africa",
     destination: "Meridian Vault House, Sydney, Australia",
-    status: "In Transit to London Vault",
+    status: "In Transit to Sydney Vault",
     currentLocation: "South Africa",
-    estimatedDelivery: "Pending Arrival at Albion Vault",
-    weight: "350kg Gold (Good Delivery Bars)",
+    estimatedDelivery: "Pending Arrival at Meridian Vault House",
+    weight: "50kg Gold (Good Delivery Bars)",
+    statusCode: "in_transit",
+    assetTotals: { goldKg: 50 },
     service: "International Secure Asset Transfer",
     userId: 3, // Associated with Henrik Lindqvist
     assetType: "gold_bullion",
@@ -285,6 +291,8 @@ let shipments = [
     currentLocation: "JFK Air Cargo Customs Inspection Point",
     estimatedDelivery: "2025-10-31",
     weight: "50kg Gold (50 x 1kg bars) + 40ct Diamonds (D-color, VVS1, GIA)",
+    statusCode: "on_hold",
+    assetTotals: { goldKg: 50, diamondsCt: 40 },
     service: "International Secure Asset Delivery",
     userId: 1, // Jonathan Okafor
     assetType: "gold_bars_diamonds",
@@ -323,6 +331,8 @@ let shipments = [
     currentLocation: "Geneva Vault Facility",
     estimatedDelivery: "Pending Transfer Authorization",
     weight: "110kg Gold + 60ct Diamonds",
+    statusCode: "preparing",
+    assetTotals: { goldKg: 110, diamondsCt: 60 },
     service: "International Secure Asset Transfer",
     userId: 1, // Jonathan Okafor
     assetType: "precious_metals_diamonds",
@@ -359,8 +369,8 @@ let shipments = [
     ]
   },
   {
-    id: "LZ2025002",
-    trackingNumber: "LZ2025002",
+    id: "SFS2025002",
+    trackingNumber: "SFS2025002",
     origin: "Singapore",
     destination: "London, United Kingdom",
     status: "Delivered",
@@ -368,7 +378,9 @@ let shipments = [
   estimatedDelivery: "2025-10-16",
   actualDelivery: "2025-10-16",
     weight: "12.8 kg",
-    service: "Standard Shipping",
+    statusCode: "delivered",
+    assetTotals: { otherKg: 12.8 },
+    service: "Secure Freight",
     userId: 1, // Associated with demo user
     history: [
       {
@@ -398,16 +410,18 @@ let shipments = [
     ]
   },
   {
-    id: "LZ2025003", 
-    trackingNumber: "LZ2025003",
+    id: "SFS2025003", 
+    trackingNumber: "SFS2025003",
     origin: "Dubai, UAE",
     destination: "Cape Town, South Africa",
     status: "Processing",
     currentLocation: "Dubai, UAE",
   estimatedDelivery: "2025-10-16",
     weight: "78.5 kg",
-    service: "Freight Service",
-    userId: 2, // Associated with admin user
+    statusCode: "preparing",
+    assetTotals: { otherKg: 78.5 },
+    service: "Secure Freight",
+    userId: 4, // Associated with Rafael Castellanos
     history: [
       {
   timestamp: "2025-10-16 07:30",
@@ -900,8 +914,8 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('');
   console.log('📦 Sample tracking numbers:');
   console.log('  - LZ2025001 (In Transit)');
-  console.log('  - LZ2025002 (Delivered)');
-  console.log('  - LZ2025003 (Processing)');
+  console.log('  - SFS2025002 (Delivered)');
+  console.log('  - SFS2025003 (Processing)');
   console.log('');
   console.log('🔗 API Endpoints:');
   console.log('  • POST /api/auth/login - User login');
