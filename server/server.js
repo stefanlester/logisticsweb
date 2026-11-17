@@ -139,6 +139,35 @@ const users = [
       depositDate: '2026-10-01'
     }
   },
+  {
+    id: 5,
+    email: 'f.marshall@example.com',
+    password: '$2a$10$HE2rHac3dx2HXEwX4YzVpeX.RbCsPuDz9Pu5VK8PS2Pa2WTVco/vS', // frank-demo-2009
+    firstName: 'Frank',
+    lastName: 'Marshall',
+    company: 'Sovereign Fortune Securities',
+    phone: '+1 (707) 530-2265',
+    role: 'customer',
+    verified: true,
+    createdAt: new Date('2009-11-11'),
+    vaultAssets: {
+      owner: 'Frank Marshall',
+      nextOfKin: 'Frankie Marshall',
+      bonafideOwner: true,
+      gold: {
+        description: 'Certified 24K Gold Bullion',
+        vaulted: '370.000 kg',
+        inTransit: null,
+        purity: '99.99%'
+      },
+      storage: 'Harborline Vault Center, New York',
+      serialNumber: '6838744994422994M',
+      referenceId: 'VLT-2009-AU-22994',
+      storageChargePerMonth: '$1,200',
+      location: 'Harborline Vault Center, Springfield Gardens, New York, USA',
+      depositDate: '2009-11-11'
+    }
+  },
     {
         id: 2,
         email: 'admin@example.com',

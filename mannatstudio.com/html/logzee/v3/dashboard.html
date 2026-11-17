@@ -1250,6 +1250,10 @@
             if (vaultData.gold && vaultData.gold.vaulted) {
                 leftRows.push(`<div class="vault-stat"><span class="label">${vaultData.gold.description || 'Gold In Vault'}</span><span class="value gold-badge">${vaultData.gold.vaulted}</span></div>`);
             }
+            // Purity / fineness
+            if (vaultData.gold && (vaultData.gold.purity || vaultData.gold.fineness)) {
+                leftRows.push(`<div class="vault-stat"><span class="label">Purity</span><span class="value">${vaultData.gold.purity || vaultData.gold.fineness}</span></div>`);
+            }
             // Gold in transit
             if (vaultData.gold && vaultData.gold.inTransit) {
                 leftRows.push(`<div class="vault-stat"><span class="label">Gold In Transit</span><span class="value gold-badge">${vaultData.gold.inTransit}</span></div>`);
@@ -1273,6 +1277,10 @@
             if (vaultData.location) {
                 leftRows.push(`<div class="vault-stat"><span class="label">Vault Location</span><span class="value">${vaultData.location}</span></div>`);
             }
+            // Monthly storage charge
+            if (vaultData.storageChargePerMonth) {
+                leftRows.push(`<div class="vault-stat"><span class="label">Storage Charge / Month</span><span class="value">${vaultData.storageChargePerMonth}</span></div>`);
+            }
             leftCard.innerHTML = leftRows.join('');
 
             // --- INFO CARD ---
@@ -1286,6 +1294,8 @@
             let goldType = (vaultData.gold && (vaultData.gold.description || vaultData.gold.type)) || '';
             let diamondGrade = (vaultData.diamonds && vaultData.diamonds.vaulted) ? vaultData.diamonds.vaulted : '';
             let security = vaultData.storage ? `${vaultData.storage} (Serial: ${vaultData.serialNumber || ''})` : '24/7 vault protection, biometric access';
+            let referenceId = vaultData.referenceId || '';
+            let nextOfKin = vaultData.nextOfKin || '';
             let underDepositSince = depositDateDisplay || vaultData.depositDate || '';
 
             infoCard.innerHTML = `
@@ -1295,7 +1305,9 @@
                     <li><strong>Deposit Location:</strong> ${depositLocation}</li>
                     <li><strong>Gold Type:</strong> ${goldType}</li>
                     ${diamondGrade ? `<li><strong>Premium Diamonds:</strong> ${diamondGrade}</li>` : ''}
+                    ${nextOfKin ? `<li><strong>Next of Kin:</strong> ${nextOfKin}</li>` : ''}
                     <li><strong>Security:</strong> ${security}</li>
+                    ${referenceId ? `<li><strong>Reference ID:</strong> ${referenceId}</li>` : ''}
                     <li><strong>Under deposit since:</strong> ${underDepositSince}</li>
                 </ul>
                 <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
