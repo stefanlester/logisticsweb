@@ -59,6 +59,10 @@
     --ap-r-xl: 28px;
     --ap-r-pill: 980px;
 
+    /* Darkening layer laid over banner photographs so white headings stay
+       legible whatever the image behind them. */
+    --ap-scrim: linear-gradient(rgba(12, 12, 14, 0.62), rgba(12, 12, 14, 0.62));
+
     /* Elevation — barely-there */
     --ap-sh-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
     --ap-sh-2: 0 2px 6px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
@@ -674,11 +678,54 @@ button[type="submit"].btn-theme {
 .slider.bg-navy-blue.breadcrumbs-page,
 .breadcrumbs-page {
     background-color: var(--ap-dark);
-    background-image: linear-gradient(rgba(12, 12, 14, 0.62), rgba(12, 12, 14, 0.62)),
-                      url(../images/breadcrumbs_bg.jpg);
+    background-image: var(--ap-scrim), url(../images/breadcrumbs_bg.jpg);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+}
+
+/* Per-page banner photographs.
+
+   One image on every inner page made the site look unfinished. Each page now
+   gets a photograph matched to its subject; only 404, shortcodes and
+   typography fall through to the default above.
+
+   These must score (0,3,0) to match the base rule's own specificity and sit
+   after it, so the later-wins tiebreak applies. `.breadcrumbs-page.bc-x`
+   alone is (0,2,0) and the base rule would beat it.
+
+   Two images in the library are deliberately unused: bg_5.jpg shows another
+   carrier's livery ("Safariline Cargo Limited") and banner_slider_4.jpg
+   carries a haulier's name on the trailer. Neither belongs on this site. */
+.slider.breadcrumbs-page.bc-about {
+    background-image: var(--ap-scrim), url(../images/bg_2.jpg);
+}
+.slider.breadcrumbs-page.bc-services {
+    background-image: var(--ap-scrim), url(../images/bg_6.jpg);
+}
+.slider.breadcrumbs-page.bc-contact {
+    background-image: var(--ap-scrim), url(../images/bg_4.jpg);
+}
+.slider.breadcrumbs-page.bc-projects {
+    background-image: var(--ap-scrim), url(../images/banner_slider.jpg);
+}
+.slider.breadcrumbs-page.bc-project-single {
+    background-image: var(--ap-scrim), url(../images/banner_slider_3.jpg);
+}
+.slider.breadcrumbs-page.bc-blog {
+    background-image: var(--ap-scrim), url(../images/bg_1.jpg);
+}
+.slider.breadcrumbs-page.bc-blog-single {
+    background-image: var(--ap-scrim), url(../images/banner_slider_2.jpg);
+}
+.slider.breadcrumbs-page.bc-pricing {
+    background-image: var(--ap-scrim), url(../images/bg_3.jpg);
+}
+.slider.breadcrumbs-page.bc-request {
+    background-image: var(--ap-scrim), url(../images/banner_slider_2.jpg);
+}
+.slider.breadcrumbs-page.bc-service-details {
+    background-image: var(--ap-scrim), url(../images/banner_slider_3.jpg);
 }
 
 .breadcrumbs-page h1,
