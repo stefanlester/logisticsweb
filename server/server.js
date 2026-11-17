@@ -803,6 +803,62 @@ app.get('/api', (req, res) => {
   });
 });
 
+// Quote requests from the website forms (in memory; swap for a store/mailer in production)
+const quoteRequests = [];
+
+app.post('/api/quote', (req, res) => {
+    const {
+        freightType, incoterms, originCity, destinationCity,
+        grossWeightKg, dimensions, contactName, email, phone, message
+    } = req.body || {};
+
+    if (!contactName || !email) {
+        return res.status(400).json({
+            success: false,
+            message: 'Please provide your name and email address.'
+        });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Please provide a valid email address.'
+        });
+    }
+
+    const request = {
+        id: `QR-${Date.now()}`,
+        receivedAt: new Date().toISOString(),
+        freightType: freightType || null,
+        incoterms: incoterms || null,
+        originCity: originCity || null,
+        destinationCity: destinationCity || null,
+        grossWeightKg: grossWeightKg || null,
+        dimensions: dimensions || null,
+        contactName,
+        email,
+        phone: phone || null,
+        message: message || null
+    };
+
+    quoteRequests.push(request);
+    console.log(`📝 Quote request ${request.id} from ${contactName} <${email}>`);
+
+    res.status(201).json({
+        success: true,
+        reference: request.id,
+        message: `Thank you — your request is logged as ${request.id}. Our team will respond within one business day.`
+    });
+});
+
+// Admin view of submitted quote requests
+app.get('/api/admin/quotes', authenticateToken, (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ success: false, message: 'Admin access required' });
+    }
+    res.json({ success: true, count: quoteRequests.length, quotes: quoteRequests });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({

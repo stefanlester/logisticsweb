@@ -399,7 +399,8 @@
                             data-fontsize="['16','16','15','14']" data-lineheight="['30','30','22','20']">Military-grade security protocols, real-time tracking, and armored transport solutions. Protecting your most valuable assets with comprehensive insurance coverage up to $50 million.</div>
 
                         <!-- LAYER NR. 12 -->
-                        <div class="tp-caption tp-resizeme btn-theme bg-navy-blue rev-btn" id="slide-82-layer-5"
+                        <div class="tp-caption tp-resizeme btn-theme bg-navy-blue rev-btn js-quote-cta" id="slide-82-layer-5"
+                            data-bs-toggle="modal" data-bs-target="#request_popup" role="button"
                             data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
                             data-y="['middle','middle','middle','middle']" data-voffset="['140','140','140','140']"
                             data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
@@ -450,7 +451,8 @@
                         </div>
 
                         <!-- LAYER NR. 3 -->
-                        <div class="tp-caption BigBold-Button rev-btn " id="slide-3-layer-3" data-x="left"
+                        <div class="tp-caption BigBold-Button rev-btn js-quote-cta" id="slide-3-layer-3" data-x="left"
+                            data-bs-toggle="modal" data-bs-target="#request_popup" role="button"
                             data-hoffset="60" data-y="center" data-voffset="100" data-width="['auto']"
                             data-height="['auto']" data-transform_idle="o:1;"
                             data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power1.easeInOut;"
@@ -459,7 +461,6 @@
                             data-transform_out="s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;"
                             data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" data-start="2100" data-splitin="none"
                             data-splitout="none"
-                            data-actions='[{"event":"click","action":"jumptoslide","slide":"next","delay":""}]'
                             data-responsive_offset="on" data-responsive="off"
                             style="z-index: 3; white-space: nowrap; font-weight: 800;background-color:rgba(41, 46, 49, 1.00);border-color:rgba(255, 255, 255, 0);outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">
                             GET SECURE QUOTE
@@ -505,7 +506,7 @@
                                     <i class="icofont-box"></i>
                                     <h3 class="h3-sm txt-blue">Secure Packaging & Storage</h3>
                                     <p>Advanced packaging solutions and climate-controlled storage facilities with 24/7 security monitoring and biometric access controls.</p>
-                                    <a href="#" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
+                                    <a href="services.html" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
                                 </div>
                             </div>
                             <!-- Icon Box 6 -->
@@ -516,7 +517,7 @@
                                     <i class="icofont-safety"></i>
                                     <h3 class="h3-sm txt-blue">Security & Compliance</h3>
                                     <p>ISO 28000 certified security management with trained personnel, armored vehicles, and comprehensive insurance coverage for high-value cargo.</p>
-                                    <a href="#" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
+                                    <a href="services.html" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
                                 </div>
                             </div>
                             <!-- Icon Box 6 -->
@@ -531,7 +532,7 @@
                                     <i class="icofont-tree-alt"></i>
                                     <h3 class="h3-sm txt-blue">Sustainable Operations</h3>
                                     <p>Eco-friendly transport solutions with carbon offset programs, electric vehicle fleet, and green warehousing practices for responsible logistics.</p>
-                                    <a href="#" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
+                                    <a href="services.html" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
                                 </div>
                             </div>
                             <!-- Icon Box 6 -->
@@ -542,7 +543,7 @@
                                     <i class="icofont-delivery-time"></i>
                                     <h3 class="h3-sm txt-blue">Guaranteed Delivery</h3>
                                     <p>Real-time GPS tracking, delivery guarantees with compensation, and dedicated customer support ensuring 99.8% on-time delivery success rate.</p>
-                                    <a href="#" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
+                                    <a href="services.html" class="btn-arrow bg-navy-blue"><i class="icofont-swoosh-right"></i></a>
                                 </div>
                             </div>
                             <!-- Icon Box 6 -->
@@ -1066,49 +1067,50 @@
                                 <div class="col-lg-7 col-12">
                                     <div class="form-content">
                                         <h2 class="h2-xl mb-4 fw-6 txt-orange">Request A Quote</h2>
-                                        <form action="#" method="post" novalidate="novalidate" class="rounded-field">
+                                        <form id="quoteForm" action="/api/quote" method="post" novalidate="novalidate"
+                                            class="rounded-field">
 
                                             <div class="row g-3 mb-4">
                                                 <div class="col-md">
-                                                    <select title="Please choose a package" required="" name="package"
-                                                        class="form-control wide" aria-required="true"
-                                                        aria-invalid="false">
-                                                        <option value="">Freight Type</option>
-                                                        <option value="Type 1">Type 1</option>
-                                                        <option value="Type 2">Type 2</option>
-                                                        <option value="Type 3">Type 3</option>
-                                                        <option value="Type 4">Type 4</option>
+                                                    <select title="Please choose a consignment type" required=""
+                                                        name="freightType" class="form-control wide"
+                                                        aria-required="true" aria-invalid="false">
+                                                        <option value="">Consignment Type</option>
+                                                        <option value="Bullion / Precious Metals">Bullion / Precious Metals</option>
+                                                        <option value="Diamonds & Gemstones">Diamonds &amp; Gemstones</option>
+                                                        <option value="High-Value Cargo">High-Value Cargo</option>
+                                                        <option value="Secure Documents">Secure Documents</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md">
-                                                    <select title="Please choose a package" required="" name="package"
-                                                        class="form-control wide" aria-required="true"
+                                                    <select title="Please choose the delivery terms"
+                                                        name="incoterms" class="form-control wide"
                                                         aria-invalid="false">
                                                         <option value="">Incoterms</option>
-                                                        <option value="Type 1">Type 1</option>
-                                                        <option value="Type 2">Type 2</option>
-                                                        <option value="Type 3">Type 3</option>
-                                                        <option value="Type 4">Type 4</option>
+                                                        <option value="DAP">DAP — Delivered at Place</option>
+                                                        <option value="CIP">CIP — Carriage &amp; Insurance Paid</option>
+                                                        <option value="FCA">FCA — Free Carrier</option>
+                                                        <option value="EXW">EXW — Ex Works</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row g-3 mb-4">
                                                 <div class="col-md">
-                                                    <input type="text" name="name" class="form-control"
+                                                    <input type="text" name="originCity" class="form-control"
                                                         placeholder="City of departure">
                                                 </div>
                                                 <div class="col-md">
-                                                    <input type="text" name="email" class="form-control"
+                                                    <input type="text" name="destinationCity" class="form-control"
                                                         placeholder="Delivery city">
                                                 </div>
                                             </div>
                                             <div class="row g-3 mb-4">
                                                 <div class="col-md">
-                                                    <input type="text" name="name" class="form-control"
+                                                    <input type="text" name="grossWeightKg" class="form-control"
                                                         placeholder="Total gross weight (KG)">
                                                 </div>
                                                 <div class="col-md">
-                                                    <input type="text" name="email" class="form-control"
+                                                    <input type="text" name="dimensions" class="form-control"
                                                         placeholder="Dimension">
                                                 </div>
                                             </div>
@@ -1121,15 +1123,15 @@
                                             </div>
                                             <div class="row g-3 mb-4">
                                                 <div class="col-md">
-                                                    <input type="text" name="name" class="form-control mb-3"
-                                                        placeholder="Your Name">
-                                                    <input type="text" name="name" class="form-control mb-3"
-                                                        placeholder="Email">
-                                                    <input type="text" name="name" class="form-control"
+                                                    <input type="text" name="contactName" class="form-control mb-3"
+                                                        placeholder="Your Name" required="" aria-required="true">
+                                                    <input type="email" name="email" class="form-control mb-3"
+                                                        placeholder="Email" required="" aria-required="true">
+                                                    <input type="tel" name="phone" class="form-control"
                                                         placeholder="Phone Number">
                                                 </div>
                                                 <div class="col-md">
-                                                    <textarea rows="7" placeholder="Message"
+                                                    <textarea rows="7" name="message" placeholder="Message"
                                                         class="form-control"></textarea>
                                                 </div>
                                             </div>
@@ -1137,6 +1139,8 @@
                                                 <div class="col pt-3">
                                                     <button type="submit" class="form-btn btn-theme bg-orange">Send
                                                         Message <i class="icofont-rounded-right"></i></button>
+                                                    <div id="quoteFormStatus" class="mt-3" role="status"
+                                                        aria-live="polite" style="display: none;"></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -1293,6 +1297,72 @@
                 });
             }
         }); /*ready*/
+    </script>
+
+    <!-- Quote request form: submit without leaving the page -->
+    <script>
+        (function () {
+            var form = document.getElementById('quoteForm');
+            if (!form) return;
+            var status = document.getElementById('quoteFormStatus');
+            var button = form.querySelector('button[type="submit"]');
+            var original = button ? button.innerHTML : '';
+
+            function show(message, ok) {
+                if (!status) return;
+                status.style.display = 'block';
+                status.style.color = ok ? '#1d7a3f' : '#b42318';
+                status.textContent = message;
+            }
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // The browser skips its own checks because the form is novalidate.
+                if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+                    show('Please add your name, a valid email address and a consignment type.', false);
+                    return;
+                }
+
+                var payload = {};
+                new FormData(form).forEach(function (value, key) { payload[key] = value; });
+
+                if (button) {
+                    button.disabled = true;
+                    button.innerHTML = 'Sending…';
+                }
+                show('Sending your request…', true);
+
+                fetch(form.getAttribute('action'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                    .then(function (response) {
+                        return response.json().catch(function () { return {}; })
+                            .then(function (body) {
+                                if (!response.ok || body.success === false) {
+                                    throw new Error(body.message || 'Request failed');
+                                }
+                                return body;
+                            });
+                    })
+                    .then(function (body) {
+                        form.reset();
+                        show(body.message || 'Thank you — our team will respond within one business day.', true);
+                    })
+                    .catch(function () {
+                        // Static hosting has no API behind it, so give people a way through.
+                        show('We could not submit the form just now. Please email info@sovereignfortunesecurities.com or call +1 (707) 530-2265.', false);
+                    })
+                    .then(function () {
+                        if (button) {
+                            button.disabled = false;
+                            button.innerHTML = original;
+                        }
+                    });
+            });
+        })();
     </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"64224fc8786846928480d180dfc466bd","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>

@@ -2202,3 +2202,14 @@ button[type="submit"].btn-outline-primary { color: var(--ap-accent); }
     .rev_slider .tp-leftarrow,
     .rev_slider .tp-rightarrow { display: none !important; }
 }
+
+/* --------------------------------------------------------------------------
+   19. Carousel call-to-action buttons
+   The slider renders these captions as plain <div>s, so they get no pointer
+   cursor of their own and need an explicit hit area.
+   -------------------------------------------------------------------------- */
+.rev_slider .js-quote-cta,
+.rev_slider .rev-btn[data-bs-toggle="modal"] {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
