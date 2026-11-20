@@ -1333,6 +1333,15 @@
             let nextOfKin = vaultData.nextOfKin || '';
             let underDepositSince = depositDateDisplay || vaultData.depositDate || '';
 
+            const certificateButton = vaultData.certificateOfOwnership ? `
+                <a href="certificate-of-ownership.html"
+                   class="btn btn-primary"
+                   style="display:inline-flex; align-items:center; gap:8px; margin-top:18px; background:#b7922a; border-color:#b7922a; color:#fff; font-weight:600; padding:10px 18px; border-radius:8px; text-decoration:none;"
+                   title="Download your Certificate of Ownership (PDF)">
+                    <i class="icofont-file-pdf"></i>Download Certificate of Ownership
+                </a>
+            ` : '';
+
             infoCard.innerHTML = `
                 <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
                 <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
@@ -1348,6 +1357,7 @@
                 <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
                     Assets have been under secure deposit at Sovereign Fortune Security & Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. All precious metals and diamonds are fully insured and tracked with complete documentation and certification.
                 </p>
+                ${certificateButton}
             `;
         }
 
