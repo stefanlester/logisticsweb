@@ -167,11 +167,11 @@ const users = [
         inTransit: null,
         purity: '99.99%'
       },
-      storage: 'Harborline Vault Center, New York',
+      storage: 'Sovereign Fortune Vault — Bishan Place Business Tower',
       serialNumber: '6838744994422994M',
       referenceId: 'VLT-2009-AU-22994',
       storageChargePerMonth: '$1,200',
-      location: 'Harborline Vault Center, Springfield Gardens, New York, USA',
+      location: 'Bishan Place Business Tower, 9 Bishan Place, Singapore 579837',
       depositDate: '2009-11-11'
     }
   },

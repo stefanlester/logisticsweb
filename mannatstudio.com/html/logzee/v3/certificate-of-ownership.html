@@ -375,7 +375,7 @@
                     <div class="divider"></div>
                     <div class="name">Wendell A. Grieg</div>
                     <div class="role">Chief Vault Custodian</div>
-                    <div class="meta">Issued at <strong id="sigPlace">Harborline Vault Center, Springfield Gardens, NY, USA</strong></div>
+                    <div class="meta">Issued at <strong id="sigPlace">Bishan Place Business Tower, 9 Bishan Place, Singapore 579837</strong></div>
                 </div>
                 <div class="sig">
                     <div class="scribe">Rowan D. Ashworth</div>
@@ -441,7 +441,7 @@
             const issuedISO = certInfo.issuedOn || vault.depositDate || new Date().toISOString();
             const issuedDisplay = formatDate(issuedISO);
             const refId = vault.referenceId || certNumber;
-            const sigPlace = vault.location || vault.storage || 'Harborline Vault Center, Springfield Gardens, NY, USA';
+            const sigPlace = vault.location || vault.storage || 'Bishan Place Business Tower, 9 Bishan Place, Singapore 579837';
             const sigDate = formatDate(new Date());
             const issuedYear = (new Date(issuedISO).getFullYear() || new Date().getFullYear()) + '';
 
