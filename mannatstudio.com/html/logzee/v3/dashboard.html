@@ -27,9 +27,6 @@
     <!-- Responsive Theme CSS -->
     <link href="assets/css/responsive.css" rel="stylesheet">
 
-    <!-- Chart.js for analytics -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-
     <style>
         :root {
             --primary-color: #FF7A00;
@@ -66,8 +63,7 @@
         body:not(.account-ready) #userName,
         body:not(.account-ready) #userEmail,
         body:not(.account-ready) #headerUserName,
-        body:not(.account-ready) .vault-section,
-        body:not(.account-ready) .welcome-stats { visibility: hidden; }
+        body:not(.account-ready) .vault-section { visibility: hidden; }
 
         .portal-nav {
             background: #fff;
@@ -212,25 +208,30 @@
         .stat-card {
             background: white;
             border-radius: 16px;
-            padding: 32px 24px;
+            padding: 24px;
             margin-bottom: 24px;
             box-shadow: var(--shadow-medium);
             border: 1px solid var(--border-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--primary-gradient);
+            height: 4px;
+            background: var(--card-accent, var(--primary-gradient));
         }
-        
+
+        .stat-card.shipments { --card-accent: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .stat-card.delivered { --card-accent: linear-gradient(135deg, #10b981, #059669); }
+        .stat-card.transit   { --card-accent: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-card.processing { --card-accent: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
         .stat-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-large);
@@ -423,15 +424,29 @@
             color: #9ca3af;
         }
         
-        .chart-container {
-            position: relative;
-            height: 300px;
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
+        .track-form-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+            flex-wrap: wrap;
         }
-        
+
+        .track-form-row .form-group {
+            flex: 1 1 320px;
+            margin-bottom: 0;
+        }
+
+        .track-form-row .btn-theme {
+            padding: 14px 28px;
+            height: 48px;
+            align-self: flex-end;
+        }
+
+        @media (max-width: 575.98px) {
+            .track-form-row { flex-direction: column; align-items: stretch; }
+            .track-form-row .btn-theme { width: 100%; justify-content: center; }
+        }
+
         .shipment-list {
             max-height: 400px;
             overflow-y: auto;
@@ -506,19 +521,29 @@
         .user-welcome {
             background: white;
             color: var(--dark-color);
-            padding: 32px;
+            padding: 28px 32px;
             border-radius: 16px;
             margin-bottom: 32px;
             box-shadow: var(--shadow-medium);
             border: 1px solid var(--border-color);
             position: relative;
+            overflow: hidden;
         }
-        
+
+        .user-welcome::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
         .welcome-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            gap: 16px;
+            flex-wrap: wrap;
         }
         
         .welcome-avatar {
@@ -546,32 +571,21 @@
             font-size: 0.875rem;
         }
         
-        .welcome-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .welcome-stat {
-            text-align: center;
-        }
-        
-        .welcome-stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .date-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255, 122, 0, 0.08), rgba(255, 149, 0, 0.12));
             color: var(--primary-color);
-            margin-bottom: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 122, 0, 0.15);
+            white-space: nowrap;
         }
-        
-        .welcome-stat-label {
-            font-size: 0.75rem;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        
+        .date-chip i { font-size: 0.95rem; }
+
         .logout-btn {
             background: linear-gradient(135deg, #e53e3e, #c53030);
             color: white;
@@ -664,6 +678,61 @@
             background: linear-gradient(135deg, #ffd700, #ffed4e);
             color: #1a1a1a;
             font-weight: 700;
+        }
+
+        .vault-info h5 {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .vault-info ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .vault-info ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 10px;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .vault-info ul li:last-child {
+            border-bottom: none;
+        }
+
+        .vault-info ul li strong {
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .vault-cert-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            background: linear-gradient(135deg, #f7d26a, #c6961f);
+            box-shadow: 0 10px 20px rgba(198, 150, 31, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .vault-cert-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(198, 150, 31, 0.32);
+            color: #1a1a1a;
         }
         
         /* Modern Button Styling */
@@ -801,18 +870,9 @@
             .user-welcome {
                 padding: 24px 20px;
             }
-            
-            .welcome-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
+
             .section-title {
                 font-size: 1.25rem;
-            }
-            
-            .chart-container {
-                height: 250px;
-                padding: 16px;
             }
         }
         
@@ -844,10 +904,6 @@
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
-            }
-            
-            .welcome-stats {
-                grid-template-columns: 1fr;
             }
         }
         
@@ -939,53 +995,34 @@
                             <p id="userEmail">&nbsp;</p>
                         </div>
                     </div>
-                    <div class="text-end">
-                        <p class="mb-0" style="color: #6b7280; font-size: 0.875rem;">
-                            <strong>Today:</strong> <span id="currentDate"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="welcome-stats">
-                    <div class="welcome-stat">
-                        <div class="welcome-stat-number" id="totalShipments">0</div>
-                        <div class="welcome-stat-label">Total Shipments</div>
-                    </div>
-                    <div class="welcome-stat">
-                        <div class="welcome-stat-number" id="deliveredShipments">0</div>
-                        <div class="welcome-stat-label">Delivered</div>
-                    </div>
-                    <div class="welcome-stat">
-                        <div class="welcome-stat-number" id="inTransitShipments">0</div>
-                        <div class="welcome-stat-label">In Transit</div>
-                    </div>
-                    <div class="welcome-stat">
-                        <div class="welcome-stat-number" id="pendingShipments">0</div>
-                        <div class="welcome-stat-label">Processing</div>
+                    <div class="date-chip">
+                        <i class="icofont-calendar"></i>
+                        <span id="currentDate"></span>
                     </div>
                 </div>
             </div>
 
             <!-- Statistics Cards -->
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card shipments">
                     <div class="stat-icon shipments">📦</div>
                     <div class="stat-number" id="totalShipmentsCard">0</div>
                     <div class="stat-label">Total Shipments</div>
                     <div class="stat-change" id="totalChangeCard">Loading...</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card delivered">
                     <div class="stat-icon delivered">✅</div>
                     <div class="stat-number" id="deliveredShipmentsCard">0</div>
                     <div class="stat-label">Delivered</div>
                     <div class="stat-change" id="deliveredChangeCard">Loading...</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card transit">
                     <div class="stat-icon transit">🚚</div>
                     <div class="stat-number" id="inTransitShipmentsCard">0</div>
                     <div class="stat-label">In Transit</div>
                     <div class="stat-change" id="transitChangeCard">Real-time tracking</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card processing">
                     <div class="stat-icon processing">⏳</div>
                     <div class="stat-number" id="pendingShipmentsCard">0</div>
                     <div class="stat-label">Processing</div>
@@ -993,41 +1030,26 @@
                 </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Track Package Section -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="dashboard-section">
-                        <h3 class="section-title">
-                            <span class="icon">🔍</span>
+            <!-- Track Package Section -->
+            <div class="dashboard-section">
+                <h3 class="section-title">
+                    <span class="icon">🔍</span>
+                    Track Package
+                </h3>
+                <div class="track-form">
+                    <div class="track-form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tracking Number</label>
+                            <input type="text" class="track-input" id="trackingInput"
+                                   placeholder="Enter tracking number (e.g., LZ2025001)">
+                        </div>
+                        <button class="btn-theme" onclick="trackPackage()">
+                            <i class="icofont-search"></i>
                             Track Package
-                        </h3>
-                        <div class="track-form">
-                            <div class="form-group">
-                                <label class="form-label">Tracking Number</label>
-                                <input type="text" class="track-input" id="trackingInput" 
-                                       placeholder="Enter tracking number (e.g., LZ2025001)">
-                            </div>
-                            <button class="btn-theme btn-block" onclick="trackPackage()">
-                                <i class="icofont-search"></i>
-                                Track Package
-                            </button>
-                        </div>
-                        <div id="trackingResult"></div>
+                        </button>
                     </div>
                 </div>
-
-                <!-- Analytics Section -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="dashboard-section">
-                        <h3 class="section-title">
-                            <span class="icon">📊</span>
-                            Shipment Analytics
-                        </h3>
-                        <div class="chart-container">
-                            <canvas id="analyticsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
+                <div id="trackingResult"></div>
             </div>
 
             <!-- Shipments Section -->
@@ -1130,15 +1152,13 @@
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            ['totalShipments','deliveredShipments','inTransitShipments','pendingShipments',
-             'totalShipmentsCard','deliveredShipmentsCard','inTransitShipmentsCard','pendingShipmentsCard']
+            ['totalShipmentsCard','deliveredShipmentsCard','inTransitShipmentsCard','pendingShipmentsCard']
                 .forEach(function (id) {
                     var el = document.getElementById(id);
                     if (el) el.textContent = '0';
                 });
             checkAuthentication();
             setCurrentDate();
-            initializeChart();
         });
 
         async function checkAuthentication() {
@@ -1265,9 +1285,8 @@
             const leftCard = document.querySelector('.vault-section .col-md-6:first-child .vault-info');
             if (!infoCard || !leftCard) return;
 
-            // The heading used to read "Vault: Switzerland ... & Diamonds" in the
-            // markup and was never updated, so every account saw Switzerland
-            // regardless of where its assets actually sit.
+            // Heading is composed from the account's actual vault location and
+            // held kinds, so each account sees its own.
             const titleEl = document.getElementById('vaultTitle');
             if (titleEl) {
                 const where = vaultData.location || vaultData.storage || '';
@@ -1333,10 +1352,17 @@
             let nextOfKin = vaultData.nextOfKin || '';
             let underDepositSince = depositDateDisplay || vaultData.depositDate || '';
 
+            const holdings = [];
+            if (vaultData.gold) holdings.push('precious metals');
+            if (vaultData.diamonds && vaultData.diamonds.vaulted) holdings.push('diamonds');
+            const holdingsPhrase = holdings.length ? holdings.join(' and ') : 'assets';
+            const subjectText = holdings.length
+                ? 'All ' + holdingsPhrase + ' are'
+                : 'They are';
+
             const certificateButton = vaultData.certificateOfOwnership ? `
                 <a href="certificate-of-ownership.html"
-                   class="btn btn-primary"
-                   style="display:inline-flex; align-items:center; gap:8px; margin-top:18px; background:#b7922a; border-color:#b7922a; color:#fff; font-weight:600; padding:10px 18px; border-radius:8px; text-decoration:none;"
+                   class="vault-cert-btn"
                    title="Download your Certificate of Ownership (PDF)">
                     <i class="icofont-file-pdf"></i>Download Certificate of Ownership
                 </a>
@@ -1355,7 +1381,7 @@
                     <li><strong>Under deposit since:</strong> ${underDepositSince}</li>
                 </ul>
                 <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
-                    Assets have been under secure deposit at Sovereign Fortune Security & Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. All precious metals and diamonds are fully insured and tracked with complete documentation and certification.
+                    Assets have been under secure deposit at Sovereign Fortune Security & Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. ${subjectText} fully insured and tracked with complete documentation and certification.
                 </p>
                 ${certificateButton}
             `;
@@ -1367,13 +1393,6 @@
             const inTransit = userShipments.filter(s => s.status.toLowerCase().includes('transit')).length;
             const processing = userShipments.filter(s => s.status.toLowerCase() === 'processing').length;
 
-            // Update welcome section stats
-            document.getElementById('totalShipments').textContent = total;
-            document.getElementById('deliveredShipments').textContent = delivered;
-            document.getElementById('inTransitShipments').textContent = inTransit;
-            document.getElementById('pendingShipments').textContent = processing;
-
-            // Update stat cards
             document.getElementById('totalShipmentsCard').textContent = total;
             document.getElementById('deliveredShipmentsCard').textContent = delivered;
             document.getElementById('inTransitShipmentsCard').textContent = inTransit;
@@ -1385,9 +1404,6 @@
             document.getElementById('deliveredChangeCard').textContent = delivered > 0 ? `${deliveryRate}% delivery rate` : 'No deliveries yet';
             document.getElementById('transitChangeCard').textContent = inTransit > 0 ? 'Real-time tracking' : 'No active transits';
             document.getElementById('processingChangeCard').textContent = processing > 0 ? 'Being processed' : 'No pending items';
-
-            // Update chart
-            updateChart();
         }
 
         function renderShipments() {
@@ -1444,119 +1460,6 @@
             if (statusLower.includes('transit')) return 'status-in-transit';
             if (statusLower.includes('hold')) return 'status-on-hold';
             return 'status-processing';
-        }
-
-        // Chart.js center text plugin
-        const centerTextPlugin = {
-            id: 'centerText',
-            beforeDatasetsDraw(chart) {
-                const { ctx, data } = chart;
-                const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                
-                ctx.save();
-                ctx.font = 'bold 24px Inter, sans-serif';
-                ctx.fillStyle = '#1f2937';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                const centerX = chart.getDatasetMeta(0).data[0].x;
-                const centerY = chart.getDatasetMeta(0).data[0].y;
-                
-                ctx.fillText(total.toString(), centerX, centerY - 5);
-                
-                ctx.font = '12px Inter, sans-serif';
-                ctx.fillStyle = '#6b7280';
-                ctx.fillText('Total', centerX, centerY + 15);
-                
-                ctx.restore();
-            }
-        };
-
-        function initializeChart() {
-            const ctx = document.getElementById('analyticsChart').getContext('2d');
-            
-            // Register the plugin
-            Chart.register(centerTextPlugin);
-            
-            window.analyticsChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Delivered', 'In Transit', 'Processing'],
-                    datasets: [{
-                        data: [0, 0, 0],
-                        backgroundColor: [
-                            '#10b981', // Green for delivered
-                            '#f59e0b', // Orange for in transit  
-                            '#8b5cf6'  // Purple for processing
-                        ],
-                        borderWidth: 3,
-                        borderColor: '#ffffff',
-                        hoverBorderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '65%',
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                font: {
-                                    size: 12,
-                                    weight: '600'
-                                }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                            titleColor: '#ffffff',
-                            bodyColor: '#ffffff',
-                            borderColor: '#e5e7eb',
-                            borderWidth: 1,
-                            cornerRadius: 8,
-                            callbacks: {
-                                label: function(context) {
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = total > 0 ? Math.round((context.parsed / total) * 100) : 0;
-                                    return `${context.label}: ${context.parsed} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    },
-                    animation: {
-                        animateScale: true,
-                        animateRotate: true
-                    }
-                },
-                plugins: [centerTextPlugin]
-            });
-        }
-
-        function updateChart() {
-            const delivered = userShipments.filter(s => s.status.toLowerCase() === 'delivered').length;
-            const inTransit = userShipments.filter(s => s.status.toLowerCase().includes('transit')).length;
-            const processing = userShipments.filter(s => s.status.toLowerCase() === 'processing').length;
-            const total = userShipments.length;
-
-            // Update chart data
-            window.analyticsChart.data.datasets[0].data = [delivered, inTransit, processing];
-            
-            // If no data, show placeholder
-            if (total === 0) {
-                window.analyticsChart.data.datasets[0].data = [1, 1, 1];
-                window.analyticsChart.data.datasets[0].backgroundColor = ['#e5e7eb', '#e5e7eb', '#e5e7eb'];
-            } else {
-                window.analyticsChart.data.datasets[0].backgroundColor = [
-                    '#10b981', // Green for delivered
-                    '#f59e0b', // Orange for in transit  
-                    '#8b5cf6'  // Purple for processing
-                ];
-            }
-            
-            window.analyticsChart.update('active');
         }
 
         async function trackPackage() {

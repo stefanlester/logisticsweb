@@ -67,7 +67,8 @@ const users = [
       // 50 kg is with the carrier on consignment FS20251031DELIVERY
       goldInTransitNote: 'FS20251031DELIVERY',
       depositDate: '2001-08-17',
-      location: 'Geneva, Switzerland'
+      storage: 'Sovereign Fortune Vault — Tour Aurelia, Fontvieille',
+      location: 'Tour Aurelia, Fontvieille, Monaco'
     }
   },
   {
@@ -99,11 +100,11 @@ const users = [
         inTransit: '50.000 kg',
         fineness: '999.9 (or as assayed)'
       },
-      storage: 'Sovereign Fortune Security Logistics',
+      storage: 'Sovereign Fortune Vault — Keppel Gateway Tower, Changi North',
       serialNumber: '4417829930066182H',
       transactionCode: 'TRX-2012-AU-66182',
       securityCode: 'SEC-2012-7741',
-      location: 'South Africa (50kg of gold is being moved to Meridian Vault House, Sydney; remainder in storage)',
+      location: 'Keppel Gateway Tower, Changi North, Singapore (50kg in transit to Meridian Vault House, Sydney, Australia; remainder in storage)',
       address: '7 Harbour Crescent, Leith, Edinburgh EH6 7DX',
       depositDate: 'July 2012'
     }
@@ -252,10 +253,10 @@ let shipments = [
   {
     id: "SFS2012AU0050",
     trackingNumber: "SFS2012AU0050",
-    origin: "South Africa",
+    origin: "Keppel Gateway Tower, Changi North, Singapore",
     destination: "Meridian Vault House, Sydney, Australia",
     status: "In Transit to Sydney Vault",
-    currentLocation: "South Africa",
+    currentLocation: "Singapore",
     estimatedDelivery: "Pending Arrival at Meridian Vault House",
     weight: "50kg Gold (Good Delivery Bars)",
     statusCode: "in_transit",
@@ -273,15 +274,15 @@ let shipments = [
     history: [
       {
         timestamp: "2025-10-29 09:00",
-        location: "South Africa",
+        location: "Keppel Gateway Tower, Changi North, Singapore",
         status: "Assets prepared for transfer",
-        description: "350kg refined gold bullion secured for international transfer to Meridian Vault House, Sydney"
+        description: "350kg refined gold bullion secured for international transfer; 50kg released to Meridian Vault House, Sydney"
       },
       {
         timestamp: "2025-10-29 18:00",
-        location: "South Africa",
+        location: "Singapore Changi Air Cargo Terminal",
         status: "In transit",
-        description: "Gold bullion in secure transit to London vault"
+        description: "50kg of gold bullion in secure transit to Meridian Vault House, Sydney, Australia"
       }
     ]
   },
@@ -289,7 +290,7 @@ let shipments = [
   {
     id: "FS20251031DELIVERY",
     trackingNumber: "FS20251031DELIVERY",
-    origin: "Geneva, Switzerland",
+    origin: "Fontvieille, Monaco",
     destination: "420 Fulton Yards, Springfield Gardens, NY 11413, USA",
     status: "On Hold",
     currentLocation: "JFK Air Cargo Customs Inspection Point",
@@ -308,9 +309,9 @@ let shipments = [
     history: [
       {
         timestamp: "2025-10-31 08:00",
-        location: "Geneva, Switzerland",
+        location: "Fontvieille, Monaco",
         status: "Dispatched",
-        description: "Shipment departed from Geneva, Switzerland."
+        description: "Shipment departed from Fontvieille, Monaco."
       },
       {
         timestamp: "2025-10-31 10:00",
@@ -329,10 +330,10 @@ let shipments = [
   {
     id: "FS2001ASSETS",
     trackingNumber: "FS2001ASSETS",
-    origin: "Geneva, Switzerland",
+    origin: "Fontvieille, Monaco",
     destination: "420 Fulton Yards, Springfield Gardens, NY 11413, USA",
     status: "Secured in Vault - Ready for Transfer",
-    currentLocation: "Geneva Vault Facility",
+    currentLocation: "Monaco Vault Facility",
     estimatedDelivery: "Pending Transfer Authorization",
     weight: "110kg Gold + 60ct Diamonds",
     statusCode: "preparing",
@@ -348,25 +349,25 @@ let shipments = [
     history: [
       {
         timestamp: "2001-08-17 10:00",
-        location: "Geneva, Switzerland",
+        location: "Fontvieille, Monaco",
         status: "Assets deposited",
         description: "Precious metals and diamonds secured in vault"
       },
       {
         timestamp: "2001-08-17 15:30",
-        location: "Geneva Vault Facility",
+        location: "Monaco Vault Facility",
         status: "Vault secured",
         description: "All assets verified and placed in maximum security vault"
       },
       {
         timestamp: "2025-10-18 09:00",
-        location: "Geneva Vault Facility",
+        location: "Monaco Vault Facility",
         status: "Transfer preparation",
         description: "Consignment prepared, weighed and sealed for dispatch."
       },
       {
         timestamp: "2025-10-18 14:30",
-        location: "Geneva Vault Facility",
+        location: "Monaco Vault Facility",
         status: "Ready for transfer",
         description: "Export documentation and assay certificates lodged."
       }
