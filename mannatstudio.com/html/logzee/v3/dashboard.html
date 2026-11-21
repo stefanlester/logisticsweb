@@ -39,9 +39,19 @@
             --dark-color: #1f2937;
             --light-color: #f8fafc;
             --border-color: #e5e7eb;
-            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-light: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+            --shadow-large: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+
+            --navy: #0f172a;
+            --navy-deep: #0b1230;
+            --navy-soft: #1e293b;
+            --gold: #c6961f;
+            --gold-light: #e2c05f;
+            --gold-dark: #8c6f17;
+            --ink: #0f172a;
+            --ink-muted: #64748b;
+            --canvas: #f5f6fa;
         }
 
         * {
@@ -49,12 +59,15 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--canvas);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            color: var(--dark-color);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -0.01em;
         }
         
         /* Modern Dashboard Header */
@@ -88,8 +101,8 @@
         .portal-nav a:hover { color: var(--dark-color); }
 
         .portal-nav a.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+            color: var(--navy-deep);
+            border-bottom-color: var(--navy-deep);
         }
 
         .dashboard-header {
@@ -148,54 +161,58 @@
         }
         
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #0b1230, #1e293b);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.875rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.02em;
         }
-        
+
         .user-details {
             display: flex;
             flex-direction: column;
         }
-        
+
         .user-name {
             font-weight: 600;
-            color: var(--dark-color);
-            font-size: 0.875rem;
+            color: var(--ink);
+            font-size: 0.85rem;
             line-height: 1.2;
         }
-        
+
         .user-role {
-            font-size: 0.75rem;
-            color: #6b7280;
+            font-size: 0.7rem;
+            color: var(--ink-muted);
             line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
-        
+
         .logout-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
+            background: transparent;
+            color: var(--ink-muted);
+            border: 1px solid var(--border-color);
             padding: 8px 16px;
             border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        
+
         .logout-btn:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
+            background: #fff5f5;
+            color: #c53030;
+            border-color: #fcc;
         }
         
         .dashboard-container {
@@ -204,15 +221,15 @@
             padding: 0 15px;
         }
         
-        /* Modern Card Design */
+        /* Refined Stat Cards */
         .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-medium);
+            background: #fff;
+            border-radius: 14px;
+            padding: 22px 22px 20px;
+            margin-bottom: 0;
+            box-shadow: var(--shadow-light);
             border: 1px solid var(--border-color);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
             position: relative;
             overflow: hidden;
         }
@@ -222,125 +239,176 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--card-accent, var(--primary-gradient));
+            width: 4px;
+            bottom: 0;
+            background: var(--card-accent, var(--navy-deep));
+            opacity: 0.75;
         }
 
-        .stat-card.shipments { --card-accent: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .stat-card.delivered { --card-accent: linear-gradient(135deg, #10b981, #059669); }
-        .stat-card.transit   { --card-accent: linear-gradient(135deg, #f59e0b, #d97706); }
-        .stat-card.processing { --card-accent: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .stat-card.shipments  { --card-accent: #3b82f6; }
+        .stat-card.delivered  { --card-accent: #10b981; }
+        .stat-card.transit    { --card-accent: #f59e0b; }
+        .stat-card.processing { --card-accent: #8b5cf6; }
 
         .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: #d8dde8;
         }
-        
-        .stat-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-        
+
         .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            margin-bottom: 16px;
+            font-size: 18px;
+            margin-bottom: 14px;
+            color: var(--navy-deep);
+            background: #eef0f6;
         }
-        
-        .stat-icon.shipments { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .stat-icon.delivered { background: linear-gradient(135deg, #10b981, #059669); }
-        .stat-icon.transit { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .stat-icon.processing { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        
+
+        .stat-card.shipments  .stat-icon { color: #1d4ed8; background: #eff5ff; }
+        .stat-card.delivered  .stat-icon { color: #059669; background: #ecfdf5; }
+        .stat-card.transit    .stat-icon { color: #b45309; background: #fef6e7; }
+        .stat-card.processing .stat-icon { color: #6d28d9; background: #f3efff; }
+
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            margin-bottom: 8px;
-            line-height: 1;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
         }
-        
+
         .stat-label {
-            color: #6b7280;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-        
-        .stat-change {
-            font-size: 0.75rem;
+            color: var(--ink-muted);
+            font-size: 0.8rem;
             font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 16px;
-            background: #ecfdf5;
-            color: var(--success-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .stat-change {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: var(--ink-muted);
+            display: inline-block;
         }
         
         .dashboard-section {
             background: white;
             border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow-medium);
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-light);
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
         }
-        
-        .dashboard-section:hover {
-            box-shadow: var(--shadow-large);
-        }
+
+        .dashboard-section + .dashboard-section { margin-top: 0; }
+
+        .dashboard-section.vault-section { padding: 36px 36px 32px; }
         
         .section-title {
-            color: var(--dark-color);
-            font-size: 1.5rem;
+            color: var(--ink);
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.015em;
         }
-        
+
         .section-title .icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--primary-gradient);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #eef0f6;
+            color: var(--navy-deep);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 16px;
+            font-size: 15px;
+            flex-shrink: 0;
         }
         
         .shipment-row {
-            background: #fafafa;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
+            background: #fcfcfd;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 10px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            border: 1px solid var(--border-color);
         }
-        
+
         .shipment-row:hover {
-            background: #f0f8ff;
-            transform: translateX(5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            background: #f8fafc;
+            border-color: #d8dde8;
         }
         
         .shipment-row:last-child {
             margin-bottom: 0;
         }
 
-        .shipment-row .receipt-cell .btn {
-            display: inline-block;
+        .shipment-row .tn {
+            font-weight: 700;
+            color: var(--ink);
+            font-size: 0.92rem;
+            letter-spacing: 0.01em;
+            font-variant-numeric: tabular-nums;
+        }
+        .shipment-row .svc {
+            font-size: 0.72rem;
+            color: var(--ink-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 3px;
+        }
+        .shipment-row .route {
+            color: var(--ink);
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .shipment-row .route i {
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+        }
+        .shipment-row .route-from,
+        .shipment-row .route-to { line-height: 1.3; }
+        .shipment-row .route-to { font-weight: 600; }
+
+        .btn-receipt {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--navy-deep);
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-receipt:hover {
+            background: var(--navy-deep);
+            border-color: var(--navy-deep);
+            color: #fff;
         }
 
         @media (max-width: 767.98px) {
@@ -354,40 +422,42 @@
                 text-align: center;
                 margin-top: 14px;
             }
-            .shipment-row .receipt-cell .btn {
-                display: block;
+            .btn-receipt {
+                display: inline-flex;
                 width: 100%;
-                padding: 12px 14px !important;
-                font-size: 1rem !important;
+                justify-content: center;
+                padding: 11px 14px;
+                font-size: 0.85rem;
             }
         }
         
         .status-badge {
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-size: 0.875rem;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            letter-spacing: 0.08em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        
-        .status-delivered { 
-            background: linear-gradient(135deg, #48bb78, #38a169); 
-            color: white; 
+
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
         }
-        .status-in-transit { 
-            background: linear-gradient(135deg, #4299e1, #3182ce); 
-            color: white; 
-        }
-        .status-processing { 
-            background: linear-gradient(135deg, #ed8936, #dd6b20); 
-            color: white; 
-        }
+
+        .status-delivered  { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .status-in-transit { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .status-processing { background: #fef6e7; color: #b45309; border: 1px solid #fde68a; }
         
         .track-form {
             background: #f8fafc;
-            padding: 24px;
+            padding: 22px 24px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
         }
@@ -406,18 +476,19 @@
         
         .track-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border-color);
+            padding: 11px 14px;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             background: white;
+            color: var(--ink);
         }
-        
+
         .track-input:focus {
-            border-color: var(--primary-color);
+            border-color: var(--navy-deep);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
         }
         
         .track-input::placeholder {
@@ -448,84 +519,27 @@
         }
 
         .shipment-list {
-            max-height: 400px;
+            max-height: 520px;
             overflow-y: auto;
+            padding-right: 4px;
         }
-        
-        .shipment-item {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-        }
-        
-        .shipment-item:hover {
-            background: white;
-            box-shadow: var(--shadow-light);
-        }
-        
-        .shipment-header {
-            display: flex;
-            align-items: center;
-            justify-content: between;
-            margin-bottom: 12px;
-        }
-        
-        .shipment-id {
-            font-weight: 700;
-            color: var(--dark-color);
-            font-size: 1rem;
-        }
-        
-        .shipment-route {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin-bottom: 8px;
-        }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .status-delivered { 
-            background: #ecfdf5; 
-            color: var(--success-color); 
-            border: 1px solid #d1fae5;
-        }
-        .status-in-transit { 
-            background: #eff6ff; 
-            color: #3b82f6; 
-            border: 1px solid #dbeafe;
-        }
-        .status-processing { 
-            background: #fef3c7; 
-            color: var(--warning-color); 
-            border: 1px solid #fde68a;
-        }
-        .status-on-hold { 
-            background: #dc2626; 
-            color: white; 
-            border: 2px solid #991b1b;
-            padding: 8px 16px;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+
+        .status-on-hold {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
         }
         
         .user-welcome {
-            background: white;
-            color: var(--dark-color);
+            background:
+                radial-gradient(900px 300px at 100% -40%, rgba(198, 150, 31, 0.10), transparent 70%),
+                linear-gradient(135deg, #0b1230 0%, #0f172a 100%);
+            color: #f1f5f9;
             padding: 28px 32px;
             border-radius: 16px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow-medium);
-            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid #1c243d;
             position: relative;
             overflow: hidden;
         }
@@ -533,9 +547,10 @@
         .user-welcome::before {
             content: '';
             position: absolute;
-            inset: 0 0 auto 0;
-            height: 4px;
-            background: var(--primary-gradient);
+            inset: auto 0 0 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+            opacity: 0.6;
         }
 
         .welcome-header {
@@ -545,65 +560,54 @@
             gap: 16px;
             flex-wrap: wrap;
         }
-        
+
         .welcome-avatar {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #c6961f 0%, #8c6f17 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: 600;
+            color: #0b1230;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 0 0 3px rgba(198, 150, 31, 0.2);
         }
-        
+
         .welcome-info h2 {
             margin: 0 0 4px 0;
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.015em;
         }
-        
+
         .welcome-info p {
             margin: 0;
-            color: #6b7280;
-            font-size: 0.875rem;
+            color: rgba(255,255,255,0.65);
+            font-size: 0.82rem;
+            letter-spacing: 0.01em;
         }
-        
+
         .date-chip {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 14px;
+            padding: 7px 14px;
             border-radius: 999px;
-            background: linear-gradient(135deg, rgba(255, 122, 0, 0.08), rgba(255, 149, 0, 0.12));
-            color: var(--primary-color);
-            font-size: 0.8rem;
+            background: rgba(198, 150, 31, 0.12);
+            color: var(--gold-light);
+            font-size: 0.75rem;
             font-weight: 600;
-            border: 1px solid rgba(255, 122, 0, 0.15);
+            border: 1px solid rgba(198, 150, 31, 0.3);
             white-space: nowrap;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
-        .date-chip i { font-size: 0.95rem; }
+        .date-chip i { font-size: 0.9rem; }
 
-        .logout-btn {
-            background: linear-gradient(135deg, #e53e3e, #c53030);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(229,62,62,0.3);
-        }
-        
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(229,62,62,0.4);
-        }
-        
         .loading {
             text-align: center;
             padding: 60px;
@@ -624,65 +628,106 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Vault Section Styling */
+        /* Vault Section — private-bank look */
         .vault-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 24px;
+            background:
+                radial-gradient(1200px 400px at 90% -10%, rgba(198, 150, 31, 0.14), transparent 60%),
+                linear-gradient(180deg, #0b1230 0%, #0f172a 100%);
+            color: #f1f5f9;
+            border-radius: 18px;
             overflow: hidden;
+            border: 1px solid #1c243d;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, var(--shadow-light);
+            padding: 36px 36px 32px;
+            position: relative;
         }
-        
+
+        .vault-section::before {
+            content: '';
+            position: absolute;
+            left: 36px;
+            right: 36px;
+            top: 76px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(198,150,31,0) 0%, rgba(198,150,31,0.55) 50%, rgba(198,150,31,0) 100%);
+        }
+
         .vault-section .section-title {
-            color: white;
+            color: #fff;
             border-bottom: none;
+            margin-bottom: 36px;
         }
-        
-        .vault-section .section-title::after {
-            background: rgba(255,255,255,0.3);
+
+        .vault-section .section-title .icon {
+            background: rgba(198, 150, 31, 0.15);
+            color: var(--gold-light);
         }
-        
+
         .vault-info {
-            background: rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border-radius: 14px;
+            padding: 24px 26px;
+            margin-bottom: 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
-        
+
         .vault-stat {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            gap: 16px;
         }
-        
-        .vault-stat:last-child {
-            border-bottom: none;
-        }
-        
+
+        .vault-stat:first-child { padding-top: 4px; }
+        .vault-stat:last-child { border-bottom: none; padding-bottom: 4px; }
+
         .vault-stat .label {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.55);
         }
-        
+
         .vault-stat .value {
-            font-weight: 700;
-            font-size: 1.1rem;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0;
+            border-radius: 0;
+            background: none;
+            color: #f1f5f9;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
         }
-        
+
         .gold-badge {
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #1a1a1a;
+            color: var(--gold-light);
             font-weight: 700;
+            background: none;
+            padding: 0;
+            border-radius: 0;
         }
 
         .vault-info h5 {
             font-weight: 700;
             letter-spacing: -0.01em;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin: 0 0 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vault-info h5::before {
+            content: '';
+            width: 14px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
         }
 
         .vault-info ul {
@@ -692,25 +737,35 @@
         }
 
         .vault-info ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             flex-wrap: wrap;
-            gap: 6px 10px;
+            gap: 4px 14px;
             justify-content: space-between;
             align-items: baseline;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.9rem;
         }
 
-        .vault-info ul li:last-child {
-            border-bottom: none;
-        }
+        .vault-info ul li:last-child { border-bottom: none; }
 
         .vault-info ul li strong {
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255, 255, 255, 0.55);
             font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 0.02em;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
+            flex: 0 0 auto;
+        }
+
+        .vault-info ul li span {
+            color: #f8fafc;
+            font-weight: 500;
+            text-align: right;
+            flex: 1 1 60%;
+            min-width: 0;
+            word-break: break-word;
         }
 
         .vault-cert-btn {
@@ -718,48 +773,59 @@
             align-items: center;
             gap: 10px;
             margin-top: 22px;
-            padding: 12px 20px;
-            border-radius: 12px;
-            color: #1a1a1a;
+            padding: 11px 20px;
+            border-radius: 10px;
+            color: #0b1230;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
             text-decoration: none;
-            background: linear-gradient(135deg, #f7d26a, #c6961f);
-            box-shadow: 0 10px 20px rgba(198, 150, 31, 0.25);
+            background: linear-gradient(135deg, #f7d26a 0%, #c6961f 100%);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 20px rgba(198, 150, 31, 0.3);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .vault-cert-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 14px 28px rgba(198, 150, 31, 0.32);
-            color: #1a1a1a;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 14px 28px rgba(198, 150, 31, 0.35);
+            color: #0b1230;
+        }
+
+        .vault-section .vault-paragraph {
+            margin: 18px 0 0 0;
+            font-size: 0.86rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.65;
+            max-width: 46ch;
         }
         
-        /* Modern Button Styling */
+        /* Primary button */
         .btn-theme {
-            background: var(--primary-gradient);
-            border: none;
-            padding: 12px 24px;
+            background: var(--navy-deep);
+            border: 1px solid var(--navy-deep);
+            padding: 11px 22px;
             border-radius: 8px;
             color: white;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, transform 0.15s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-        
+
         .btn-theme:hover {
+            background: #0f172a;
             transform: translateY(-1px);
-            box-shadow: var(--shadow-medium);
         }
-        
+
         .btn-theme:active {
             transform: translateY(0);
         }
-        
+
         .btn-theme.btn-block {
             width: 100%;
             justify-content: center;
@@ -767,21 +833,24 @@
         
         /* Alert Styling */
         .alert {
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            border: none;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin: 20px 0 0;
+            border: 1px solid transparent;
             font-weight: 500;
+            font-size: 0.9rem;
         }
-        
+
         .alert-success {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
+            background: #f0fdf4;
+            color: #166534;
+            border-color: #bbf7d0;
         }
-        
+
         .alert-danger {
-            background: linear-gradient(135deg, #e53e3e, #c53030);
-            color: white;
+            background: #fef2f2;
+            color: #b91c1c;
+            border-color: #fecaca;
         }
         
         /* Enhanced Typography */
@@ -790,33 +859,12 @@
             letter-spacing: -0.025em;
         }
         
-        .section-title {
-            color: #2d3748;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f7fafc;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, #FF7A00, #FF9500);
-            border-radius: 2px;
-        }
-        
         /* Grid Layouts */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
         
         /* Responsive Design */
@@ -959,7 +1007,7 @@
                         <div class="user-avatar" id="headerUserAvatar"></div>
                         <div class="user-details">
                             <span class="user-name" id="headerUserName"></span>
-                            <span class="user-role">Dashboard</span>
+                            <span class="user-role">Private Portal</span>
                         </div>
                     </div>
                     <button class="logout-btn" onclick="logout()">
@@ -1005,25 +1053,25 @@
             <!-- Statistics Cards -->
             <div class="stats-grid">
                 <div class="stat-card shipments">
-                    <div class="stat-icon shipments">📦</div>
+                    <div class="stat-icon"><i class="icofont-package"></i></div>
                     <div class="stat-number" id="totalShipmentsCard">0</div>
                     <div class="stat-label">Total Shipments</div>
                     <div class="stat-change" id="totalChangeCard">Loading...</div>
                 </div>
                 <div class="stat-card delivered">
-                    <div class="stat-icon delivered">✅</div>
+                    <div class="stat-icon"><i class="icofont-check-circled"></i></div>
                     <div class="stat-number" id="deliveredShipmentsCard">0</div>
                     <div class="stat-label">Delivered</div>
                     <div class="stat-change" id="deliveredChangeCard">Loading...</div>
                 </div>
                 <div class="stat-card transit">
-                    <div class="stat-icon transit">🚚</div>
+                    <div class="stat-icon"><i class="icofont-fast-delivery"></i></div>
                     <div class="stat-number" id="inTransitShipmentsCard">0</div>
                     <div class="stat-label">In Transit</div>
                     <div class="stat-change" id="transitChangeCard">Real-time tracking</div>
                 </div>
                 <div class="stat-card processing">
-                    <div class="stat-icon processing">⏳</div>
+                    <div class="stat-icon"><i class="icofont-wall-clock"></i></div>
                     <div class="stat-number" id="pendingShipmentsCard">0</div>
                     <div class="stat-label">Processing</div>
                     <div class="stat-change" id="processingChangeCard">Updated today</div>
@@ -1033,7 +1081,7 @@
             <!-- Track Package Section -->
             <div class="dashboard-section">
                 <h3 class="section-title">
-                    <span class="icon">🔍</span>
+                    <span class="icon"><i class="icofont-search-1"></i></span>
                     Track Package
                 </h3>
                 <div class="track-form">
@@ -1055,7 +1103,7 @@
             <!-- Shipments Section -->
             <div class="dashboard-section">
                 <h3 class="section-title">
-                    <span class="icon">🚢</span>
+                    <span class="icon"><i class="icofont-ship"></i></span>
                     Your Shipments
                 </h3>
                 <div class="shipment-list" id="shipmentsContainer">
@@ -1065,20 +1113,20 @@
 
             <!-- Vault Section -->
             <div class="dashboard-section vault-section">
-                <h3 class="section-title" id="vaultTitle">🏦 Vault</h3>
-                <div class="row">
+                <h3 class="section-title">
+                    <span class="icon"><i class="icofont-safety"></i></span>
+                    <span id="vaultTitle">Private Vault</span>
+                </h3>
+                <div class="row g-4">
                     <div class="col-md-6">
                         <div class="vault-info">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="vault-info">
-                            <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
-                            <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
-                            </ul>
-                            <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
-                                &nbsp;
-                            </p>
+                            <h5>Account Information</h5>
+                            <ul></ul>
+                            <p class="vault-paragraph"></p>
                         </div>
                     </div>
                 </div>
@@ -1216,9 +1264,7 @@
                     // Show the email too: the auth token lives in localStorage and is
                     // shared across tabs, so signing in elsewhere changes who this page
                     // is showing. Naming the account removes the ambiguity.
-                    document.getElementById('userEmail').textContent =
-                        [fullName && 'Account holder: ' + fullName, user.email]
-                            .filter(Boolean).join('  \u00b7  ');
+                    document.getElementById('userEmail').textContent = user.email || '';
                     document.getElementById('headerUserName').textContent = fullName;
                     document.getElementById('userAvatar').textContent = initials || 'U';
                     document.getElementById('headerUserAvatar').textContent = initials || 'U';
@@ -1285,17 +1331,18 @@
             const leftCard = document.querySelector('.vault-section .col-md-6:first-child .vault-info');
             if (!infoCard || !leftCard) return;
 
-            // Heading is composed from the account's actual vault location and
-            // held kinds, so each account sees its own.
+            // Heading uses the account's actual vault location and held kinds,
+            // so each account sees its own private-vault title.
             const titleEl = document.getElementById('vaultTitle');
             if (titleEl) {
                 const where = vaultData.location || vaultData.storage || '';
                 const kinds = [];
                 if (vaultData.gold) kinds.push('Precious Metals');
                 if (vaultData.diamonds && vaultData.diamonds.vaulted) kinds.push('Diamonds');
-                titleEl.textContent = '\u{1F3E6} Vault' +
-                    (where ? ': ' + String(where).split('(')[0].split(' - ')[0].trim() : '') +
-                    (kinds.length ? ' \u2014 ' + kinds.join(' & ') : '');
+                const place = where ? String(where).split('(')[0].split(' - ')[0].trim() : '';
+                titleEl.textContent = 'Private Vault' +
+                    (place ? ' \u00b7 ' + place : '') +
+                    (kinds.length ? ' \u00b7 ' + kinds.join(' & ') : '');
             }
 
             // --- LEFT VAULT CARD ---
@@ -1369,19 +1416,19 @@
             ` : '';
 
             infoCard.innerHTML = `
-                <h5 style="color: white; margin-bottom: 20px;">📊 Account Information</h5>
-                <ul style="color: rgba(255,255,255,0.9); line-height: 1.8;">
-                    <li><strong>Account Holders:</strong> ${accountHolders}</li>
-                    <li><strong>Deposit Location:</strong> ${depositLocation}</li>
-                    <li><strong>Gold Type:</strong> ${goldType}</li>
-                    ${diamondGrade ? `<li><strong>Premium Diamonds:</strong> ${diamondGrade}</li>` : ''}
-                    ${nextOfKin ? `<li><strong>Next of Kin:</strong> ${nextOfKin}</li>` : ''}
-                    <li><strong>Security:</strong> ${security}</li>
-                    ${referenceId ? `<li><strong>Reference ID:</strong> ${referenceId}</li>` : ''}
-                    <li><strong>Under deposit since:</strong> ${underDepositSince}</li>
+                <h5>Account Information</h5>
+                <ul>
+                    <li><strong>Account Holders</strong><span>${accountHolders}</span></li>
+                    <li><strong>Deposit Location</strong><span>${depositLocation}</span></li>
+                    <li><strong>Gold Type</strong><span>${goldType}</span></li>
+                    ${diamondGrade ? `<li><strong>Premium Diamonds</strong><span>${diamondGrade}</span></li>` : ''}
+                    ${nextOfKin ? `<li><strong>Next of Kin</strong><span>${nextOfKin}</span></li>` : ''}
+                    <li><strong>Security</strong><span>${security}</span></li>
+                    ${referenceId ? `<li><strong>Reference ID</strong><span>${referenceId}</span></li>` : ''}
+                    <li><strong>Under deposit since</strong><span>${underDepositSince}</span></li>
                 </ul>
-                <p style="color: rgba(255,255,255,0.8); margin-top: 20px; font-size: 0.95rem;">
-                    Assets have been under secure deposit at Sovereign Fortune Security & Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. ${subjectText} fully insured and tracked with complete documentation and certification.
+                <p class="vault-paragraph">
+                    Assets have been under secure deposit at Sovereign Fortune Security &amp; Logistics${depositLocation ? ', ' + depositLocation : ''} since ${underDepositSince}. ${subjectText} fully insured and tracked with complete documentation and certification.
                 </p>
                 ${certificateButton}
             `;
@@ -1425,25 +1472,24 @@
                     <div class="shipment-row">
                         <div class="row align-items-center">
                             <div class="col-md-3">
-                                <strong>${shipment.trackingNumber}</strong>
+                                <div class="tn">${shipment.trackingNumber}</div>
+                                <div class="svc">${shipment.service || ''}</div>
                             </div>
-                            <div class="col-md-3">
-                                ${shipment.origin} → ${shipment.destination}
+                            <div class="col-md-4 route">
+                                <span class="route-from">${shipment.origin}</span>
+                                <i class="icofont-long-arrow-right"></i>
+                                <span class="route-to">${shipment.destination}</span>
                             </div>
                             <div class="col-md-2">
                                 <span class="status-badge ${getStatusClass(shipment.status)}">
                                     ${shipment.status}
                                 </span>
                             </div>
-                            <div class="col-md-2">
-                                ${shipment.service}
-                            </div>
-                            <div class="col-12 col-md-2 text-md-end receipt-cell">
+                            <div class="col-12 col-md-3 text-md-end receipt-cell">
                                 <a href="delivery-note.html?tn=${encodeURIComponent(shipment.trackingNumber)}"
-                                   class="btn btn-primary"
-                                   style="background: #16a34a; border-color: #16a34a; color: #fff; font-weight: 600; padding: 8px 14px; border-radius: 8px; white-space: nowrap;"
+                                   class="btn-receipt"
                                    title="Download delivery / receipt note (PDF)">
-                                    <i class="icofont-file-pdf me-2"></i>Download Receipt
+                                    <i class="icofont-file-pdf"></i>Download Receipt
                                 </a>
                             </div>
                         </div>
