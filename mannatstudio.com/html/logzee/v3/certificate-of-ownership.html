@@ -511,15 +511,15 @@
 
             <div class="signatures">
                 <div class="sig">
-                    <div class="scribe">Wendell A. Grieg</div>
+                    <div class="scribe">Lim Wei Ming</div>
                     <div class="rule"></div>
-                    <div class="name">Wendell A. Grieg</div>
+                    <div class="name">Lim Wei Ming</div>
                     <div class="role">Chief Vault Custodian</div>
                 </div>
                 <div class="sig">
-                    <div class="scribe">Rowan D. Ashworth</div>
+                    <div class="scribe">Charles H. Everett</div>
                     <div class="rule"></div>
-                    <div class="name">Rowan D. Ashworth</div>
+                    <div class="name">Charles H. Everett</div>
                     <div class="role">Director, Custody &amp; Settlement</div>
                 </div>
             </div>
@@ -581,7 +581,10 @@
             const refId = vault.referenceId || certNumber;
             const sigPlace = vault.location || vault.storage || 'Bishan Place Business Tower, Singapore';
             const sigDate = formatDate(issuedISO);
-            const issuedYear = (new Date(issuedISO).getFullYear() || new Date().getFullYear()) + '';
+            // "Est." marks when the custody relationship began — use the
+            // original deposit date, not the certificate's reissue date.
+            const establishedISO = vault.depositDate || issuedISO;
+            const establishedYear = (new Date(establishedISO).getFullYear() || new Date().getFullYear()) + '';
 
             document.getElementById('metaCert').textContent = certNumber;
             document.getElementById('metaIssued').textContent = issuedDisplay;
@@ -590,7 +593,7 @@
             document.getElementById('sigPlace').textContent = sigPlace;
             document.getElementById('sigDate').textContent = sigDate;
             document.getElementById('sealCert').textContent = certNumber;
-            document.getElementById('sealYear').textContent = 'Est. ' + issuedYear;
+            document.getElementById('sealYear').textContent = 'Est. ' + establishedYear;
 
             const gold = vault.gold || {};
             const diamonds = vault.diamonds || {};
