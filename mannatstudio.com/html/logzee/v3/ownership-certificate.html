@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Certificate of Ownership | Sovereign Fortune Securities</title>
+    <link rel="icon" href="assets/images/logoreal.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0b1230;
+            --ink-soft: #334155;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --navy: #0b1230;
+            --gold: #b7922a;
+            --gold-dark: #8c6f17;
+            --gold-light: #e2c572;
+            --paper: #fdfaf1;
+            --paper-tint: #f7ecd0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #e9ecf1;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink);
+            line-height: 1.5;
+            letter-spacing: -0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .toolbar {
+            background: #0b1230;
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .toolbar .title { font-weight: 600; letter-spacing: 0.2px; font-size: 14px; }
+        .toolbar .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 980px;
+            font-weight: 500;
+            font-size: 13px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .btn-primary { background: var(--gold); color: var(--navy); font-weight: 600; }
+        .btn-primary:hover { background: var(--gold-light); }
+        .btn-primary[disabled] { opacity: 0.5; cursor: not-allowed; }
+        .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.28); }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            height: 297mm;
+            margin: 24px auto;
+            padding: 14mm 18mm 14mm;
+            position: relative;
+            background:
+                radial-gradient(ellipse at 20% 15%, rgba(255, 253, 240, 0.7) 0%, transparent 60%),
+                radial-gradient(ellipse at 85% 85%, rgba(226, 197, 114, 0.1) 0%, transparent 55%),
+                var(--paper);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 20px 60px rgba(15, 23, 42, 0.22);
+            color: var(--ink);
+            overflow: hidden;
+        }
+
+        /* Double-gold frame */
+        .frame {
+            position: absolute;
+            inset: 8mm;
+            border: 1.5px solid var(--gold);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .frame::before {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--gold-light);
+        }
+
+        /* Corner flourishes */
+        .corner {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .corner.tl { top: 9mm; left: 9mm; }
+        .corner.tr { top: 9mm; right: 9mm; transform: scaleX(-1); }
+        .corner.bl { bottom: 9mm; left: 9mm; transform: scaleY(-1); }
+        .corner.br { bottom: 9mm; right: 9mm; transform: scale(-1, -1); }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 12mm 10mm 2mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 5mm;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 4mm;
+            gap: 20px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand img { width: 52px; height: 52px; object-fit: contain; }
+        .brand .name {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 3px;
+        }
+        .brand .tag {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .doc-meta .row { margin-bottom: 4px; }
+        .doc-meta .row .label {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 9px;
+            color: var(--muted);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 1px;
+        }
+        .doc-meta .row strong {
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Title */
+        .title-block { text-align: center; margin-bottom: 5mm; }
+        .title-block .eyebrow {
+            font-size: 9.5px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .title-block .doc-title {
+            font-family: "Playfair Display", "Times New Roman", serif;
+            font-size: 44px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: var(--navy);
+            line-height: 1;
+            margin: 2px 0 6px;
+            text-transform: uppercase;
+        }
+        .title-block .subtitle {
+            font-size: 11.5px;
+            color: var(--muted);
+            letter-spacing: 0.4px;
+            font-weight: 500;
+        }
+
+        /* Gold diamond rule */
+        .orn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 3mm 0 4mm;
+        }
+        .orn::before, .orn::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            max-width: 160px;
+            background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+        }
+        .orn .diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Statement */
+        .statement {
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 4mm;
+            color: var(--ink-soft);
+            padding: 0 10mm;
+        }
+        .statement .owner-name {
+            font-family: "Great Vibes", "Pinyon Script", cursive;
+            font-size: 44px;
+            color: var(--navy);
+            display: block;
+            margin: 2mm 0 2mm;
+            line-height: 1.05;
+            letter-spacing: 0.5px;
+        }
+        .statement .owner-rule {
+            width: 60mm;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 3mm;
+            opacity: 0.7;
+        }
+
+        /* Details tables */
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12mm;
+            margin-bottom: 5mm;
+        }
+        .detail-col .section-title {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-bottom: 3mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid var(--gold);
+            text-align: left;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        .info-table tr { border-bottom: 1px solid var(--line); }
+        .info-table tr:last-child { border-bottom: none; }
+        .info-table th {
+            text-align: left;
+            padding: 5px 0;
+            width: 44%;
+            font-weight: 500;
+            color: var(--muted);
+            font-size: 9.5px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            vertical-align: top;
+        }
+        .info-table td {
+            padding: 5px 0 5px 6px;
+            vertical-align: top;
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Issued line */
+        .issue-line {
+            text-align: center;
+            margin: 2mm 0 5mm;
+            font-size: 11.5px;
+            color: var(--ink-soft);
+            letter-spacing: 0.2px;
+        }
+        .issue-line strong { color: var(--ink); font-weight: 600; }
+
+        /* Signatures */
+        .signatures {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22mm;
+            margin-top: auto;
+            padding-top: 2mm;
+        }
+        .sig { text-align: center; }
+        .sig .scribe {
+            font-family: "Great Vibes", cursive;
+            font-size: 34px;
+            line-height: 1;
+            color: var(--navy);
+            margin-bottom: 3mm;
+            min-height: 36px;
+        }
+        .sig .rule {
+            height: 1px;
+            background: var(--ink);
+            margin-bottom: 3mm;
+        }
+        .sig .name {
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-size: 12.5px;
+            color: var(--ink);
+            letter-spacing: 0.3px;
+        }
+        .sig .role {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 9.5px;
+            color: var(--muted);
+            margin-top: 4mm;
+            padding-top: 3mm;
+            border-top: 1px solid var(--line);
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+        }
+
+        /* Wax-style gold seal, bottom-right */
+        .seal {
+            position: absolute;
+            right: 28mm;
+            bottom: 60mm;
+            width: 34mm;
+            height: 34mm;
+            border: 2px double var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4px;
+            transform: rotate(-8deg);
+            background:
+                radial-gradient(circle at 30% 30%, rgba(226, 197, 114, 0.35), rgba(198, 150, 31, 0.12));
+            z-index: 3;
+            pointer-events: none;
+            box-shadow:
+                0 0 0 4px rgba(198, 150, 31, 0.08),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
+        .seal-inner {
+            border: 1px dashed var(--gold);
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 7.5px;
+            color: var(--gold-dark);
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            padding: 3mm 1mm;
+        }
+        .seal-inner .big {
+            font-family: "Playfair Display", serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--navy);
+            margin: 1.2mm 0;
+            text-transform: uppercase;
+            line-height: 1.05;
+            font-weight: 900;
+        }
+        .seal-inner .small {
+            font-size: 7px;
+            letter-spacing: 1.2px;
+            color: var(--gold-dark);
+            font-weight: 600;
+        }
+        .seal-inner .small-top { margin-bottom: 0.5mm; }
+        .seal-inner .small-bottom { margin-top: 0.5mm; }
+
+        .loading, .error-box {
+            max-width: 820px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+            color: var(--ink);
+        }
+        .error-box { color: #d70015; border-left: 3px solid #d70015; text-align: left; }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            html, body { background: #fff; margin: 0; padding: 0; }
+            .toolbar, .loading, .error-box { display: none !important; }
+            .page {
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .page,
+            .frame, .frame::before, .corner,
+            .info-table, .seal, .seal-inner,
+            .orn, .orn::before, .orn::after, .orn .diamond,
+            .statement .owner-rule {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .page { width: 100%; margin: 0; padding: 20px; min-height: auto; height: auto; border-radius: 0; }
+            .details, .signatures { grid-template-columns: 1fr; gap: 20px; }
+            .seal { position: static; margin: 20px auto; transform: rotate(-5deg); }
+            .frame, .corner { display: none; }
+            .content { padding: 0; }
+            .title-block .doc-title { font-size: 30px; letter-spacing: 1px; }
+            .statement .owner-name { font-size: 32px; }
+        }
+    </style>
+    <meta name="theme-color" content="#0b1230">
+</head>
+<body>
+    <div class="toolbar">
+        <div class="title">Sovereign Fortune Securities — Certificate of Ownership</div>
+        <div class="actions">
+            <a class="btn btn-ghost" href="dashboard.html">Back to dashboard</a>
+            <button class="btn btn-primary" id="downloadBtn" disabled>Download PDF</button>
+        </div>
+    </div>
+
+    <div id="loading" class="loading">Loading certificate…</div>
+    <div id="errorBox" class="error-box" style="display:none;"></div>
+
+    <div id="page" class="page" style="display:none;">
+        <div class="frame"></div>
+
+        <!-- Corner flourishes -->
+        <svg class="corner tl" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="1" stroke-linecap="round">
+                <path d="M2 2 L18 2 M2 2 L2 18"/>
+                <path d="M6 6 L14 6 Q14 14 6 14"/>
+                <path d="M4 20 Q10 20 10 14"/>
+                <path d="M20 4 Q20 10 14 10"/>
+                <circle cx="6" cy="6" r="1.2" fill="#b7922a"/>
+                <path d="M22 2 Q30 6 30 14"/>
+                <path d="M2 22 Q6 30 14 30"/>
+            </g>
+        </svg>
+        <svg class="corner tr" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="1" stroke-linecap="round">
+                <path d="M2 2 L18 2 M2 2 L2 18"/>
+                <path d="M6 6 L14 6 Q14 14 6 14"/>
+                <path d="M4 20 Q10 20 10 14"/>
+                <path d="M20 4 Q20 10 14 10"/>
+                <circle cx="6" cy="6" r="1.2" fill="#b7922a"/>
+                <path d="M22 2 Q30 6 30 14"/>
+                <path d="M2 22 Q6 30 14 30"/>
+            </g>
+        </svg>
+        <svg class="corner bl" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="1" stroke-linecap="round">
+                <path d="M2 2 L18 2 M2 2 L2 18"/>
+                <path d="M6 6 L14 6 Q14 14 6 14"/>
+                <path d="M4 20 Q10 20 10 14"/>
+                <path d="M20 4 Q20 10 14 10"/>
+                <circle cx="6" cy="6" r="1.2" fill="#b7922a"/>
+                <path d="M22 2 Q30 6 30 14"/>
+                <path d="M2 22 Q6 30 14 30"/>
+            </g>
+        </svg>
+        <svg class="corner br" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="1" stroke-linecap="round">
+                <path d="M2 2 L18 2 M2 2 L2 18"/>
+                <path d="M6 6 L14 6 Q14 14 6 14"/>
+                <path d="M4 20 Q10 20 10 14"/>
+                <path d="M20 4 Q20 10 14 10"/>
+                <circle cx="6" cy="6" r="1.2" fill="#b7922a"/>
+                <path d="M22 2 Q30 6 30 14"/>
+                <path d="M2 22 Q6 30 14 30"/>
+            </g>
+        </svg>
+
+        <div class="content">
+            <div class="header">
+                <div class="brand">
+                    <img src="assets/images/logoreal.png" alt="Sovereign Fortune Securities" crossorigin="anonymous">
+                    <div>
+                        <div class="name">Sovereign Fortune Securities</div>
+                        <div class="tag">Vault &amp; Custody Services</div>
+                    </div>
+                </div>
+                <div class="doc-meta">
+                    <div class="row"><span class="label">Certificate No.</span><strong id="metaCert">COO-SFS-0001</strong></div>
+                    <div class="row"><span class="label">Issued</span><strong id="metaIssued">On File</strong></div>
+                    <div class="row"><span class="label">Reference ID</span><strong id="metaRef">On File</strong></div>
+                </div>
+            </div>
+
+            <div class="title-block">
+                <div class="eyebrow">Sovereign Fortune Securities</div>
+                <div class="doc-title">Certificate of Ownership</div>
+                <div class="orn"><span class="diamond"></span></div>
+                <div class="subtitle">Issued under Vault &amp; Custody Services</div>
+            </div>
+
+            <div class="statement">
+                This is to certify that
+                <span class="owner-name" id="ownerName">Account Holder</span>
+                <span class="owner-rule"></span>
+                is the lawful, bonafide and sole beneficial owner of the precious-metal assets particularised hereunder, held in secure custody by Sovereign Fortune Securities on the owner&rsquo;s behalf and released only upon the owner&rsquo;s written authorisation in accordance with our custody agreement.
+            </div>
+
+            <div class="details">
+                <div class="detail-col">
+                    <div class="section-title">Asset Particulars</div>
+                    <table class="info-table">
+                        <tbody id="assetTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="detail-col">
+                    <div class="section-title">Custody &amp; Security</div>
+                    <table class="info-table">
+                        <tbody id="custodyTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="issue-line">
+                Issued at <strong id="sigPlace">Bishan Place Business Tower, Singapore</strong>
+                on <strong id="sigDate">On File</strong>.
+            </div>
+
+            <div class="signatures">
+                <div class="sig">
+                    <div class="scribe">Lim Wei Ming</div>
+                    <div class="rule"></div>
+                    <div class="name">Lim Wei Ming</div>
+                    <div class="role">Chief Vault Custodian</div>
+                </div>
+                <div class="sig">
+                    <div class="scribe">Charles H. Everett</div>
+                    <div class="rule"></div>
+                    <div class="name">Charles H. Everett</div>
+                    <div class="role">Director, Custody &amp; Settlement</div>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                Sovereign Fortune Securities &mdash; Vault &amp; Custody Services. This certificate evidences bonafide ownership of the assets
+                described herein and is issued in a single original. Verification of authenticity may be requested in writing against the
+                certificate number and reference ID at info@sovereignfortunesecurities.com.
+            </div>
+        </div>
+
+        <div class="seal" aria-hidden="true">
+            <div class="seal-inner">
+                <div class="small small-top">Sovereign Fortune Securities</div>
+                <div class="big">Bonafide<br>Owner</div>
+                <div class="small" id="sealCert">COO-SFS-0001</div>
+                <div class="small small-bottom" id="sealYear">Est. 2001</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script>
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('errorBox');
+        const pageEl = document.getElementById('page');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        function showError(msg) {
+            loadingEl.style.display = 'none';
+            pageEl.style.display = 'none';
+            errorEl.style.display = 'block';
+            errorEl.innerHTML = '<strong>Unable to load certificate.</strong><br>' + msg;
+        }
+
+        function escapeHtml(str) {
+            return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
+                '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+            }[c]));
+        }
+
+        function formatDate(value) {
+            if (!value) return '';
+            const d = new Date(value);
+            if (isNaN(d.getTime())) return String(value);
+            return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
+        }
+
+        function render(vault, user) {
+            const certInfo = vault.certificateOfOwnership || {};
+            const ownerName = vault.owner
+                || [user && user.firstName, user && user.lastName].filter(Boolean).join(' ')
+                || 'Account Holder';
+
+            const certNumber = certInfo.number || vault.referenceId || 'COO-SFS-' + String(Date.now()).slice(-6);
+            const issuedISO = certInfo.issuedOn || vault.depositDate || new Date().toISOString();
+            const issuedDisplay = formatDate(issuedISO);
+            const refId = vault.referenceId || certNumber;
+            const sigPlace = vault.location || vault.storage || 'Bishan Place Business Tower, Singapore';
+            const sigDate = formatDate(issuedISO);
+            const establishedISO = vault.depositDate || issuedISO;
+            const establishedYear = (new Date(establishedISO).getFullYear() || new Date().getFullYear()) + '';
+
+            document.getElementById('metaCert').textContent = certNumber;
+            document.getElementById('metaIssued').textContent = issuedDisplay;
+            document.getElementById('metaRef').textContent = refId;
+            document.getElementById('ownerName').textContent = ownerName;
+            document.getElementById('sigPlace').textContent = sigPlace;
+            document.getElementById('sigDate').textContent = sigDate;
+            document.getElementById('sealCert').textContent = certNumber;
+            document.getElementById('sealYear').textContent = 'Est. ' + establishedYear;
+
+            const gold = vault.gold || {};
+            const diamonds = vault.diamonds || {};
+
+            const assetRows = [
+                ['Asset', gold.description],
+                ['Weight in Custody', gold.vaulted],
+                ['Purity / Fineness', gold.purity || gold.fineness],
+                ['Weight in Transit', gold.inTransit],
+                ['Diamonds', diamonds.vaulted && (diamonds.description ? diamonds.description + ' — ' + diamonds.vaulted : diamonds.vaulted)],
+                ['Deposit Date', formatDate(vault.depositDate)]
+            ].filter(([, v]) => v);
+
+            document.getElementById('assetTableBody').innerHTML = assetRows
+                .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
+                .join('');
+
+            const custodyRows = [
+                ['Vault Location', vault.location],
+                ['Custody Provider', vault.storage],
+                ['Serial Number', vault.serialNumber],
+                ['Reference ID', vault.referenceId],
+                ['Next of Kin', vault.nextOfKin]
+            ].filter(([, v]) => v);
+
+            document.getElementById('custodyTableBody').innerHTML = custodyRows
+                .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
+                .join('');
+
+            loadingEl.style.display = 'none';
+            pageEl.style.display = 'block';
+            downloadBtn.disabled = false;
+
+            const safeName = ownerName.replace(/\s+/g, '-');
+            const filename = `Certificate-of-Ownership-${safeName}`;
+            document.title = `Certificate of Ownership — ${ownerName} | Sovereign Fortune Securities`;
+
+            async function waitForAssets() {
+                if (document.fonts && document.fonts.ready) {
+                    try { await document.fonts.ready; } catch (_) {}
+                }
+                const img = pageEl.querySelector('.brand img');
+                if (img && !img.complete) {
+                    await new Promise(resolve => {
+                        img.addEventListener('load', resolve, { once: true });
+                        img.addEventListener('error', resolve, { once: true });
+                    });
+                }
+            }
+
+            downloadBtn.addEventListener('click', async () => {
+                downloadBtn.disabled = true;
+                downloadBtn.textContent = 'Preparing…';
+                try {
+                    await waitForAssets();
+                    const originalTitle = document.title;
+                    document.title = filename;
+                    window.print();
+                    setTimeout(() => {
+                        document.title = originalTitle;
+                        downloadBtn.disabled = false;
+                        downloadBtn.textContent = 'Download PDF';
+                    }, 500);
+                } catch (err) {
+                    console.error('Print failed:', err);
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Download PDF';
+                    alert('Could not open the Save as PDF dialog. Please press Ctrl+P and choose "Save as PDF".');
+                }
+            });
+        }
+
+        async function load() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const headers = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+
+            try {
+                const [vaultRes, profileRes] = await Promise.all([
+                    fetch(getApiUrl('/api/user/vault'), { headers }),
+                    fetch(getApiUrl(API_CONFIG.ENDPOINTS.PROFILE), { headers })
+                ]);
+
+                if (vaultRes.status === 401 || profileRes.status === 401) {
+                    localStorage.removeItem('authToken');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                if (!vaultRes.ok) {
+                    showError('No vault assets are recorded on this account.');
+                    return;
+                }
+
+                const vaultJson = await vaultRes.json();
+                const vault = vaultJson.data || {};
+
+                if (!vault.certificateOfOwnership) {
+                    showError('A Certificate of Ownership has not been issued on this account.');
+                    return;
+                }
+
+                let user = null;
+                if (profileRes.ok) {
+                    const profileJson = await profileRes.json();
+                    user = profileJson.data || null;
+                }
+
+                render(vault, user);
+            } catch (err) {
+                console.error(err);
+                showError('Network error while loading the certificate.');
+            }
+        }
+
+        load();
+    </script>
+</body>
+</html>

@@ -768,28 +768,47 @@
             word-break: break-word;
         }
 
+        .vault-doc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
         .vault-cert-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 22px;
-            padding: 11px 20px;
+            padding: 11px 18px;
             border-radius: 10px;
             color: #0b1230;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.04em;
             text-transform: uppercase;
             text-decoration: none;
             background: linear-gradient(135deg, #f7d26a 0%, #c6961f 100%);
             box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 20px rgba(198, 150, 31, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
         .vault-cert-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 14px 28px rgba(198, 150, 31, 0.35);
             color: #0b1230;
+        }
+
+        .vault-cert-btn--alt {
+            color: #e9edf7;
+            background: transparent;
+            border: 1px solid rgba(226, 197, 114, 0.5);
+            box-shadow: none;
+        }
+
+        .vault-cert-btn--alt:hover {
+            background: rgba(226, 197, 114, 0.12);
+            color: #fff;
+            box-shadow: none;
         }
 
         .vault-section .vault-paragraph {
@@ -1408,11 +1427,18 @@
                 : 'They are';
 
             const certificateButton = vaultData.certificateOfOwnership ? `
-                <a href="certificate-of-ownership.html"
-                   class="vault-cert-btn"
-                   title="Download your Certificate of Ownership (PDF)">
-                    <i class="icofont-file-pdf"></i>Download Certificate of Ownership
-                </a>
+                <div class="vault-doc-row">
+                    <a href="ownership-certificate.html"
+                       class="vault-cert-btn"
+                       title="Download Certificate of Ownership (PDF)">
+                        <i class="icofont-file-pdf"></i>Certificate of Ownership
+                    </a>
+                    <a href="certificate-of-ownership.html"
+                       class="vault-cert-btn vault-cert-btn--alt"
+                       title="Download Allocated Storage Confirmation (PDF)">
+                        <i class="icofont-file-document"></i>Allocated Storage Confirmation
+                    </a>
+                </div>
             ` : '';
 
             infoCard.innerHTML = `
