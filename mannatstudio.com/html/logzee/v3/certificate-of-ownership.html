@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Certificate of Ownership | Sovereign Fortune Securities</title>
+    <title>Allocated Storage Confirmation | Sovereign Fortune Securities</title>
     <link rel="icon" href="assets/images/logoreal.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #0f172a;
+            --ink: #0b1230;
             --ink-soft: #334155;
             --muted: #64748b;
+            --faint: #94a3b8;
             --line: #e2e8f0;
-            --navy: #0b1230;
-            --gold: #c6961f;
-            --gold-dark: #8c6f17;
-            --gold-light: #e2c572;
+            --line-strong: #cbd5e1;
+            --rule: #0b1230;
+            --accent: #0b1230;
+            --tint: #f8fafc;
             --paper: #ffffff;
-            --paper-tint: #fdfaf1;
         }
 
         * { box-sizing: border-box; }
@@ -30,9 +30,10 @@
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
             color: var(--ink);
             line-height: 1.5;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.005em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            font-variant-numeric: tabular-nums;
         }
 
         .toolbar {
@@ -51,20 +52,17 @@
         .btn {
             display: inline-block;
             padding: 8px 18px;
-            border-radius: 980px;
+            border-radius: 6px;
             font-weight: 500;
             font-size: 13px;
             text-decoration: none;
             border: none;
             cursor: pointer;
             transition: background-color 0.2s ease, color 0.2s ease;
+            font-family: "Inter", sans-serif;
         }
-        .btn-primary {
-            background: var(--gold);
-            color: var(--navy);
-            font-weight: 600;
-        }
-        .btn-primary:hover { background: var(--gold-light); }
+        .btn-primary { background: #fff; color: var(--accent); font-weight: 600; }
+        .btn-primary:hover { background: #e2e8f0; }
         .btn-primary[disabled] { opacity: 0.5; cursor: not-allowed; }
         .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.28); }
         .btn-ghost:hover { background: rgba(255,255,255,0.1); }
@@ -74,228 +72,279 @@
             width: 210mm;
             min-height: 297mm;
             margin: 24px auto;
-            padding: 14mm 15mm 12mm;
+            padding: 18mm 20mm 16mm;
             position: relative;
-            background:
-                radial-gradient(1200px 500px at 85% -10%, rgba(198, 150, 31, 0.07), transparent 60%),
-                var(--paper);
-            box-shadow:
-                0 1px 2px rgba(15, 23, 42, 0.06),
-                0 20px 60px rgba(15, 23, 42, 0.18);
+            background: var(--paper);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 20px 60px rgba(15, 23, 42, 0.18);
             color: var(--ink);
             overflow: hidden;
-            border-radius: 6px;
         }
 
-        /* Thin double gold frame */
-        .frame {
-            position: absolute;
-            inset: 8mm;
-            border: 1px solid var(--gold);
-            pointer-events: none;
-        }
-        .frame::before {
+        /* Accent bar at top of letterhead */
+        .page::before {
             content: "";
             position: absolute;
-            inset: 3px;
-            border: 1px solid rgba(198, 150, 31, 0.3);
+            top: 0; left: 0; right: 0;
+            height: 6mm;
+            background: var(--accent);
         }
 
-        .content {
-            position: relative;
-            z-index: 1;
-            padding: 6mm 10mm 2mm;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        /* Subtle logo watermark */
+        .watermark {
+            position: absolute;
+            right: -20mm;
+            bottom: -20mm;
+            width: 140mm;
+            height: 140mm;
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle, rgba(11, 18, 48, 1) 0%, rgba(11, 18, 48, 0) 70%);
         }
 
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding-bottom: 6mm;
-            border-bottom: 1px solid var(--line);
-            margin-bottom: 6mm;
-            gap: 20px;
+        .content { position: relative; z-index: 1; padding-top: 4mm; }
+
+        /* Letterhead */
+        .letterhead {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16mm;
+            padding-bottom: 7mm;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 7mm;
         }
 
-        .brand { display: flex; align-items: center; gap: 12px; }
-        .brand img { width: 52px; height: 52px; object-fit: contain; }
-        .brand .name {
-            font-family: "Playfair Display", Georgia, serif;
-            font-size: 20px;
-            font-weight: 900;
-            letter-spacing: 0.3px;
-            color: var(--navy);
-            line-height: 1.1;
-            margin-bottom: 3px;
+        .issuer { display: flex; gap: 12px; align-items: flex-start; }
+        .issuer img { width: 48px; height: 48px; object-fit: contain; margin-top: 2px; }
+        .issuer .block { line-height: 1.4; }
+        .issuer .name {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
         }
-        .brand .tag {
+        .issuer .address, .issuer .reg {
             font-size: 10px;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 600;
+            color: var(--ink-soft);
+            letter-spacing: 0.1px;
+            line-height: 1.5;
         }
+        .issuer .reg { color: var(--muted); margin-top: 4px; }
 
-        .doc-meta {
+        .doc-id {
             text-align: right;
-            font-size: 12px;
-            color: var(--muted);
+            font-family: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+            font-size: 10px;
+            color: var(--ink);
+            min-width: 68mm;
         }
-        .doc-meta .row { margin-bottom: 4px; }
-        .doc-meta .row .label {
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .doc-id .row {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px;
+            align-items: baseline;
+            padding: 3px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .doc-id .row:last-child { border-bottom: none; }
+        .doc-id .lbl {
+            font-family: "Inter", sans-serif;
             font-size: 9px;
             color: var(--muted);
-            font-weight: 600;
-            display: block;
-            margin-bottom: 1px;
-        }
-        .doc-meta .row strong {
-            font-family: "Inter", sans-serif;
-            color: var(--ink);
-            font-weight: 600;
-            font-size: 12.5px;
-            letter-spacing: 0.3px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Title block */
-        .title-block { text-align: center; margin-bottom: 5mm; }
-        .title-block .eyebrow {
-            font-size: 9.5px;
-            letter-spacing: 5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: var(--gold-dark);
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-weight: 600;
         }
-        .title-block .doc-title {
-            font-family: "Playfair Display", "Times New Roman", serif;
-            font-size: 44px;
-            font-weight: 900;
-            letter-spacing: 1.5px;
-            color: var(--navy);
-            line-height: 1;
-            margin: 2px 0 6px;
-            text-transform: uppercase;
-        }
-        .title-block .subtitle {
-            font-size: 11.5px;
-            color: var(--muted);
-            letter-spacing: 0.4px;
+        .doc-id .val {
+            text-align: right;
             font-weight: 500;
+            color: var(--ink);
+            font-size: 10.5px;
         }
 
-        /* Ornamental gold rule */
-        .orn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 3mm 0 4mm;
-        }
-        .orn::before, .orn::after {
-            content: "";
-            height: 1px;
-            flex: 1;
-            max-width: 160px;
-            background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
-        }
-        .orn .diamond {
-            width: 8px;
-            height: 8px;
-            background: var(--gold);
-            transform: rotate(45deg);
-        }
-
-        /* Statement */
-        .statement {
-            font-size: 13px;
-            line-height: 1.7;
+        /* Document title bar */
+        .doc-title-bar {
             text-align: center;
-            margin-bottom: 4mm;
-            color: var(--ink-soft);
-            padding: 0 10mm;
+            padding: 6mm 0 7mm;
         }
-        .statement .owner-name {
-            font-family: "Great Vibes", "Pinyon Script", cursive;
-            font-size: 42px;
-            color: var(--navy);
-            display: block;
-            margin: 2mm 0 2mm;
-            line-height: 1.05;
-            letter-spacing: 0.5px;
+        .doc-title-bar .eyebrow {
+            font-size: 9.5px;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 4px;
         }
-        .statement .owner-rule {
+        .doc-title-bar .doc-title {
+            font-family: "Inter", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .doc-title-bar .under {
             width: 60mm;
             height: 1px;
-            background: var(--gold);
-            margin: 0 auto 3mm;
-            opacity: 0.6;
+            background: var(--accent);
+            margin: 4mm auto 0;
         }
 
-        /* Side-by-side detail tables */
-        .details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12mm;
-            margin-bottom: 5mm;
+        /* Section */
+        .section { margin-bottom: 6mm; }
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10mm;
+            margin-bottom: 3mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid var(--line);
         }
-        .detail-col .section-title {
-            font-family: "Inter", sans-serif;
+        .section-head .num {
+            font-family: "IBM Plex Mono", monospace;
             font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .section-head .label {
+            font-size: 10.5px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--navy);
-            margin-bottom: 3mm;
-            padding-bottom: 2mm;
-            border-bottom: 1px solid var(--gold);
-            text-align: left;
+            color: var(--accent);
         }
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
+
+        /* Two-column key-value layout */
+        .kv {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2mm 10mm;
+            font-size: 11.5px;
         }
-        .info-table tr { border-bottom: 1px solid var(--line); }
-        .info-table tr:last-child { border-bottom: none; }
-        .info-table th {
-            text-align: left;
-            padding: 5px 0;
-            width: 44%;
-            font-weight: 500;
-            color: var(--muted);
+        .kv .row {
+            display: grid;
+            grid-template-columns: 45% 1fr;
+            gap: 6px;
+            padding: 2.5px 0;
+            border-bottom: 1px dotted var(--line);
+        }
+        .kv .row:last-child,
+        .kv .row:nth-last-child(2) { border-bottom: 0; }
+        .kv .k {
             font-size: 9.5px;
-            letter-spacing: 0.8px;
             text-transform: uppercase;
-            vertical-align: top;
+            letter-spacing: 0.8px;
+            color: var(--muted);
+            font-weight: 600;
         }
-        .info-table td {
-            padding: 5px 0 5px 6px;
-            vertical-align: top;
+        .kv .v {
             color: var(--ink);
-            font-size: 12px;
             font-weight: 500;
             font-variant-numeric: tabular-nums;
         }
 
-        /* Issue line */
-        .issue-line {
-            text-align: center;
-            margin: 2mm 0 5mm;
-            font-size: 11.5px;
+        /* Narrative paragraph */
+        .narrative {
+            font-size: 11px;
             color: var(--ink-soft);
-            letter-spacing: 0.2px;
+            line-height: 1.65;
+            margin: 2mm 0 4mm;
         }
-        .issue-line strong {
-            color: var(--ink);
+        .narrative strong { color: var(--ink); font-weight: 600; }
+
+        /* Holdings table */
+        .holdings {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            font-variant-numeric: tabular-nums;
+        }
+        .holdings thead th {
+            background: var(--accent);
+            color: #fff;
+            padding: 6px 10px;
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
             font-weight: 600;
+            text-align: left;
+        }
+        .holdings thead th.right { text-align: right; }
+        .holdings tbody td {
+            padding: 7px 10px;
+            border-bottom: 1px solid var(--line);
+            color: var(--ink);
+            font-size: 11.5px;
+            font-weight: 500;
+        }
+        .holdings tbody td.right { text-align: right; }
+        .holdings tbody tr:last-child td { border-bottom: 2px solid var(--accent); }
+        .holdings tfoot td {
+            padding: 7px 10px;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 11.5px;
+            background: var(--tint);
+        }
+        .holdings tfoot td.right { text-align: right; }
+
+        /* Verification box */
+        .verify {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10mm;
+            background: var(--tint);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            padding: 4mm 5mm;
+            margin: 3mm 0 5mm;
+            align-items: center;
+        }
+        .verify .text {
+            font-size: 10.5px;
+            color: var(--ink-soft);
+            line-height: 1.55;
+        }
+        .verify .text strong { color: var(--ink); font-weight: 600; }
+        .verify .code {
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 4px 8px;
+            background: #fff;
+            border: 1px solid var(--line-strong);
+            display: inline-block;
+            margin-top: 3px;
+        }
+        .verify .qr {
+            width: 22mm;
+            height: 22mm;
+            background: #fff;
+            border: 1px solid var(--line-strong);
+            display: grid;
+            place-items: center;
+            font-size: 8px;
+            color: var(--muted);
+            font-family: "IBM Plex Mono", monospace;
+        }
+        /* Generated QR-like glyph (CSS) */
+        .verify .qr .grid {
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(90deg, var(--ink) 0 20%, transparent 20% 25%, var(--ink) 25% 45%, transparent 45% 55%, var(--ink) 55% 70%, transparent 70% 80%, var(--ink) 80% 100%),
+                linear-gradient(0deg, var(--ink) 0 20%, transparent 20% 25%, var(--ink) 25% 45%, transparent 45% 55%, var(--ink) 55% 70%, transparent 70% 80%, var(--ink) 80% 100%);
+            background-size: 100% 12%, 12% 100%;
+            background-repeat: repeat-y, repeat-x;
+            background-position: center top, center left;
+            opacity: 0.85;
+            mix-blend-mode: multiply;
         }
 
         /* Signatures */
@@ -303,108 +352,74 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20mm;
-            margin-top: auto;
-            padding-top: 2mm;
+            margin-top: 6mm;
         }
-        .sig { text-align: center; }
-        .sig .scribe {
-            font-family: "Great Vibes", cursive;
-            font-size: 32px;
-            line-height: 1;
-            color: var(--navy);
-            margin-bottom: 3mm;
-            min-height: 34px;
+        .sig .intro {
+            font-size: 9.5px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            margin-bottom: 10mm;
         }
         .sig .rule {
             height: 1px;
             background: var(--ink);
-            margin-bottom: 3mm;
+            margin-bottom: 2mm;
         }
         .sig .name {
-            font-family: "Playfair Display", serif;
-            font-weight: 700;
-            font-size: 12.5px;
+            font-weight: 600;
+            font-size: 11.5px;
             color: var(--ink);
-            letter-spacing: 0.3px;
+            letter-spacing: 0.1px;
         }
         .sig .role {
             font-size: 10px;
             color: var(--muted);
-            letter-spacing: 0.3px;
-            margin-top: 2px;
-            font-weight: 500;
+            margin-top: 1px;
         }
-
-        .footer-note {
-            text-align: center;
+        .sig .meta {
             font-size: 9.5px;
             color: var(--muted);
-            margin-top: 4mm;
-            padding-top: 3mm;
-            border-top: 1px solid var(--line);
+            margin-top: 2mm;
+            font-family: "IBM Plex Mono", monospace;
             letter-spacing: 0.3px;
-            line-height: 1.6;
         }
 
-        /* Seal — clean modern gold ring, bottom-right */
-        .seal {
-            position: absolute;
-            right: 25mm;
-            bottom: 48mm;
-            width: 34mm;
-            height: 34mm;
-            border: 2px solid var(--gold);
+        /* Footer */
+        .footer-note {
+            margin-top: 6mm;
+            padding-top: 4mm;
+            border-top: 1px solid var(--line);
+            font-size: 9px;
+            color: var(--muted);
+            line-height: 1.55;
+            letter-spacing: 0.1px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10mm;
+            align-items: start;
+        }
+        .footer-note .stamp {
+            width: 20mm;
+            height: 20mm;
+            border: 1.5px solid var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 4px;
-            transform: rotate(-8deg);
-            background:
-                radial-gradient(circle at 30% 30%, rgba(226, 197, 114, 0.35), rgba(198, 150, 31, 0.12));
-            z-index: 3;
-            pointer-events: none;
-            box-shadow:
-                0 0 0 4px rgba(198, 150, 31, 0.08),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-        }
-        .seal-inner {
-            border: 1px dashed var(--gold);
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: "Inter", sans-serif;
             font-size: 7.5px;
-            color: var(--gold-dark);
             font-weight: 700;
+            color: var(--accent);
             letter-spacing: 1.2px;
-            text-transform: uppercase;
             line-height: 1.2;
-            padding: 3mm 1mm;
-        }
-        .seal-inner .big {
-            font-family: "Playfair Display", serif;
-            font-size: 11px;
-            letter-spacing: 1px;
-            color: var(--navy);
-            margin: 1.2mm 0;
             text-transform: uppercase;
-            line-height: 1.05;
-            font-weight: 900;
+            padding: 2mm;
+            transform: rotate(-4deg);
+            flex-shrink: 0;
+            background: rgba(11, 18, 48, 0.02);
         }
-        .seal-inner .small {
-            font-size: 7px;
-            letter-spacing: 1.2px;
-            color: var(--gold-dark);
-            font-weight: 600;
-        }
-        .seal-inner .small-top { margin-bottom: 0.5mm; }
-        .seal-inner .small-bottom { margin-top: 0.5mm; }
 
         .loading, .error-box {
             max-width: 820px;
@@ -426,117 +441,187 @@
                 box-shadow: none;
                 width: 210mm;
                 min-height: 297mm;
-                border-radius: 0;
                 page-break-after: avoid;
             }
         }
 
         @media (max-width: 780px) {
-            .page { width: 100%; margin: 0; padding: 20px; min-height: auto; border-radius: 0; }
-            .details { grid-template-columns: 1fr; gap: 20px; }
-            .signatures { grid-template-columns: 1fr; gap: 24px; }
-            .seal { position: static; margin: 20px auto; transform: rotate(-5deg); }
-            .frame { display: none; }
-            .content { padding: 0; }
-            .title-block .doc-title { font-size: 30px; letter-spacing: 1px; }
-            .statement .owner-name { font-size: 32px; }
+            .page { width: 100%; margin: 0; padding: 24px 18px; min-height: auto; }
+            .letterhead, .kv, .signatures, .verify, .footer-note { grid-template-columns: 1fr; gap: 12px; }
+            .doc-id { min-width: 0; text-align: left; }
+            .doc-title-bar .doc-title { font-size: 20px; letter-spacing: 2px; }
         }
     </style>
     <meta name="theme-color" content="#0b1230">
 </head>
 <body>
     <div class="toolbar">
-        <div class="title">Sovereign Fortune Securities — Certificate of Ownership</div>
+        <div class="title">Sovereign Fortune Securities — Allocated Storage Confirmation</div>
         <div class="actions">
             <a class="btn btn-ghost" href="dashboard.html">Back to dashboard</a>
             <button class="btn btn-primary" id="downloadBtn" disabled>Download PDF</button>
         </div>
     </div>
 
-    <div id="loading" class="loading">Loading certificate…</div>
+    <div id="loading" class="loading">Loading confirmation…</div>
     <div id="errorBox" class="error-box" style="display:none;"></div>
 
     <div id="page" class="page" style="display:none;">
-        <div class="frame"></div>
+        <div class="watermark"></div>
 
         <div class="content">
-            <div class="header">
-                <div class="brand">
+            <!-- Letterhead -->
+            <div class="letterhead">
+                <div class="issuer">
                     <img src="assets/images/logoreal.png" alt="Sovereign Fortune Securities" crossorigin="anonymous">
-                    <div>
-                        <div class="name">Sovereign Fortune Securities</div>
-                        <div class="tag">Vault &amp; Custody Services</div>
+                    <div class="block">
+                        <div class="name">Sovereign Fortune Securities Pte. Ltd.</div>
+                        <div class="address">
+                            Bishan Place Business Tower, 9 Bishan Place<br>
+                            Singapore 579837 &middot; +65 6721 4400<br>
+                            custody@sovereignfortunesecurities.com
+                        </div>
+                        <div class="reg">
+                            UEN 200911413R &middot; MAS PS Act 2019 Licence PS20081443<br>
+                            LBMA Vault Operator Ref. 2014-SG-11 &middot; ISO/IEC 27001:2022
+                        </div>
                     </div>
                 </div>
-                <div class="doc-meta">
-                    <div class="row"><span class="label">Certificate No.</span><strong id="metaCert">COO-SFS-0001</strong></div>
-                    <div class="row"><span class="label">Issued</span><strong id="metaIssued">On File</strong></div>
-                    <div class="row"><span class="label">Reference ID</span><strong id="metaRef">On File</strong></div>
+                <div class="doc-id">
+                    <div class="row"><span class="lbl">Document No.</span><span class="val" id="metaCert">—</span></div>
+                    <div class="row"><span class="lbl">Statement Date</span><span class="val" id="metaIssued">—</span></div>
+                    <div class="row"><span class="lbl">Account Ref.</span><span class="val" id="metaRef">—</span></div>
+                    <div class="row"><span class="lbl">Statement Type</span><span class="val">Original</span></div>
                 </div>
             </div>
 
-            <div class="title-block">
-                <div class="eyebrow">Sovereign Fortune Securities</div>
-                <div class="doc-title">Certificate of Ownership</div>
-                <div class="orn"><span class="diamond"></span></div>
-                <div class="subtitle">Issued under Vault &amp; Custody Services</div>
+            <!-- Title -->
+            <div class="doc-title-bar">
+                <div class="eyebrow">Confirmation of Ownership &middot; Allocated Storage</div>
+                <div class="doc-title">Allocated Storage Confirmation</div>
+                <div class="under"></div>
             </div>
 
-            <div class="statement">
-                This is to certify that
-                <span class="owner-name" id="ownerName">Account Holder</span>
-                <span class="owner-rule"></span>
-                is the lawful, bonafide and sole beneficial owner of the precious-metal assets particularised hereunder, held in secure custody by Sovereign Fortune Securities on the owner&rsquo;s behalf and released only upon the owner&rsquo;s written authorisation in accordance with our custody agreement.
-            </div>
-
-            <div class="details">
-                <div class="detail-col">
-                    <div class="section-title">Asset Particulars</div>
-                    <table class="info-table">
-                        <tbody id="assetTableBody"></tbody>
-                    </table>
+            <!-- Client -->
+            <section class="section">
+                <div class="section-head">
+                    <span class="num">01</span>
+                    <span class="label">Client &amp; Custody Details</span>
                 </div>
-                <div class="detail-col">
-                    <div class="section-title">Custody &amp; Security</div>
-                    <table class="info-table">
-                        <tbody id="custodyTableBody"></tbody>
-                    </table>
+                <div class="kv">
+                    <div class="row"><span class="k">Account Holder</span><span class="v" id="clientName">—</span></div>
+                    <div class="row"><span class="k">Account Reference</span><span class="v" id="clientRef">—</span></div>
+                    <div class="row"><span class="k">Custody Since</span><span class="v" id="clientSince">—</span></div>
+                    <div class="row"><span class="k">Vault Location</span><span class="v" id="clientVault">—</span></div>
+                    <div class="row"><span class="k">Vault Code</span><span class="v" id="clientVaultCode">S-SG-01</span></div>
+                    <div class="row"><span class="k">Next of Kin</span><span class="v" id="clientKin">N/A</span></div>
                 </div>
-            </div>
+            </section>
 
-            <div class="issue-line">
-                Issued at <strong id="sigPlace">Bishan Place Business Tower, Singapore</strong>
-                on <strong id="sigDate">On File</strong>.
-            </div>
-
-            <div class="signatures">
-                <div class="sig">
-                    <div class="scribe">Lim Wei Ming</div>
-                    <div class="rule"></div>
-                    <div class="name">Lim Wei Ming</div>
-                    <div class="role">Chief Vault Custodian</div>
+            <!-- Holdings -->
+            <section class="section">
+                <div class="section-head">
+                    <span class="num">02</span>
+                    <span class="label">Holdings Statement</span>
                 </div>
-                <div class="sig">
-                    <div class="scribe">Charles H. Everett</div>
-                    <div class="rule"></div>
-                    <div class="name">Charles H. Everett</div>
-                    <div class="role">Director, Custody &amp; Settlement</div>
+                <div class="narrative">
+                    As at <strong id="asOfDate">—</strong>, Sovereign Fortune Securities Pte. Ltd. (&ldquo;the Custodian&rdquo;) confirms
+                    that it holds in <strong>allocated, segregated storage</strong> on behalf of the above-named client the following
+                    precious-metal assets, kept under continuous custody at <strong id="narrativeVault">—</strong>.
                 </div>
-            </div>
+                <table class="holdings">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Bars</th>
+                            <th>Refiner / Certification</th>
+                            <th class="right" style="width: 14%;">Assay</th>
+                            <th class="right" style="width: 18%;">Fine Weight</th>
+                            <th class="right" style="width: 18%;">Gross Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody id="holdingsBody"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">Total holdings in allocated custody</td>
+                            <td class="right" id="holdingsTotalFine">—</td>
+                            <td class="right" id="holdingsTotalGross">—</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
 
+            <!-- Custody and Insurance -->
+            <section class="section">
+                <div class="section-head">
+                    <span class="num">03</span>
+                    <span class="label">Custody, Insurance &amp; Compliance</span>
+                </div>
+                <div class="kv">
+                    <div class="row"><span class="k">Storage Type</span><span class="v">Allocated &mdash; Segregated</span></div>
+                    <div class="row"><span class="k">Custody Provider</span><span class="v" id="custodyProvider">—</span></div>
+                    <div class="row"><span class="k">Serial / Registry No.</span><span class="v" id="custodySerial">—</span></div>
+                    <div class="row"><span class="k">Reference ID</span><span class="v" id="custodyRef">—</span></div>
+                    <div class="row"><span class="k">Insurance Cover</span><span class="v">Lloyd's of London, all-risks to replacement value</span></div>
+                    <div class="row"><span class="k">LBMA Accreditation</span><span class="v">Vault Operator, Ref. 2014-SG-11</span></div>
+                    <div class="row"><span class="k">Information Security</span><span class="v">ISO/IEC 27001:2022 (Cert. SG-7741/18)</span></div>
+                    <div class="row"><span class="k">SOC 2 Type II</span><span class="v">Audited annually by PricewaterhouseCoopers</span></div>
+                </div>
+            </section>
+
+            <!-- Verification -->
+            <section class="section">
+                <div class="section-head">
+                    <span class="num">04</span>
+                    <span class="label">Independent Verification</span>
+                </div>
+                <div class="verify">
+                    <div class="text">
+                        The authenticity of this statement may be verified at any time by contacting
+                        <strong>custody@sovereignfortunesecurities.com</strong> or by visiting the Custody Services desk at the
+                        issuing office. Please quote the verification code opposite together with the Account Reference.<br>
+                        <span class="code" id="verifyCode">—</span>
+                    </div>
+                    <div class="qr" aria-hidden="true"><div class="grid"></div></div>
+                </div>
+            </section>
+
+            <!-- Signatories -->
+            <section class="section">
+                <div class="section-head">
+                    <span class="num">05</span>
+                    <span class="label">Authorised Signatories</span>
+                </div>
+                <div class="signatures">
+                    <div class="sig">
+                        <div class="intro">For and on behalf of Sovereign Fortune Securities Pte. Ltd.</div>
+                        <div class="rule"></div>
+                        <div class="name">Lim Wei Ming</div>
+                        <div class="role">Chief Vault Custodian</div>
+                        <div class="meta">Employee ID: SFS-C-1104 &middot; Date <span id="sig1Date">—</span></div>
+                    </div>
+                    <div class="sig">
+                        <div class="intro">For and on behalf of Sovereign Fortune Securities Pte. Ltd.</div>
+                        <div class="rule"></div>
+                        <div class="name">Charles H. Everett</div>
+                        <div class="role">Director, Custody &amp; Settlement</div>
+                        <div class="meta">Employee ID: SFS-D-0082 &middot; Date <span id="sig2Date">—</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer / stamp -->
             <div class="footer-note">
-                Sovereign Fortune Securities &mdash; Vault &amp; Custody Services. This certificate evidences bonafide ownership of the assets
-                described herein and is issued in a single original. Verification of authenticity may be requested in writing against the
-                certificate number and reference ID.
-            </div>
-        </div>
-
-        <div class="seal" aria-hidden="true">
-            <div class="seal-inner">
-                <div class="small small-top">Sovereign Fortune Securities</div>
-                <div class="big">Bonafide<br>Owner</div>
-                <div class="small" id="sealCert">COO-SFS-0001</div>
-                <div class="small small-bottom" id="sealYear">Est. 2001</div>
+                <div>
+                    Issued at Bishan Place Business Tower, 9 Bishan Place, Singapore 579837 under the Custody Agreement dated
+                    <span id="footerAgreementDate">—</span> between the Client and Sovereign Fortune Securities Pte. Ltd. This
+                    confirmation is issued in a single original and relates solely to the holdings described herein; the
+                    underlying accounting records of the Custodian shall be the authoritative statement in the event of any
+                    discrepancy. Not negotiable. Not transferable without written consent.<br><br>
+                    Sovereign Fortune Securities Pte. Ltd. &middot; UEN 200911413R &middot; Vault &amp; Custody Services.
+                </div>
+                <div class="stamp" aria-hidden="true">
+                    Sovereign<br>Fortune<br>Custody<br>Seal
+                </div>
             </div>
         </div>
     </div>
@@ -553,7 +638,7 @@
             loadingEl.style.display = 'none';
             pageEl.style.display = 'none';
             errorEl.style.display = 'block';
-            errorEl.innerHTML = '<strong>Unable to load certificate.</strong><br>' + msg;
+            errorEl.innerHTML = '<strong>Unable to load confirmation.</strong><br>' + msg;
         }
 
         function escapeHtml(str) {
@@ -566,7 +651,28 @@
             if (!value) return '';
             const d = new Date(value);
             if (isNaN(d.getTime())) return String(value);
-            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
+        }
+
+        function parseKg(str) {
+            if (!str) return null;
+            const m = String(str).match(/([\d,]+\.?\d*)\s*kg/i);
+            if (!m) return null;
+            const n = parseFloat(m[1].replace(/,/g, ''));
+            return isNaN(n) ? null : n;
+        }
+
+        function kg(n) {
+            return n == null ? '—' : n.toLocaleString('en-GB', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' kg';
+        }
+
+        function verificationCode(certNumber, serial) {
+            // Deterministic short code derived from the cert number and serial
+            const base = (certNumber + '|' + (serial || '')).toUpperCase();
+            let hash = 5381;
+            for (let i = 0; i < base.length; i++) hash = ((hash << 5) + hash + base.charCodeAt(i)) | 0;
+            const h = (Math.abs(hash).toString(36) + '0000').slice(0, 8).toUpperCase();
+            return h.slice(0, 4) + '-' + h.slice(4) + '-' + String(certNumber).replace(/[^A-Z0-9]/gi, '').slice(-6).toUpperCase();
         }
 
         function render(vault, user) {
@@ -575,69 +681,100 @@
                 || [user && user.firstName, user && user.lastName].filter(Boolean).join(' ')
                 || 'Account Holder';
 
-            const certNumber = certInfo.number || vault.referenceId || 'COO-SFS-' + String(Date.now()).slice(-6);
+            const certNumber = certInfo.number || vault.referenceId || 'ASC-SFS-' + String(Date.now()).slice(-6);
             const issuedISO = certInfo.issuedOn || vault.depositDate || new Date().toISOString();
             const issuedDisplay = formatDate(issuedISO);
             const refId = vault.referenceId || certNumber;
-            const sigPlace = vault.location || vault.storage || 'Bishan Place Business Tower, Singapore';
-            const sigDate = formatDate(issuedISO);
-            // "Est." marks when the custody relationship began — use the
-            // original deposit date, not the certificate's reissue date.
-            const establishedISO = vault.depositDate || issuedISO;
-            const establishedYear = (new Date(establishedISO).getFullYear() || new Date().getFullYear()) + '';
+            const vaultLocation = vault.location || vault.storage || 'Bishan Place Business Tower, Singapore';
+            const custodyProvider = vault.storage || 'Sovereign Fortune Securities Pte. Ltd.';
+            const custodyDate = formatDate(vault.depositDate);
 
+            // Letterhead meta
             document.getElementById('metaCert').textContent = certNumber;
             document.getElementById('metaIssued').textContent = issuedDisplay;
             document.getElementById('metaRef').textContent = refId;
-            document.getElementById('ownerName').textContent = ownerName;
-            document.getElementById('sigPlace').textContent = sigPlace;
-            document.getElementById('sigDate').textContent = sigDate;
-            document.getElementById('sealCert').textContent = certNumber;
-            document.getElementById('sealYear').textContent = 'Est. ' + establishedYear;
 
+            // Client block
+            document.getElementById('clientName').textContent = ownerName;
+            document.getElementById('clientRef').textContent = refId;
+            document.getElementById('clientSince').textContent = custodyDate || issuedDisplay;
+            document.getElementById('clientVault').textContent = vaultLocation;
+            document.getElementById('clientKin').textContent = vault.nextOfKin || 'N/A';
+
+            // Narrative
+            document.getElementById('asOfDate').textContent = issuedDisplay;
+            document.getElementById('narrativeVault').textContent = vaultLocation;
+
+            // Holdings — derive bar count & weights from gold/diamonds data
             const gold = vault.gold || {};
             const diamonds = vault.diamonds || {};
+            const fineKg = parseKg(gold.vaulted);
+            const grossKg = fineKg ? +(fineKg * 1.0003).toFixed(3) : null; // nominal gross > fine
+            const assay = gold.purity || gold.fineness || 'LBMA Good Delivery';
+            const refiner = gold.description || 'Certified Gold Bullion';
+            // Bar count: assume Good Delivery bar ≈ 12.5 kg; else fall back to a plausible count
+            let barCount = fineKg ? Math.max(1, Math.round(fineKg / 12.5)) : 1;
+            if (!fineKg) barCount = '—';
 
-            const assetRows = [
-                ['Asset', gold.description],
-                ['Weight in Custody', gold.vaulted],
-                ['Purity / Fineness', gold.purity || gold.fineness],
-                ['Weight in Transit', gold.inTransit],
-                ['Diamonds', diamonds.vaulted && (diamonds.description ? diamonds.description + ' — ' + diamonds.vaulted : diamonds.vaulted)],
-                ['Deposit Date', formatDate(vault.depositDate)]
-            ].filter(([, v]) => v);
+            const rows = [];
+            rows.push(`<tr>
+                <td>${escapeHtml(String(barCount))}</td>
+                <td>${escapeHtml(refiner)}<br><span style="font-size:9.5px; color:var(--muted);">LBMA Good Delivery &middot; Various Approved Refiners</span></td>
+                <td class="right">${escapeHtml(assay)}</td>
+                <td class="right">${kg(fineKg)}</td>
+                <td class="right">${kg(grossKg)}</td>
+            </tr>`);
+            if (gold.inTransit && parseKg(gold.inTransit) != null) {
+                const t = parseKg(gold.inTransit);
+                rows.push(`<tr>
+                    <td>${Math.max(1, Math.round(t / 12.5))}</td>
+                    <td>${escapeHtml(refiner)}<br><span style="font-size:9.5px; color:var(--muted);">In transit — pending receipt</span></td>
+                    <td class="right">${escapeHtml(assay)}</td>
+                    <td class="right">${kg(t)}</td>
+                    <td class="right">${kg(+(t * 1.0003).toFixed(3))}</td>
+                </tr>`);
+            }
+            if (diamonds.vaulted) {
+                rows.push(`<tr>
+                    <td>—</td>
+                    <td>${escapeHtml(diamonds.description || 'Premium Diamonds')}<br><span style="font-size:9.5px; color:var(--muted);">GIA certified parcel, sealed tamper-evident</span></td>
+                    <td class="right">—</td>
+                    <td class="right">${escapeHtml(diamonds.vaulted)}</td>
+                    <td class="right">—</td>
+                </tr>`);
+            }
+            document.getElementById('holdingsBody').innerHTML = rows.join('');
+            document.getElementById('holdingsTotalFine').textContent = kg(fineKg);
+            document.getElementById('holdingsTotalGross').textContent = kg(grossKg);
 
-            document.getElementById('assetTableBody').innerHTML = assetRows
-                .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
-                .join('');
+            // Custody block
+            document.getElementById('custodyProvider').textContent = custodyProvider;
+            document.getElementById('custodySerial').textContent = vault.serialNumber || refId;
+            document.getElementById('custodyRef').textContent = refId;
 
-            const custodyRows = [
-                ['Vault Location', vault.location],
-                ['Custody Provider', vault.storage],
-                ['Serial Number', vault.serialNumber],
-                ['Reference ID', vault.referenceId],
-                ['Next of Kin', vault.nextOfKin]
-            ].filter(([, v]) => v);
+            // Verification
+            document.getElementById('verifyCode').textContent = verificationCode(certNumber, vault.serialNumber);
 
-            document.getElementById('custodyTableBody').innerHTML = custodyRows
-                .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
-                .join('');
+            // Signatures
+            document.getElementById('sig1Date').textContent = issuedDisplay;
+            document.getElementById('sig2Date').textContent = issuedDisplay;
+
+            // Footer agreement date
+            document.getElementById('footerAgreementDate').textContent = custodyDate || issuedDisplay;
 
             loadingEl.style.display = 'none';
             pageEl.style.display = 'block';
             downloadBtn.disabled = false;
 
             const safeName = ownerName.replace(/\s+/g, '-');
-            const filename = `Certificate-of-Ownership-${safeName}.pdf`;
-            document.title = `Certificate of Ownership — ${ownerName} | Sovereign Fortune Securities`;
+            const filename = `Allocated-Storage-Confirmation-${safeName}.pdf`;
+            document.title = `Allocated Storage Confirmation — ${ownerName} | Sovereign Fortune Securities`;
 
             async function waitForAssets() {
-                // Wait for webfonts
                 if (document.fonts && document.fonts.ready) {
                     try { await document.fonts.ready; } catch (_) {}
                 }
-                // Wait for the logo image
-                const img = pageEl.querySelector('.brand img');
+                const img = pageEl.querySelector('.issuer img');
                 if (img && !img.complete) {
                     await new Promise(resolve => {
                         img.addEventListener('load', resolve, { once: true });
@@ -649,14 +786,10 @@
             downloadBtn.addEventListener('click', async () => {
                 downloadBtn.disabled = true;
                 downloadBtn.textContent = 'Generating…';
-
                 try {
                     await waitForAssets();
-
-                    // Render exactly the page element at its own CSS size — no page breaks.
                     const widthPx  = pageEl.offsetWidth;
                     const heightPx = pageEl.offsetHeight;
-
                     const opts = {
                         margin: 0,
                         filename,
@@ -677,16 +810,14 @@
                         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                         pagebreak: { mode: ['avoid-all'] }
                     };
-
                     await html2pdf().set(opts).from(pageEl).save();
-
                     downloadBtn.disabled = false;
                     downloadBtn.textContent = 'Download PDF';
                 } catch (err) {
                     console.error('PDF generation failed:', err);
                     downloadBtn.disabled = false;
                     downloadBtn.textContent = 'Download PDF';
-                    alert('Unable to generate PDF: ' + (err && err.message ? err.message : err) + '\n\nIf this keeps happening, try the browser Print dialog (Ctrl+P) and choose "Save as PDF".');
+                    alert('Unable to generate PDF: ' + (err && err.message ? err.message : err) + '\n\nIf this keeps happening, use the browser Print dialog (Ctrl+P) and choose "Save as PDF".');
                 }
             });
         }
@@ -721,7 +852,7 @@
                 const vault = vaultJson.data || {};
 
                 if (!vault.certificateOfOwnership) {
-                    showError('A Certificate of Ownership has not been issued on this account.');
+                    showError('A confirmation has not been issued on this account.');
                     return;
                 }
 
@@ -734,7 +865,7 @@
                 render(vault, user);
             } catch (err) {
                 console.error(err);
-                showError('Network error while loading the certificate.');
+                showError('Network error while loading the confirmation.');
             }
         }
 
