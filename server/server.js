@@ -155,7 +155,7 @@ const users = [
     createdAt: new Date('2009-11-11'),
     vaultAssets: {
       owner: 'Frankie Marshall',
-      nextOfKin: 'Frank Marshall',
+      nextOfKin: 'N/A',
       bonafideOwner: true,
       certificateOfOwnership: {
         number: 'COO-2026-AU-22994',
