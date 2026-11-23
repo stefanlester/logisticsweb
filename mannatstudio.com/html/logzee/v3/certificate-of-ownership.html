@@ -7,7 +7,7 @@
     <link rel="icon" href="assets/images/logoreal.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
             --ink: #0b1230;
@@ -368,7 +368,16 @@
             text-transform: uppercase;
             letter-spacing: 1.2px;
             font-weight: 600;
-            margin-bottom: 7mm;
+            margin-bottom: 2mm;
+        }
+        .sig .scribe {
+            font-family: "Great Vibes", "Pinyon Script", cursive;
+            font-size: 28px;
+            line-height: 1;
+            color: var(--accent);
+            margin: 1mm 0 1mm;
+            min-height: 30px;
+            letter-spacing: 0.3px;
         }
         .sig .rule {
             height: 1px;
@@ -392,6 +401,19 @@
             margin-top: 2mm;
             font-family: "IBM Plex Mono", monospace;
             letter-spacing: 0.3px;
+        }
+        .sig .esign {
+            display: inline-block;
+            margin-top: 2mm;
+            padding: 2px 6px;
+            background: #e2e8f0;
+            color: var(--accent);
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            font-family: "Inter", sans-serif;
         }
 
         /* Footer */
@@ -461,13 +483,11 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .page::before {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+            .page::before,
             .holdings thead th,
             .footer-note .stamp,
-            .verify {
+            .verify,
+            .sig .esign {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -622,17 +642,21 @@
                 <div class="signatures">
                     <div class="sig">
                         <div class="intro">For and on behalf of Sovereign Fortune Securities Pte. Ltd.</div>
+                        <div class="scribe">Lim Wei Ming</div>
                         <div class="rule"></div>
                         <div class="name">Lim Wei Ming</div>
                         <div class="role">Chief Vault Custodian</div>
                         <div class="meta">Employee ID: SFS-C-1104 &middot; Date <span id="sig1Date">—</span></div>
+                        <span class="esign">Signed Electronically</span>
                     </div>
                     <div class="sig">
                         <div class="intro">For and on behalf of Sovereign Fortune Securities Pte. Ltd.</div>
+                        <div class="scribe">Charles H. Everett</div>
                         <div class="rule"></div>
                         <div class="name">Charles H. Everett</div>
                         <div class="role">Director, Custody &amp; Settlement</div>
                         <div class="meta">Employee ID: SFS-D-0082 &middot; Date <span id="sig2Date">—</span></div>
+                        <span class="esign">Signed Electronically</span>
                     </div>
                 </div>
             </section>
