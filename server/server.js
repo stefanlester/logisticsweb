@@ -154,12 +154,12 @@ const users = [
     verified: true,
     createdAt: new Date('2009-11-11'),
     vaultAssets: {
-      owner: 'Frank Marshall',
-      nextOfKin: 'Frankie Marshall',
+      owner: 'Frankie Marshall',
+      nextOfKin: 'Frank Marshall',
       bonafideOwner: true,
       certificateOfOwnership: {
-        number: 'COO-2009-AU-22994',
-        issuedOn: '2009-11-11'
+        number: 'COO-2026-AU-22994',
+        issuedOn: '2026-11-20'
       },
       gold: {
         description: 'Certified 24K Gold Bullion',
