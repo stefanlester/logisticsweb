@@ -462,7 +462,7 @@
         <div class="content">
             <div class="header">
                 <div class="brand">
-                    <img src="assets/images/logoreal.png" alt="Sovereign Fortune Securities">
+                    <img src="assets/images/logoreal.png" alt="Sovereign Fortune Securities" crossorigin="anonymous">
                     <div>
                         <div class="name">Sovereign Fortune Securities</div>
                         <div class="tag">Vault &amp; Custody Services</div>
@@ -628,26 +628,63 @@
             const filename = `Certificate-of-Ownership-${safeName}.pdf`;
             document.title = `Certificate of Ownership — ${ownerName} | Sovereign Fortune Securities`;
 
-            downloadBtn.addEventListener('click', () => {
-                const opts = {
-                    margin: 0,
-                    filename,
-                    image: { type: 'jpeg', quality: 0.96 },
-                    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    pagebreak: { mode: ['avoid-all'] }
-                };
+            async function waitForAssets() {
+                // Wait for webfonts
+                if (document.fonts && document.fonts.ready) {
+                    try { await document.fonts.ready; } catch (_) {}
+                }
+                // Wait for the logo image
+                const img = pageEl.querySelector('.brand img');
+                if (img && !img.complete) {
+                    await new Promise(resolve => {
+                        img.addEventListener('load', resolve, { once: true });
+                        img.addEventListener('error', resolve, { once: true });
+                    });
+                }
+            }
+
+            downloadBtn.addEventListener('click', async () => {
                 downloadBtn.disabled = true;
                 downloadBtn.textContent = 'Generating…';
-                html2pdf().set(opts).from(pageEl).save().then(() => {
+
+                try {
+                    await waitForAssets();
+
+                    // Render exactly the page element at its own CSS size — no page breaks.
+                    const widthPx  = pageEl.offsetWidth;
+                    const heightPx = pageEl.offsetHeight;
+
+                    const opts = {
+                        margin: 0,
+                        filename,
+                        image: { type: 'jpeg', quality: 0.96 },
+                        html2canvas: {
+                            scale: 2,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            width: widthPx,
+                            height: heightPx,
+                            windowWidth: widthPx,
+                            windowHeight: heightPx,
+                            scrollX: 0,
+                            scrollY: 0
+                        },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                        pagebreak: { mode: ['avoid-all'] }
+                    };
+
+                    await html2pdf().set(opts).from(pageEl).save();
+
                     downloadBtn.disabled = false;
                     downloadBtn.textContent = 'Download PDF';
-                }).catch(err => {
-                    console.error(err);
+                } catch (err) {
+                    console.error('PDF generation failed:', err);
                     downloadBtn.disabled = false;
                     downloadBtn.textContent = 'Download PDF';
-                    alert('Unable to generate PDF. Please try again.');
-                });
+                    alert('Unable to generate PDF: ' + (err && err.message ? err.message : err) + '\n\nIf this keeps happening, try the browser Print dialog (Ctrl+P) and choose "Save as PDF".');
+                }
             });
         }
 
