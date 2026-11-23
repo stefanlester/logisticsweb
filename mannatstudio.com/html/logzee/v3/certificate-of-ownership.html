@@ -71,8 +71,9 @@
         .page {
             width: 210mm;
             min-height: 297mm;
+            height: 297mm;
             margin: 24px auto;
-            padding: 18mm 20mm 16mm;
+            padding: 14mm 16mm 12mm;
             position: relative;
             background: var(--paper);
             box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 20px 60px rgba(15, 23, 42, 0.18);
@@ -103,16 +104,23 @@
                 radial-gradient(circle, rgba(11, 18, 48, 1) 0%, rgba(11, 18, 48, 0) 70%);
         }
 
-        .content { position: relative; z-index: 1; padding-top: 4mm; }
+        .content {
+            position: relative;
+            z-index: 1;
+            padding-top: 4mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
         /* Letterhead */
         .letterhead {
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 16mm;
-            padding-bottom: 7mm;
+            gap: 12mm;
+            padding-bottom: 5mm;
             border-bottom: 2px solid var(--accent);
-            margin-bottom: 7mm;
+            margin-bottom: 4mm;
         }
 
         .issuer { display: flex; gap: 12px; align-items: flex-start; }
@@ -167,7 +175,7 @@
         /* Document title bar */
         .doc-title-bar {
             text-align: center;
-            padding: 6mm 0 7mm;
+            padding: 3mm 0 5mm;
         }
         .doc-title-bar .eyebrow {
             font-size: 9.5px;
@@ -194,13 +202,13 @@
         }
 
         /* Section */
-        .section { margin-bottom: 6mm; }
+        .section { margin-bottom: 4mm; }
         .section-head {
             display: flex;
             align-items: baseline;
             gap: 10mm;
-            margin-bottom: 3mm;
-            padding-bottom: 2mm;
+            margin-bottom: 2.5mm;
+            padding-bottom: 1.5mm;
             border-bottom: 1px solid var(--line);
         }
         .section-head .num {
@@ -352,7 +360,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20mm;
-            margin-top: 6mm;
+            margin-top: 3mm;
         }
         .sig .intro {
             font-size: 9.5px;
@@ -360,7 +368,7 @@
             text-transform: uppercase;
             letter-spacing: 1.2px;
             font-weight: 600;
-            margin-bottom: 10mm;
+            margin-bottom: 7mm;
         }
         .sig .rule {
             height: 1px;
@@ -388,12 +396,12 @@
 
         /* Footer */
         .footer-note {
-            margin-top: 6mm;
-            padding-top: 4mm;
+            margin-top: auto;
+            padding-top: 3mm;
             border-top: 1px solid var(--line);
-            font-size: 9px;
+            font-size: 8.5px;
             color: var(--muted);
-            line-height: 1.55;
+            line-height: 1.5;
             letter-spacing: 0.1px;
             display: grid;
             grid-template-columns: 1fr auto;
@@ -433,15 +441,35 @@
         }
         .error-box { color: #d70015; border-left: 3px solid #d70015; text-align: left; }
 
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
         @media print {
-            body { background: #fff; }
-            .toolbar { display: none; }
+            html, body { background: #fff; margin: 0; padding: 0; }
+            .toolbar, .loading, .error-box { display: none !important; }
             .page {
-                margin: 0;
-                box-shadow: none;
-                width: 210mm;
-                min-height: 297mm;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
                 page-break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page::before {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .holdings thead th,
+            .footer-note .stamp,
+            .verify {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
 
@@ -783,41 +811,28 @@
                 }
             }
 
+            // Use the browser's own PDF engine via window.print(). This produces a
+            // vector A4 PDF that preserves the exact CSS layout — no rasterisation,
+            // no scaling, no cropping. The document title is used as the default
+            // PDF filename by Chrome/Edge in the Save As dialog.
             downloadBtn.addEventListener('click', async () => {
                 downloadBtn.disabled = true;
-                downloadBtn.textContent = 'Generating…';
+                downloadBtn.textContent = 'Preparing…';
                 try {
                     await waitForAssets();
-                    const widthPx  = pageEl.offsetWidth;
-                    const heightPx = pageEl.offsetHeight;
-                    const opts = {
-                        margin: 0,
-                        filename,
-                        image: { type: 'jpeg', quality: 0.96 },
-                        html2canvas: {
-                            scale: 2,
-                            useCORS: true,
-                            allowTaint: true,
-                            backgroundColor: '#ffffff',
-                            logging: false,
-                            width: widthPx,
-                            height: heightPx,
-                            windowWidth: widthPx,
-                            windowHeight: heightPx,
-                            scrollX: 0,
-                            scrollY: 0
-                        },
-                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                        pagebreak: { mode: ['avoid-all'] }
-                    };
-                    await html2pdf().set(opts).from(pageEl).save();
-                    downloadBtn.disabled = false;
-                    downloadBtn.textContent = 'Download PDF';
+                    const originalTitle = document.title;
+                    document.title = filename.replace(/\.pdf$/i, '');
+                    window.print();
+                    setTimeout(() => {
+                        document.title = originalTitle;
+                        downloadBtn.disabled = false;
+                        downloadBtn.textContent = 'Download PDF';
+                    }, 500);
                 } catch (err) {
-                    console.error('PDF generation failed:', err);
+                    console.error('Print failed:', err);
                     downloadBtn.disabled = false;
                     downloadBtn.textContent = 'Download PDF';
-                    alert('Unable to generate PDF: ' + (err && err.message ? err.message : err) + '\n\nIf this keeps happening, use the browser Print dialog (Ctrl+P) and choose "Save as PDF".');
+                    alert('Could not open the Save as PDF dialog. Please press Ctrl+P and choose "Save as PDF" as the destination.');
                 }
             });
         }
