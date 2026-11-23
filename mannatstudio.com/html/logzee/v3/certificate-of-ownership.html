@@ -18,8 +18,13 @@
             --line-strong: #cbd5e1;
             --rule: #0b1230;
             --accent: #0b1230;
-            --tint: #f8fafc;
-            --paper: #ffffff;
+            --tint: #faf6ea;
+            --paper: #fdfaf1;
+            --paper-tint: #f8f1dc;
+            --gold: #b7922a;
+            --gold-light: #e2c572;
+            --gold-dark: #8c6f17;
+            --gold-faint: rgba(183, 146, 42, 0.18);
         }
 
         * { box-sizing: border-box; }
@@ -73,24 +78,64 @@
             min-height: 297mm;
             height: 297mm;
             margin: 24px auto;
-            padding: 14mm 16mm 12mm;
+            padding: 14mm 18mm 14mm;
             position: relative;
-            background: var(--paper);
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 20px 60px rgba(15, 23, 42, 0.18);
+            background:
+                radial-gradient(ellipse at 20% 15%, rgba(255, 253, 240, 0.7) 0%, transparent 60%),
+                radial-gradient(ellipse at 85% 85%, rgba(226, 197, 114, 0.09) 0%, transparent 55%),
+                var(--paper);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 20px 60px rgba(15, 23, 42, 0.22);
             color: var(--ink);
             overflow: hidden;
         }
 
-        /* Accent bar at top of letterhead */
+        /* Decorative double-gold frame */
+        .frame {
+            position: absolute;
+            inset: 6mm;
+            border: 1.5px solid var(--gold);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .frame::before {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border: 1px solid var(--gold-light);
+        }
+
+        /* Thin dark accent bar inside the frame */
         .page::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6mm;
+            top: 9mm; left: 9mm; right: 9mm;
+            height: 4mm;
             background: var(--accent);
+            z-index: 2;
+        }
+        .page::after {
+            content: "";
+            position: absolute;
+            top: 13mm; left: 9mm; right: 9mm;
+            height: 1px;
+            background: var(--gold);
+            z-index: 2;
         }
 
-        /* Subtle logo watermark */
+        /* Corner flourishes */
+        .corner {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .corner.tl { top: 7mm; left: 7mm; }
+        .corner.tr { top: 7mm; right: 7mm; transform: scaleX(-1); }
+        .corner.bl { bottom: 7mm; left: 7mm; transform: scaleY(-1); }
+        .corner.br { bottom: 7mm; right: 7mm; transform: scale(-1, -1); }
+
+        /* Subtle watermark */
         .watermark {
             position: absolute;
             right: -20mm;
@@ -107,7 +152,7 @@
         .content {
             position: relative;
             z-index: 1;
-            padding-top: 4mm;
+            padding: 10mm 8mm 0;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -195,10 +240,27 @@
             line-height: 1.1;
         }
         .doc-title-bar .under {
-            width: 60mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 3mm auto 0;
+        }
+        .doc-title-bar .under::before,
+        .doc-title-bar .under::after {
+            content: "";
             height: 1px;
-            background: var(--accent);
-            margin: 4mm auto 0;
+            width: 28mm;
+            background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+        }
+        .doc-title-bar .under::after { background: linear-gradient(90deg, var(--gold), transparent); }
+        .doc-title-bar .under::before { background: linear-gradient(90deg, transparent, var(--gold)); }
+        .doc-title-bar .under .diamond {
+            width: 7px;
+            height: 7px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            display: inline-block;
         }
 
         /* Section */
@@ -206,17 +268,28 @@
         .section-head {
             display: flex;
             align-items: baseline;
-            gap: 10mm;
+            gap: 8mm;
             margin-bottom: 2.5mm;
             padding-bottom: 1.5mm;
-            border-bottom: 1px solid var(--line);
+            border-bottom: 1px solid var(--gold-faint);
         }
         .section-head .num {
             font-family: "IBM Plex Mono", monospace;
             font-size: 10px;
-            color: var(--muted);
+            color: var(--gold-dark);
             letter-spacing: 1px;
-            font-weight: 500;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-head .num::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            display: inline-block;
         }
         .section-head .label {
             font-size: 10.5px;
@@ -296,7 +369,8 @@
             font-weight: 600;
             color: var(--accent);
             font-size: 11.5px;
-            background: var(--tint);
+            background: var(--paper-tint);
+            border-top: 1px solid var(--gold);
         }
         .holdings tfoot td.right { text-align: right; }
 
@@ -306,8 +380,8 @@
             grid-template-columns: 1fr auto;
             gap: 10mm;
             background: var(--tint);
-            border: 1px solid var(--line);
-            border-left: 3px solid var(--accent);
+            border: 1px solid var(--gold-faint);
+            border-left: 3px solid var(--gold);
             padding: 4mm 5mm;
             margin: 3mm 0 5mm;
             align-items: center;
@@ -409,9 +483,9 @@
             align-items: start;
         }
         .footer-note .stamp {
-            width: 20mm;
-            height: 20mm;
-            border: 1.5px solid var(--accent);
+            width: 22mm;
+            height: 22mm;
+            border: 2px double var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -419,14 +493,16 @@
             text-align: center;
             font-size: 7.5px;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--gold-dark);
             letter-spacing: 1.2px;
             line-height: 1.2;
             text-transform: uppercase;
             padding: 2mm;
-            transform: rotate(-4deg);
+            transform: rotate(-6deg);
             flex-shrink: 0;
-            background: rgba(11, 18, 48, 0.02);
+            background:
+                radial-gradient(circle at 30% 30%, rgba(226, 197, 114, 0.3), rgba(183, 146, 42, 0.12));
+            box-shadow: inset 0 0 0 1px rgba(255, 253, 240, 0.6);
         }
 
         .loading, .error-box {
@@ -461,13 +537,20 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .page::before {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+            .page,
+            .page::before,
+            .page::after,
+            .frame,
+            .frame::before,
+            .corner,
             .holdings thead th,
+            .holdings tfoot td,
             .footer-note .stamp,
-            .verify {
+            .verify,
+            .section-head .num::after,
+            .doc-title-bar .under .diamond,
+            .doc-title-bar .under::before,
+            .doc-title-bar .under::after {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -496,6 +579,53 @@
 
     <div id="page" class="page" style="display:none;">
         <div class="watermark"></div>
+        <div class="frame"></div>
+
+        <!-- Corner flourishes -->
+        <svg class="corner tl" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="0.9" stroke-linecap="round">
+                <path d="M3 3 L15 3 M3 3 L3 15"/>
+                <path d="M6 6 L12 6 Q12 12 6 12"/>
+                <path d="M4 18 Q9 18 9 12"/>
+                <path d="M18 4 Q18 9 12 9"/>
+                <circle cx="6" cy="6" r="1" fill="#b7922a"/>
+                <path d="M20 3 Q28 6 28 14"/>
+                <path d="M3 20 Q6 28 14 28"/>
+            </g>
+        </svg>
+        <svg class="corner tr" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="0.9" stroke-linecap="round">
+                <path d="M3 3 L15 3 M3 3 L3 15"/>
+                <path d="M6 6 L12 6 Q12 12 6 12"/>
+                <path d="M4 18 Q9 18 9 12"/>
+                <path d="M18 4 Q18 9 12 9"/>
+                <circle cx="6" cy="6" r="1" fill="#b7922a"/>
+                <path d="M20 3 Q28 6 28 14"/>
+                <path d="M3 20 Q6 28 14 28"/>
+            </g>
+        </svg>
+        <svg class="corner bl" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="0.9" stroke-linecap="round">
+                <path d="M3 3 L15 3 M3 3 L3 15"/>
+                <path d="M6 6 L12 6 Q12 12 6 12"/>
+                <path d="M4 18 Q9 18 9 12"/>
+                <path d="M18 4 Q18 9 12 9"/>
+                <circle cx="6" cy="6" r="1" fill="#b7922a"/>
+                <path d="M20 3 Q28 6 28 14"/>
+                <path d="M3 20 Q6 28 14 28"/>
+            </g>
+        </svg>
+        <svg class="corner br" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#b7922a" stroke-width="0.9" stroke-linecap="round">
+                <path d="M3 3 L15 3 M3 3 L3 15"/>
+                <path d="M6 6 L12 6 Q12 12 6 12"/>
+                <path d="M4 18 Q9 18 9 12"/>
+                <path d="M18 4 Q18 9 12 9"/>
+                <circle cx="6" cy="6" r="1" fill="#b7922a"/>
+                <path d="M20 3 Q28 6 28 14"/>
+                <path d="M3 20 Q6 28 14 28"/>
+            </g>
+        </svg>
 
         <div class="content">
             <!-- Letterhead -->
@@ -507,7 +637,7 @@
                         <div class="address">
                             Bishan Place Business Tower, 9 Bishan Place<br>
                             Singapore 579837 &middot; +65 6721 4400<br>
-                            custody@sovereignfortunesecurities.com
+                            info@sovereignfortunesecurities.com
                         </div>
                         <div class="reg">
                             UEN 200911413R &middot; MAS PS Act 2019 Licence PS20081443<br>
@@ -527,7 +657,7 @@
             <div class="doc-title-bar">
                 <div class="eyebrow">Confirmation of Ownership &middot; Allocated Storage</div>
                 <div class="doc-title">Allocated Storage Confirmation</div>
-                <div class="under"></div>
+                <div class="under"><span class="diamond"></span></div>
             </div>
 
             <!-- Client -->
@@ -605,7 +735,7 @@
                 <div class="verify">
                     <div class="text">
                         The authenticity of this statement may be verified at any time by contacting
-                        <strong>custody@sovereignfortunesecurities.com</strong> or by visiting the Custody Services desk at the
+                        <strong>info@sovereignfortunesecurities.com</strong> or by visiting the Custody Services desk at the
                         issuing office. Please quote the verification code opposite together with the Account Reference.<br>
                         <span class="code" id="verifyCode">—</span>
                     </div>
